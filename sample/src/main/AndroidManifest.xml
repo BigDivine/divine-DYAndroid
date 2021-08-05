@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.divine.dy.sample">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="DYAndroid"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true">
+        <activity
+            android:name=".splash.SplashActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".home.TabPagerFragmentActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".home.TabPager2FragmentActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".home.RadioPagerFragmentActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".home.RadioPager2FragmentActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".home.NavigatorPagerFragmentActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".home.NavigatorPager2FragmentActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".widget.SignatureViewDemoActivity"
+            android:theme="@style/AppTheme" />
+    </application>
+
+</manifest>

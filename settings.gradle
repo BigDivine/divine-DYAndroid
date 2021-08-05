@@ -1,2 +1,11 @@
-rootProject.name = "divine-DYUtil"
-include ':app'
+rootProject.name = "divine-DYAndroid"
+include ':sample'
+include ':lib_utils'
+include ':lib_source'
+include ':lib_widget'
+include ':lib_base'
+include ':lib_log'
+include ':lib_http'
+include ':app_login'
+include ':lib_over_views'
+include ':lib_over_apps'

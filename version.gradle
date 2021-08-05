@@ -1,16 +1,6 @@
 ext {
-    appInfo = [
-            packageName      : "com.divine.dy.util",
-            versionCode      : 1,
-            versionName      : "1.0.0",
-            minSdkVersion    : 21,
-            targetSdkVersion : 30,
-            compileSdkVersion: 30,
-    ]
-    implementationVersions = [
-            AndroidxCore: '1.3.1'
-    ]
-    implementations = [
-            AndroidxCore: "androidx.core:core:${implementationVersions.AndroidxCore}"
+    LibUtilsVersion = [
+            VersionName: '1.0.0',
+            VersionCode: 1,
     ]
 }

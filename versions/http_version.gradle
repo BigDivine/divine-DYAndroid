@@ -1,0 +1,33 @@
+ext {
+    OkHttp3Versions = [
+            Version: "4.9.0",
+    ]
+    OkHttp3 = [
+            Logging: "com.squareup.okhttp3:logging-interceptor:${OkHttp3Versions.Version}"
+    ]
+    Retrofit2Versions = [
+            Version: "2.9.0",
+    ]
+    Retrofit2 = [
+            Retrofit        : "com.squareup.retrofit2:retrofit:${Retrofit2Versions.Version}",
+            ConverterGson   : "com.squareup.retrofit2:converter-gson:${Retrofit2Versions.Version}",
+            ConverterScalars: "com.squareup.retrofit2:converter-scalars:${Retrofit2Versions.Version}",
+            AdapterRxjava2  : "com.squareup.retrofit2:adapter-rxjava2:${Retrofit2Versions.Version}",
+    ]
+    RxJava2Versions = [
+            Rxjava   : "2.2.19",
+            RxAndroid: "2.1.1",
+    ]
+    RxJava2 = [
+            Rxjava   : "io.reactivex.rxjava2:rxjava:${RxJava2Versions.Rxjava}",
+            Rxandroid: "io.reactivex.rxjava2:rxandroid:${RxJava2Versions.RxAndroid}"
+    ]
+    RxJava3Versions = [
+            Rxjava   : "3.0.6",
+            RxAndroid: "3.0.0",
+    ]
+    RxJava3 = [
+            Rxjava   : "io.reactivex.rxjava3:rxjava:${RxJava3Versions.Rxjava}",
+            Rxandroid: "io.reactivex.rxjava3:rxandroid:${RxJava3Versions.RxAndroid}"
+    ]
+}

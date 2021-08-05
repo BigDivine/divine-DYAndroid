@@ -1,4 +1,12 @@
 apply from: "version.gradle"
+apply from: "versions/other_version.gradle"
+apply from: "versions/sys_version.gradle"
+apply from: "versions/ali_version.gradle"
+apply from: "versions/androidx_version.gradle"
+apply from: "versions/http_version.gradle"
+apply from: "versions/image_version.gradle"
+apply from: "versions/jpush_version.gradle"
+apply from: "versions/tencent_version.gradle"
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {

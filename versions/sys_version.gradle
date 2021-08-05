@@ -1,0 +1,11 @@
+ext {
+    appInfo = [
+            packageName      : "com.divine.dy.sample",
+            versionCode      : 1,
+            versionName      : "1.0.0",
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            compileSdkVersion: 29,
+//            buildToolsVersion  : "28.0.3",
+    ]
+}
