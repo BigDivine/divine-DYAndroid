@@ -24,7 +24,7 @@
     <!--        app:layout_constraintBottom_toBottomOf="parent"-->
     <!--        app:layout_constraintLeft_toLeftOf="parent"-->
     <!--        app:layout_constraintRight_toRightOf="parent" />-->
-    <com.divine.module_widget.widget.WaveView
+    <com.divine.dy.lib_widget.widget.WaveView
         android:id="@+id/wave1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_160"
@@ -35,7 +35,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <com.divine.module_widget.widget.WaveView
+    <com.divine.dy.lib_widget.widget.WaveView
         android:id="@+id/wave2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_160"
@@ -46,7 +46,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <com.divine.module_widget.widget.WaveView
+    <com.divine.dy.lib_widget.widget.WaveView
         android:id="@+id/wave3"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_160"
@@ -90,7 +90,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.divine.module_widget.widget.EditTextWithClean
+            <com.divine.dy.lib_widget.widget.EditTextWithClean
                 android:id="@+id/user_edt"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
@@ -105,7 +105,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_title" />
 
-            <com.divine.module_widget.widget.EditTextWithClean
+            <com.divine.dy.lib_widget.widget.EditTextWithClean
                 android:id="@+id/pwd_edt"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
@@ -121,7 +121,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_edt" />
 
-            <com.divine.module_widget.widget.EditTextWithClean
+            <com.divine.dy.lib_widget.widget.EditTextWithClean
                 android:id="@+id/verification_code"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="@dimen/dp_40"
@@ -139,7 +139,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pwd_edt" />
 
-            <com.divine.module_widget.widget.RandomVerificationCodeView
+            <com.divine.dy.lib_widget.widget.RandomVerificationCodeView
                 android:id="@+id/verification"
                 android:layout_width="@dimen/dp_80"
                 android:layout_height="@dimen/dp_40"

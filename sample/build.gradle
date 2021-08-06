@@ -33,4 +33,6 @@ android {
 dependencies {
     implementation project(":lib_over_views")
     implementation project(":lib_over_apps")
+//    implementation project(":app_login")
+
 }

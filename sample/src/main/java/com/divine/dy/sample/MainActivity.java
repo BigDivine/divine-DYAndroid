@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_base.base.BaseToolbar;
+import com.divine.dy.lib_base.base.ToolbarClickListener;
 import com.divine.dy.lib_base.getpermission.PermissionList;
 import com.divine.dy.lib_log.LocalLogcat;
 import com.divine.dy.sample.home.NavigatorPager2FragmentActivity;
@@ -15,7 +16,7 @@ import com.divine.dy.sample.home.RadioPagerFragmentActivity;
 import com.divine.dy.sample.home.TabPager2FragmentActivity;
 import com.divine.dy.sample.home.TabPagerFragmentActivity;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, ToolbarClickListener {
     private static final String TAG = "DY-Main";
     private LocalLogcat mLogcat;
 
@@ -28,8 +29,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public boolean showToolbar() {
         BaseToolbar toolbar = getBaseToolbar();
         toolbar.setLeftVisible(false);
-        toolbar.setRightVisible(false);
+        toolbar.setRightVisible(true);
         toolbar.setTitle("DYAndroid");
+        toolbar.setRightText("退出登录");
+        toolbar.setToolbarClickListener(this);
         return true;
     }
 
@@ -56,7 +59,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mLogcat.stop();
     }
 
-    private TextView tvTabPagerFragment, tvTabPager2Fragment, tvRadioPagerFragment, tvRadioPager2Fragment,tvNavigatorPagerFragment,tvNavigatorPager2Fragment;
+    private TextView tvTabPagerFragment, tvTabPager2Fragment, tvRadioPagerFragment, tvRadioPager2Fragment, tvNavigatorPagerFragment, tvNavigatorPager2Fragment;
 
     private void findView() {
         tvTabPagerFragment = findViewById(R.id.TabPagerFragment);
@@ -85,13 +88,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             startActivity(new Intent(this, TabPager2FragmentActivity.class));
         } else if (viewId == R.id.RadioPagerFragment) {
             startActivity(new Intent(this, RadioPagerFragmentActivity.class));
-        }else if (viewId == R.id.RadioPager2Fragment) {
+        } else if (viewId == R.id.RadioPager2Fragment) {
             startActivity(new Intent(this, RadioPager2FragmentActivity.class));
-        }else if (viewId == R.id.NavigatorPagerFragment) {
+        } else if (viewId == R.id.NavigatorPagerFragment) {
             startActivity(new Intent(this, NavigatorPagerFragmentActivity.class));
-        }else if (viewId == R.id.NavigatorPager2Fragment) {
+        } else if (viewId == R.id.NavigatorPager2Fragment) {
             startActivity(new Intent(this, NavigatorPager2FragmentActivity.class));
         }
 
+    }
+
+    @Override
+    public void leftClick() {
+
+    }
+
+    @Override
+    public void centerClick() {
+
+    }
+
+    @Override
+    public void rightClick() {
+//        toLogin();
     }
 }

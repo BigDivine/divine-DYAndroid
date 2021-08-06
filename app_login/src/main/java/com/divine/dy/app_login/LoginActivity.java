@@ -12,11 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.divine.dy.lib_base.AppConstants;
-import com.divine.dy.lib_base.RouterManager;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_base.getpermission.PermissionList;
-
-import com.divine.dy.app_login.R;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.Base64Utils;
 import com.divine.dy.lib_utils.sys.SPUtils;
@@ -33,8 +30,8 @@ import org.json.JSONObject;
  * Describe: 登录模块界面
  */
 
-public abstract class LoginActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, LoginView {
-    private final String TAG = "LoginActivity";
+public class LoginActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, LoginView {
+    private final String TAG = "DY-LoginActivity";
     private ImageView ivLoginTop;
     private TextView loginTitle;
     private EditTextWithClean userName, userPass, verification;
@@ -223,7 +220,7 @@ public abstract class LoginActivity extends BaseActivity implements View.OnClick
                 String userNameWeb = Base64Utils.decode(Base64Utils.decode(userNameStr));
                 mSPUtils.put(SPKeys.SP_KEY_USER_NAME_WEB, userNameWeb);
 
-//                navigationTo(RouterManager.router_web);
+                //                navigationTo(RouterManager.router_web);
 
                 this.finish();
             } else {

@@ -1,8 +1,10 @@
 package com.divine.dy.lib_base.base;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -221,7 +223,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
+    public void startActivity(Class targetActivity, Bundle bundle) {
+        Intent intent = new Intent(this, targetActivity);
+        if (bundle != null) {
+            intent.putExtra("bundle", bundle);
+        }
+        startActivity(intent);
+    }
     //    public void navigationTo(String path) {
     //        ARouter.getInstance()
     //                .build(path)
