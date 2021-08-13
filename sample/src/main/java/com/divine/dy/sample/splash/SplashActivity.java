@@ -1,27 +1,52 @@
 package com.divine.dy.sample.splash;
 
+import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.divine.dy.app_login.LoginActivity;
-import com.divine.dy.app_login.LoginPresenter;
-import com.divine.dy.app_login.LoginView;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_source.SPKeys;
-import com.divine.dy.lib_utils.sys.Base64Utils;
 import com.divine.dy.lib_utils.sys.SPUtils;
-import com.divine.dy.lib_utils.ui.ToastUtils;
 import com.divine.dy.sample.MainActivity;
 import com.divine.dy.sample.R;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.viewpager2.widget.ViewPager2;
 
-public class SplashActivity extends BaseActivity implements OnSplashItemClickListener, LoginView {
+@Route(path = "/app/splash")
+public class SplashActivity extends BaseActivity implements OnSplashItemClickListener, View.OnClickListener {
+    //wait time
+    private Handler mHandler = new Handler();
+    private int count = 15;
+
+    private Runnable mTimer = new Runnable() {
+        @Override
+        public void run() {
+            if (count == 0) {
+                btSplashTimer.setText("跳过");
+            } else {
+                btSplashTimer.setText("跳过(" + count + ")");
+            }
+            if (count > 0) {
+                mHandler.postDelayed(this, 1000);
+                count--;
+                btSplashTimer.setVisibility(View.VISIBLE);
+            } else {
+                if (!isJumpToNext) {
+                    toNextPage();
+                }
+            }
+
+        }
+    };
+    private boolean isJumpToNext;
+    protected SPUtils mSPUtils;
 
     @Override
     public int getContentViewId() {
@@ -33,24 +58,27 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
         return false;
     }
 
-
     @Override
     public void initView() {
         findView();
-        SplashViewPager.setVisibility(View.GONE);
         boolean fistStart = (boolean) SPUtils.getInstance(this).get(SPKeys.SP_KEY_IS_FIRST_START, true);
         if (!fistStart) {
-            autoLogin();
+            ivSplashImage.setVisibility(View.VISIBLE);
+            vpSplashGuideImages.setVisibility(View.GONE);
+            startTimer();
         } else {
-            SplashViewPager.setVisibility(View.VISIBLE);
+            vpSplashGuideImages.setVisibility(View.VISIBLE);
+            ivSplashImage.setVisibility(View.GONE);
             List<Integer> data = new ArrayList<>();
             data.add(R.mipmap.splash_one);
-            //            data.add(R.mipmap.splash_second);
-            //            data.add(R.mipmap.splash_third);
             SplashAdapter adapter = new SplashAdapter(this, data);
             adapter.setOnSplashItemClickListener(this);
-            SplashViewPager.setAdapter(adapter);
+            vpSplashGuideImages.setAdapter(adapter);
         }
+    }
+
+    private void startTimer() {
+        mHandler.post(mTimer);
     }
 
     @Override
@@ -59,77 +87,53 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
         toLogin();
     }
 
-    protected SPUtils mSPUtils;
-    private LoginPresenter loginPresenter;
-    private String tenant = "__default_tenant__";
-    private String userNameStr, userPassStr;
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        switch (viewId) {
+            case R.id.splash_timer:
+                toNextPage();
+                break;
+        }
+    }
 
-    public void autoLogin() {
-        loginPresenter = new LoginPresenter(this);
+    public void toNextPage() {
+        if (!isJumpToNext) {
+            isJumpToNext = true;
+        }
         mSPUtils = SPUtils.getInstance(this);
         boolean isLogin = (boolean) mSPUtils.get(SPKeys.SP_KEY_IS_LOGIN, false);
+        /**
+         * 两种方案：
+         * 1、计算上次登录时间与本次登录时间的间隔大于某个值，则需要重新登录
+         * 2、记住登录的情况，记录用户名和密码，在首页进行登录接口请求，如果登录失败提示并跳转到登录页
+         */
         if (isLogin) {
-            userNameStr = (String) mSPUtils.get(SPKeys.SP_KEY_USER_NAME, "");
-            userPassStr = (String) mSPUtils.get(SPKeys.SP_KEY_USER_PASS, "");
-            if (userNameStr.isEmpty()) {
-            }
-            if (userPassStr.isEmpty()) {
-
-            } else {
-                String params = "{\"username\":\"" + userNameStr + "\"," +
-                        "\"pwd\":\"" + userPassStr + "\"," +
-                        "\"tenant\":\"" + tenant + "\"," +
-                        "\"encrypted\": true" +
-                        "}";
-                loginPresenter.login(params);
-            }
+            toMain();
         } else {
             toLogin();
         }
     }
 
-    @Override
-    public void success(String res) {
-        try {
-            JSONObject obj = new JSONObject(res);
-            int code = obj.optInt("code");
-            String msg = obj.optString("msg");
-            String token = obj.optString("token");
-            if (code == 0) {
-                mSPUtils.put(SPKeys.SP_KEY_TOKEN_WEB, token);
-                String userNameWeb = Base64Utils.decode(Base64Utils.decode(userNameStr));
-                mSPUtils.put(SPKeys.SP_KEY_USER_NAME_WEB, userNameWeb);
-                startActivity(MainActivity.class, null);
-                this.finish();
-            } else {
-                ToastUtils.show(this, "登录失败:" + msg + ",请重新登录", Toast.LENGTH_SHORT);
-                mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
-                toLogin();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            ToastUtils.show(this, "登录失败,请联系管理员。", Toast.LENGTH_SHORT);
-            mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
-            toLogin();
-        }
-
-    }
-
-    @Override
-    public void fail(String msg) {
-        ToastUtils.show(this, "登录失败," + msg, Toast.LENGTH_SHORT);
-        mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
-        toLogin();
-    }
-
     private void toLogin() {
-        startActivity(LoginActivity.class, null);
+        ARouter.getInstance().build("/app/login").navigation(this);
         this.finish();
     }
 
-    private ViewPager2 SplashViewPager;
+    private void toMain() {
+        startActivity(MainActivity.class, null);
+        this.finish();
+    }
+
+    private ViewPager2 vpSplashGuideImages;
+    private ImageView ivSplashImage;
+    private Button btSplashTimer;
 
     public void findView() {
-        SplashViewPager = findViewById(R.id.gmt_splash);
+        vpSplashGuideImages = findViewById(R.id.splash_guide_images);
+        ivSplashImage = findViewById(R.id.splash_image);
+        btSplashTimer = findViewById(R.id.splash_timer);
+        btSplashTimer.setOnClickListener(this);
     }
+
 }

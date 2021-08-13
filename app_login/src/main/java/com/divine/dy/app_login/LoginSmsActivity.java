@@ -8,11 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.divine.dy.lib_base.RouterManager;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
-import com.divine.dy.lib_utils.ui.ToastUtils;
+import com.divine.dy.lib_widget.widget.ToastUtils;
 import com.divine.dy.lib_widget.widget.EditTextWithClean;
 
 import org.json.JSONException;
@@ -75,10 +74,10 @@ public class LoginSmsActivity extends BaseActivity implements LoginView, View.On
 
     @Override
     public void initView() {
-        userName = findViewById(R.id.user_edt);
+        userName = findViewById(R.id.login_user_name);
         smsVer = findViewById(R.id.sms_ver_text);
         smsVerBtn = findViewById(R.id.sms_ver_btn);
-        smsLoginBtn = findViewById(R.id.login_btn);
+        smsLoginBtn = findViewById(R.id.login_submit);
 
         smsVerBtn.setOnClickListener(this);
         smsLoginBtn.setOnClickListener(this);
@@ -94,7 +93,7 @@ public class LoginSmsActivity extends BaseActivity implements LoginView, View.On
         if (viewId == R.id.sms_ver_btn) {
             if (timeDelay <= 0)
                 resetTimer();
-        } else if (viewId == R.id.login_btn) {
+        } else if (viewId == R.id.login_submit) {
             userNameStr = userName.getText().toString();
             smsVerStr = smsVer.getText().toString();
         }

@@ -12,7 +12,7 @@ import com.divine.dy.lib_base.base.BaseToolbar;
 import com.divine.dy.lib_base.base.ToolbarClickListener;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
-import com.divine.dy.lib_utils.ui.ToastUtils;
+import com.divine.dy.lib_widget.widget.ToastUtils;
 
 public class ChangeServerActivity extends BaseActivity implements ToolbarClickListener, View.OnClickListener {
     private TextView changeServerText, changeLoginServerText;

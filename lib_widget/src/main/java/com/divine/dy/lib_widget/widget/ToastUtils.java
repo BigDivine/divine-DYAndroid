@@ -1,4 +1,4 @@
-package com.divine.dy.lib_utils.ui;
+package com.divine.dy.lib_widget.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.divine.dy.lib_utils.R;
+import com.divine.dy.lib_widget.R;
 
 
 /**

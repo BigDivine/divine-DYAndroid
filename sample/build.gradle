@@ -6,15 +6,37 @@ android {
     compileSdkVersion appInfo.compileSdkVersion
 
     defaultConfig {
-        applicationId appInfo.packageName
         minSdkVersion appInfo.minSdkVersion
         targetSdkVersion appInfo.targetSdkVersion
-        versionCode appInfo.versionCode
-        versionName appInfo.versionName
-
         consumerProguardFiles "consumer-rules.pro"
-    }
 
+        flavorDimensions 'versionCode'
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        productFlavors {
+            IronMan {
+                applicationId IRONMAN.applicationId
+                versionCode IRONMAN.versionCode
+                versionName IRONMAN.versionName
+                manifestPlaceholders = IRONMAN.manifestPlaceholders
+            }
+            Groot {
+                applicationId GROOT.applicationId
+                versionCode GROOT.versionCode
+                versionName GROOT.versionName
+                manifestPlaceholders = GROOT.manifestPlaceholders
+            }
+            Deadpool {
+                applicationId DEADPOOL.applicationId
+                versionCode DEADPOOL.versionCode
+                versionName DEADPOOL.versionName
+                manifestPlaceholders = DEADPOOL.manifestPlaceholders
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -35,4 +57,6 @@ dependencies {
     implementation project(":lib_over_apps")
 //    implementation project(":app_login")
 
+    implementation Ali.Router
+    annotationProcessor Ali.RouterCompiler
 }

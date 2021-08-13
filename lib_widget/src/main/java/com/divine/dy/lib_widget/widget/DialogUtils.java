@@ -1,5 +1,6 @@
-package com.divine.dy.lib_utils.ui;
+package com.divine.dy.lib_widget.widget;
 
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -19,7 +20,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.divine.dy.lib_utils.R;
+import com.divine.dy.lib_widget.R;
 
 
 /**
@@ -319,6 +320,41 @@ public class DialogUtils {
                 window.setAttributes(attr);
             }
         }
+        dialog.show();
+    }
+
+    /**
+     * 显示loading 弹框
+     *
+     * @param context
+     */
+    public static void showAppLoadingDialog(Context context, String msg) {
+        dialog = new Dialog(context, R.style.ActionSheetDialogStyle);
+        View progressBar = LayoutInflater.from(context).inflate(R.layout.dialog_app_loading_layout, null, false);
+        TextView message = progressBar.findViewById(R.id.progress_content);
+        AppLoadingView appProgress = progressBar.findViewById(R.id.progress_app);
+
+        ValueAnimator anim = ValueAnimator.ofInt(0, 100);
+        anim.setRepeatCount(ValueAnimator.INFINITE);//设置无限重复
+        anim.setRepeatMode(ValueAnimator.RESTART);//设置重复模式
+        anim.setDuration(5000);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int percent = (int) animation.getAnimatedValue();
+                appProgress.setPercent(percent);
+            }
+        });
+        anim.start();
+        if (!TextUtils.isEmpty(msg)) {
+            message.setText(msg);
+            message.setVisibility(View.VISIBLE);
+        } else {
+            message.setVisibility(View.GONE);
+        }
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(progressBar);
+        dialog.setCancelable(false);
         dialog.show();
     }
 

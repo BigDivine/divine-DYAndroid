@@ -1,0 +1,40 @@
+ext {
+    appInfo = [
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            compileSdkVersion: 29,
+    ]
+    IRONMAN = [
+            applicationId       : "com.divine.dy.sample",
+            versionCode         : 1,
+            versionName         : "1.0.0",
+            manifestPlaceholders: [
+                    needChangeServer: true,                       //是否可以切换服务地址
+                    needVerifyCode  : false,                      //登录是否需要验证码验证
+                    isDebug         : true,                       //是否为调试模式
+                    serverUrl       : "http://10.2.37.144:9924",  //服务地址
+            ]
+    ]
+    GROOT = [
+            applicationId       : "com.divine.dy.sample",
+            versionCode         : 1,
+            versionName         : "1.0.0",
+            manifestPlaceholders: [
+                    needChangeServer: true,                       //是否可以切换服务地址
+                    needVerifyCode  : false,                      //登录是否需要验证码验证
+                    isDebug         : true,                       //是否为调试模式
+                    serverUrl       : "http://10.2.37.144:9924",  //服务地址
+            ]
+    ]
+    DEADPOOL = [
+            applicationId       : "com.divine.dy.sample",
+            versionCode         : 1,
+            versionName         : "1.0.0",
+            manifestPlaceholders: [
+                    needChangeServer: true,                       //是否可以切换服务地址
+                    needVerifyCode  : false,                      //登录是否需要验证码验证
+                    isDebug         : true,                       //是否为调试模式
+                    serverUrl       : "http://10.2.37.144:9924",  //服务地址
+            ]
+    ]
+}
