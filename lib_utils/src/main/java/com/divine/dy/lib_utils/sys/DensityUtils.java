@@ -3,6 +3,7 @@ package com.divine.dy.lib_utils.sys;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 /**
  * Author: Divine
@@ -31,7 +32,9 @@ public class DensityUtils {
      * @return 像素值
      */
     public static int dip2px(float dipValue, Context context) {
-        float scale = getDensity(context);
+//        float scale = getDensity(context);
+          float scale = context.getResources().getDisplayMetrics().density;
+
         return (int) (dipValue * scale + 0.5f);
     }
 
@@ -92,5 +95,9 @@ public class DensityUtils {
         DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
+    }
+    public static int dp2px(Context context, int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                                               context.getResources().getDisplayMetrics());
     }
 }

@@ -28,4 +28,6 @@ android {
 
 dependencies {
     api project(":app_login")
+    api project(":app_splash")
+    api project(":app_main")
 }

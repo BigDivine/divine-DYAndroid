@@ -35,6 +35,7 @@ dependencies {
     implementation project(":lib_log")
     implementation project(":lib_http")
     implementation project(":lib_utils")
+    implementation project(":lib_widget")
 
 //    implementation Ali.Router
 //    annotationProcessor Ali.RouterCompiler

@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
-import com.divine.dy.lib_widget.widget.ToastUtils;
 import com.divine.dy.lib_widget.widget.EditTextWithClean;
+import com.divine.dy.lib_widget.widget.ToastUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,9 +24,7 @@ import androidx.annotation.NonNull;
 
 public class LoginSmsActivity extends BaseActivity implements LoginView, View.OnClickListener {
     private static String TAG = "LoginSmsActivity";
-    private EditTextWithClean userName, smsVer;
-    private TextView smsVerBtn;
-    private Button smsLoginBtn;
+
 
     private String userNameStr, smsVerStr;
 
@@ -74,13 +72,8 @@ public class LoginSmsActivity extends BaseActivity implements LoginView, View.On
 
     @Override
     public void initView() {
-        userName = findViewById(R.id.login_user_name);
-        smsVer = findViewById(R.id.sms_ver_text);
-        smsVerBtn = findViewById(R.id.sms_ver_btn);
-        smsLoginBtn = findViewById(R.id.login_submit);
-
-        smsVerBtn.setOnClickListener(this);
-        smsLoginBtn.setOnClickListener(this);
+        findView();
+        setListener();
         loginPresenter = new LoginPresenter(this);
         mSPUtils = SPUtils.getInstance(this);
         mTimer = new Timer();
@@ -90,10 +83,10 @@ public class LoginSmsActivity extends BaseActivity implements LoginView, View.On
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        if (viewId == R.id.sms_ver_btn) {
+        if (viewId == R.id.login_sms_get_ver) {
             if (timeDelay <= 0)
                 resetTimer();
-        } else if (viewId == R.id.login_submit) {
+        } else if (viewId == R.id.login_sms_submit) {
             userNameStr = userName.getText().toString();
             smsVerStr = smsVer.getText().toString();
         }
@@ -110,8 +103,7 @@ public class LoginSmsActivity extends BaseActivity implements LoginView, View.On
             if (code == 0) {
                 mSPUtils.put(SPKeys.SP_KEY_TOKEN_WEB, token);
                 mSPUtils.put(SPKeys.SP_KEY_USER_NAME_WEB, userNameStr);
-
-//                navigationTo(RouterManager.router_web);
+                //                navigationTo(RouterManager.router_web);
             } else {
                 ToastUtils.show(this, "登录失败:" + msg, Toast.LENGTH_SHORT);
             }
@@ -138,5 +130,21 @@ public class LoginSmsActivity extends BaseActivity implements LoginView, View.On
             mTimer.cancel();
             mTimer.purge();
         }
+    }
+
+    private EditTextWithClean userName, smsVer;
+    private TextView smsVerBtn;
+    private Button smsLoginBtn;
+
+    private void findView() {
+        userName = findViewById(R.id.login_sms_user_name);
+        smsVer = findViewById(R.id.login_sms_ver);
+        smsVerBtn = findViewById(R.id.login_sms_get_ver);
+        smsLoginBtn = findViewById(R.id.login_sms_submit);
+    }
+
+    private void setListener() {
+        smsVerBtn.setOnClickListener(this);
+        smsLoginBtn.setOnClickListener(this);
     }
 }

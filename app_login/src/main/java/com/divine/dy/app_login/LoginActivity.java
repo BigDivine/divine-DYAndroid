@@ -248,6 +248,9 @@ public abstract class LoginActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    /**
+     * 页面数据填充
+     */
     private void setSPInfo() {
         try {
             userPassStr = (String) mSPUtils.get(SPKeys.SP_KEY_USER_PASS, "");

@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.divine.dy.lib_base.R;
+import com.divine.dy.lib_utils.sys.DensityUtils;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -280,5 +281,9 @@ public class BaseToolbar {
         return rightDrawable;
     }
 
-
+    public float getActionBarHeight(){
+//        float rHeight = DensityUtils.dip2px(63f, mContext);
+        float rHeight = DensityUtils.dp2px(mContext,63);
+        return rHeight;
+    }
 }

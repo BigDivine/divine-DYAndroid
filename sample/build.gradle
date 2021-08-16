@@ -13,7 +13,7 @@ android {
         flavorDimensions 'versionCode'
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
             }
         }
         productFlavors {
@@ -58,5 +58,8 @@ dependencies {
 //    implementation project(":app_login")
 
     implementation Ali.Router
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     annotationProcessor Ali.RouterCompiler
 }

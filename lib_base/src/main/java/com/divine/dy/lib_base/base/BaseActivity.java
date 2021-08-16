@@ -1,15 +1,17 @@
 package com.divine.dy.lib_base.base;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.divine.dy.lib_base.R;
 import com.divine.dy.lib_base.getpermission.PermissionPageUtils;
 import com.divine.dy.lib_base.getpermission.PermissionUtil;
 import com.divine.dy.lib_utils.ActivitiesManager;
+import com.divine.dy.lib_widget.widget.WaterMarkView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -206,6 +209,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        //可在该方法中增加水印等
+        ViewGroup parent = (ViewGroup) getWindow().getDecorView();
+        WaterMarkView wmv = new WaterMarkView(this, null);
+        wmv.setTouchPoint(new PointF(event.getX(), event.getY()));
+        parent.addView(wmv);
+        return super.dispatchTouchEvent(event);
     }
 
     @Override
