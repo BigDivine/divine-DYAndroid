@@ -2,9 +2,12 @@ package com.divine.dy.app_login;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -12,39 +15,135 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.divine.dy.lib_base.AppConstants;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.divine.dy.app_login.login.LoginFunction;
+import com.divine.dy.app_login.register.RegisterFunction;
+import com.divine.dy.app_login.resetpass.ResetPassFunction;
+import com.divine.dy.app_login.smslogin.SmsLoginExample;
+import com.divine.dy.app_login.smslogin.SmsLoginFunction;
+import com.divine.dy.lib_base.arouter.ARouterManager;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_base.getpermission.PermissionList;
 import com.divine.dy.lib_source.SPKeys;
-import com.divine.dy.lib_utils.sys.Base64Utils;
 import com.divine.dy.lib_utils.sys.SPUtils;
 import com.divine.dy.lib_widget.widget.DialogUtils;
-import com.divine.dy.lib_widget.widget.EditTextWithClean;
+import com.divine.dy.lib_widget.widget.EditTextWithLRIcon;
 import com.divine.dy.lib_widget.widget.RandomVerificationCodeView;
 import com.divine.dy.lib_widget.widget.ToastUtils;
 import com.divine.dy.lib_widget.widget.WaveView;
 
-import org.json.JSONObject;
+import androidx.annotation.NonNull;
 
 /**
  * Author: Divine
  * CreateDate: 2020/11/03
  * Describe: 登录模块界面
  */
-public abstract class LoginActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, LoginView {
+@Route(path = ARouterManager.ROUTER_LOGIN_MAIN)
+public class LoginActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private final String TAG = "DY-LoginActivity";
-
     private WaveHelper mWaveHelper1, mWaveHelper2;
-
-    private String userNameStr, userPassStr, userVerCode;
-    private boolean isRememberUser;
-    private boolean isRememberPWD;
     protected SPUtils mSPUtils;
+    private boolean canGetSmsVer = true;
+    private boolean canGetRegisterVer = true;
+    public final int GET_VER_WHAT = 1;
+    public final int REGISTER_GET_VER_WHAT = 11;
+    public final int HIDDEN_DIALOG_WHAT = 2;
+    public final int REGISTER_SUCCESS = 1001;
+    public final int REGISTER_FAIL = 1002;
+    public final int REGISTER_GET_VER_SUCCESS = 1003;
+    public final int REGISTER_GET_VER_FAIL = 1004;
+    public final int LOGIN_SUCCESS = 2001;
+    public final int LOGIN_FAIL = 2002;
+    public final int GET_VER_SUCCESS = 20011;
+    public final int GET_VER_FAIL = 20012;
+    public final int RESET_PASS_SUCCESS = 3001;
+    public final int RESET_PASS_FAIL = 3002;
+    public Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if (msg.what == GET_VER_WHAT) {
+                if (msg.arg1 <= 0) {
+                    btLoginSmsGetVer.setText("获取验证码");
+                    btLoginSmsGetVer.setTextColor(getResources().getColor(R.color.LoginThemeColor));
+                    canGetSmsVer = true;
+                    getSmsVerTimeDelay = 5;
+                } else {
+                    btLoginSmsGetVer.setText("已获取验证码(" + msg.arg1 + "s)");
+                    btLoginSmsGetVer.setTextColor(getResources().getColor(R.color.gray_text));
+                    canGetSmsVer = false;
+                    mHandler.postDelayed(getSmsVerRunnable, 1000);
+                }
+            } else if (msg.what == REGISTER_GET_VER_WHAT) {
+                if (msg.arg1 <= 0) {
+                    btRegisterUserGetPhoneVer.setText("获取验证码");
+                    btRegisterUserGetPhoneVer.setTextColor(getResources().getColor(R.color.LoginThemeColor));
+                    canGetRegisterVer = true;
+                    registerGetVerTimeDelay = 5;
+                } else {
+                    btRegisterUserGetPhoneVer.setText("已获取验证码(" + msg.arg1 + "s)");
+                    btRegisterUserGetPhoneVer.setTextColor(getResources().getColor(R.color.gray_text));
+                    canGetRegisterVer = false;
+                    mHandler.postDelayed(registerGetVerRunnable, 1000);
+                }
+            } else if (msg.what == HIDDEN_DIALOG_WHAT) {
+                if (DialogUtils.isShowDialog()) {
+                    DialogUtils.dismissLoadingDialog();
+                }
+                if (msg.arg1 == RESET_PASS_SUCCESS) {
+                    clearResetPassPanel();
+                    startAnimation(resetPass, loginCommon);
+                } else if (msg.arg1 == REGISTER_SUCCESS) {
+                    clearRegisterPanel();
+                    startAnimation(register, loginCommon);
+                } else if (msg.arg1 == GET_VER_SUCCESS) {
+                    Log.e(TAG, SmsLoginExample.SmsVer);
+                    etLoginUserPhoneVer.setText(SmsLoginExample.SmsVer);
+                    startGetSmsVerTimer();
+                } else if (msg.arg1 == REGISTER_GET_VER_SUCCESS) {
+                    Log.e(TAG, SmsLoginExample.RegisterSmsVer);
+                    etRegisterUserPhoneVer.setText(SmsLoginExample.RegisterSmsVer);
+                    startRegisterGetVerTimer();
+                } else if (msg.arg1 == LOGIN_SUCCESS) {
+                    toMain();
+                }
+            }
+        }
+    };
+    int getSmsVerTimeDelay = 5;
+    Runnable getSmsVerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Message getSmsVerMessage = new Message();
+            getSmsVerMessage.what = GET_VER_WHAT;
+            getSmsVerMessage.arg1 = getSmsVerTimeDelay;
+            mHandler.dispatchMessage(getSmsVerMessage);
+            getSmsVerTimeDelay--;
+        }
+    };
+    int registerGetVerTimeDelay = 5;
+    Runnable registerGetVerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Message getSmsVerMessage = new Message();
+            getSmsVerMessage.what = REGISTER_GET_VER_WHAT;
+            getSmsVerMessage.arg1 = registerGetVerTimeDelay;
+            mHandler.dispatchMessage(getSmsVerMessage);
+            registerGetVerTimeDelay--;
+        }
+    };
 
-    private LoginPresenter loginPresenter;
-    //是否校验登录，false：不校验，模拟登录；true：校验，正式登录
-    protected boolean checkLogin = false;
-    private String testUserName = "admin", testUserPass = "admin", tenant = "__default_tenant__";
+    /**
+     * 获取手机验证码相关
+     */
+    public void startGetSmsVerTimer() {
+        mHandler.postDelayed(getSmsVerRunnable, 0);
+    }
+
+    public void startRegisterGetVerTimer() {
+        mHandler.postDelayed(registerGetVerRunnable, 0);
+    }
 
     @Override
     public int getContentViewId() {
@@ -61,7 +160,6 @@ public abstract class LoginActivity extends BaseActivity implements View.OnClick
         findView();
         setListener();
         mSPUtils = SPUtils.getInstance(this);
-        loginPresenter = new LoginPresenter(this);
         if (LoginBase.needChangeServer) {
             ivLoginChangeServer.setVisibility(View.VISIBLE);
         } else {
@@ -95,6 +193,8 @@ public abstract class LoginActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
+        createFunctions();
+
         if (null != vvLoginVerView) {
             vvLoginVerView.refresh();
         }
@@ -105,16 +205,97 @@ public abstract class LoginActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        if (viewId == R.id.login_submit) {
-            loginIn();
-        } else if (viewId == R.id.login_submit_test) {
-            loginIn();
+        if (viewId == R.id.login_ver_view) {
+            //用户名登录刷新验证码
+        } else if (viewId == R.id.login_submit) {
+            //用户名登录
+            if (checkLoginInfo()) {
+                String userNameStr = etLoginUserName.getText().toString();
+                String userPassStr = etLoginUserPass.getText().toString();
+                mLoginFunction.userLogin(userNameStr, userPassStr);
+            }
+        } else if (viewId == R.id.oauth_login_wx) {
+            //微信登录
+        } else if (viewId == R.id.oauth_login_qq) {
+            //qq登录
+        } else if (viewId == R.id.oauth_login_sina) {
+            //微博登录
+        } else if (viewId == R.id.oauth_login_simulate) {
+            //模拟登录
+            mLoginFunction.userSimulateLogin();
+        } else if (viewId == R.id.login_sms_get_ver) {
+            //手机登录--获取手机短信验证码
+            if (canGetSmsVer) {
+                String loginSmsPhone = etLoginUserPhone.getText().toString();
+                mSmsLoginFunction.getSmsVer(loginSmsPhone);
+            }
+        } else if (viewId == R.id.login_sms_submit) {
+            //发请求短信登录
+            if (checkSmsLoginInfo()) {
+                String loginSmsPhone = etLoginUserPhone.getText().toString();
+                String loginSmsPhoneVer = etLoginUserPhoneVer.getText().toString();
+                mSmsLoginFunction.userSmsLogin(loginSmsPhone, loginSmsPhoneVer);
+            }
+        } else if (viewId == R.id.register_user_get_phone_ver) {
+            //注册---获取手机短信验证码
+            if (canGetRegisterVer) {
+                String registerUserPhone = etRegisterUserPhone.getText().toString();
+                mRegisterFunction.getPhoneVer(registerUserPhone);
+            }
+        } else if (viewId == R.id.register_submit) {
+            //发请求注册
+            if (checkRegisterInfo()) {
+                String registerUserName = etRegisterUserName.getText().toString();
+                String registerUserPass = etRegisterUserPass.getText().toString();
+                String registerUserPhone = etRegisterUserPhone.getText().toString();
+                String registerUserPhoneVer = etRegisterUserPhoneVer.getText().toString();
+                mRegisterFunction.userRegister(registerUserName, registerUserPass, registerUserPhone, registerUserPhoneVer);
+            }
+        } else if (viewId == R.id.reset_pass_submit) {
+            //重置密码确定
+            if (checkResetPassInfo()) {
+                String user = etResetPassUser.getText().toString();
+                String oldPass = etResetPassOld.getText().toString();
+                String newPass = etResetPassNew.getText().toString();
+                mResetPassFunction.resetPass(user, oldPass, newPass);
+            }
+        } else if (viewId == R.id.change_server_submit) {
+            //切换服务器地址确定-缓存新的服务地址，并重启应用
+            String newServer = etChangeServerHost.getText().toString();
+            mSPUtils.put(SPKeys.SP_KEY_SERVER, newServer);
+            Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            //杀掉以前进程
+            android.os.Process.killProcess(android.os.Process.myPid());
+        } else if (viewId == R.id.login_register) {
+            //用户注册
+            startAnimation(loginCommon, register);
+        } else if (viewId == R.id.login_miss_pass) {
+            //忘记密码
+            startAnimation(loginCommon, resetPass);
         } else if (viewId == R.id.login_sms) {
-            //            ToastUtils.show(this, "短信登录未开放", Toast.LENGTH_SHORT);
-            startActivity(new Intent(this, LoginSmsActivity.class));
+            //切换为短信登录
+            startAnimation(loginCommon, loginSms);
         } else if (viewId == R.id.login_change_server) {
-            toChangeServer();
-        } else if (viewId == R.id.login_ver_view) {
+            //切换服务地址
+            startAnimation(loginCommon, changeServer);
+        } else if (viewId == R.id.login_sms_to_login) {
+            //放弃短信登录，用账号密码登录
+            clearSmsLoginPanel();
+            startAnimation(loginSms, loginCommon);
+        } else if (viewId == R.id.register_to_login) {
+            //放弃注册，直接登录
+            clearRegisterPanel();
+            startAnimation(register, loginCommon);
+        } else if (viewId == R.id.reset_pass_to_login) {
+            //想起密码，不重置，直接登录
+            clearResetPassPanel();
+            startAnimation(resetPass, loginCommon);
+        } else if (viewId == R.id.change_server_to_login) {
+            //取消设置服务器地址
+            clearChangeServerPanel();
+            startAnimation(changeServer, loginCommon);
         }
     }
 
@@ -123,110 +304,35 @@ public abstract class LoginActivity extends BaseActivity implements View.OnClick
         int viewId = buttonView.getId();
         if (viewId == R.id.login_remember_name) {
             if (!isChecked) {
-                isRememberPWD = false;
+                LoginBase.isRememberPwd = false;
                 cbLoginRememberPass.setChecked(false);
             }
-            isRememberUser = isChecked;
+            LoginBase.isRememberUser = isChecked;
             cbLoginRememberName.setChecked(isChecked);
         } else if (viewId == R.id.login_remember_pass) {
             if (isChecked) {
-                isRememberUser = true;
+                LoginBase.isRememberUser = true;
                 cbLoginRememberName.setChecked(true);
             }
-            isRememberPWD = isChecked;
+            LoginBase.isRememberPwd = isChecked;
             cbLoginRememberPass.setChecked(isChecked);
         }
     }
 
-    private void loginIn() {
-        DialogUtils.showAppLoadingDialog(this, "登录中。。。");
-        try {
-            if (!checkLogin) {
-                new Handler().postDelayed(() -> {
-                    if (DialogUtils.isShowDialog())
-                        DialogUtils.dismissLoadingDialog();
-                    toMain();
-                }, 3000);
-            } else {
-                userNameStr = etLoginUserName.getText().toString();
-                userPassStr = etLoginUserPass.getText().toString();
-                if (checkLoginInfo()) {
-                    userNameStr = Base64Utils.encode(Base64Utils.encode(userNameStr));
-                    userPassStr = Base64Utils.encode(Base64Utils.encode(userPassStr));
-                    String params = "{\"username\":\"" + userNameStr + "\"," +
-                            "\"pwd\":\"" + userPassStr + "\"," +
-                            "\"tenant\":\"" + tenant + "\"," +
-                            "\"encrypted\": true" +
-                            "}";
-                    loginPresenter.login(params);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void success(String res) {
-        try {
-            JSONObject obj = new JSONObject(res);
-            int code = obj.optInt("code");
-            String msg = obj.optString("msg");
-            String token = obj.optString("token");
-            if (code == 0) {
-                //                String encodePass = Base64Utils.encode2String(userPassStr);
-                if (isRememberPWD) {
-                    mSPUtils.put(SPKeys.SP_KEY_USER_NAME, userNameStr);
-                    mSPUtils.put(SPKeys.SP_KEY_USER_PASS, userPassStr);
-                    mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, true);
-                } else if (isRememberUser) {
-                    mSPUtils.put(SPKeys.SP_KEY_USER_NAME, userNameStr);
-                    mSPUtils.put(SPKeys.SP_KEY_USER_PASS, "");
-                    mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
-                } else {
-                    mSPUtils.put(SPKeys.SP_KEY_USER_NAME, "");
-                    mSPUtils.put(SPKeys.SP_KEY_USER_PASS, "");
-                    mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
-                }
-                mSPUtils.put(SPKeys.SP_KEY_TOKEN_WEB, token);
-                String userNameWeb = Base64Utils.decode(Base64Utils.decode(userNameStr));
-                mSPUtils.put(SPKeys.SP_KEY_USER_NAME_WEB, userNameWeb);
-                //                navigationTo(RouterManager.router_web);
-                this.finish();
-            } else {
-                ToastUtils.show(this, "登录失败:" + msg + ",请重新登录", Toast.LENGTH_SHORT);
-                mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            ToastUtils.show(this, "登录失败,请联系管理员。", Toast.LENGTH_SHORT);
-            mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
-        }
-        if (DialogUtils.isShowDialog())
-            DialogUtils.dismissLoadingDialog();
-    }
-
-    @Override
-    public void fail(String msg) {
-        Log.e(TAG, "login fail:" + msg);
-        ToastUtils.show(this, "登录失败," + msg, Toast.LENGTH_SHORT);
-        mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
-        if (DialogUtils.isShowDialog())
-            DialogUtils.dismissLoadingDialog();
-    }
-
     /**
-     * 校验输入框
+     * 校验登录输入框
      *
      * @return
      */
     private boolean checkLoginInfo() {
-        userVerCode = etLoginUserVer.getText().toString();
+        String userName = etLoginUserName.getText().toString();
+        String userPass = etLoginUserPass.getText().toString();
+        String userVerCode = etLoginUserVer.getText().toString();
         String trueVerCode = vvLoginVerView.getVerificationCode();
-        if (TextUtils.isEmpty(userNameStr)) {
+        if (TextUtils.isEmpty(userName)) {
             ToastUtils.show(this, "请输入用户名", Toast.LENGTH_SHORT);
             return false;
-        } else if (TextUtils.isEmpty(userPassStr)) {
+        } else if (TextUtils.isEmpty(userPass)) {
             ToastUtils.show(this, "请输入密码", Toast.LENGTH_SHORT);
             return false;
         } else if (TextUtils.isEmpty(userVerCode)) {
@@ -248,40 +354,123 @@ public abstract class LoginActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    private boolean checkSmsLoginInfo() {
+        String loginPhone = etLoginUserPhone.getText().toString();
+        String loginPhoneVer = etLoginUserPhoneVer.getText().toString();
+        if (TextUtils.isEmpty(loginPhone)) {
+            ToastUtils.show(this, "请输入手机号", Toast.LENGTH_SHORT);
+            return false;
+        } else if (TextUtils.isEmpty(loginPhoneVer)) {
+            ToastUtils.show(this, "请输入验证码", Toast.LENGTH_SHORT);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean checkRegisterInfo() {
+        String registerUserName = etRegisterUserName.getText().toString();
+        String registerUserPass = etRegisterUserPass.getText().toString();
+        String registerUserPhone = etRegisterUserPhone.getText().toString();
+        String registerUserPhoneVer = etRegisterUserPhoneVer.getText().toString();
+        if (TextUtils.isEmpty(registerUserName)) {
+            ToastUtils.show(this, "请输入用户名", Toast.LENGTH_SHORT);
+            return false;
+        } else if (TextUtils.isEmpty(registerUserPass)) {
+            ToastUtils.show(this, "请输入密码", Toast.LENGTH_SHORT);
+            return false;
+        } else if (TextUtils.isEmpty(registerUserPhone)) {
+            ToastUtils.show(this, "请输入手机号", Toast.LENGTH_SHORT);
+            return false;
+        } else if (TextUtils.isEmpty(registerUserPhoneVer)) {
+            ToastUtils.show(this, "请输入短信验证码", Toast.LENGTH_SHORT);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean checkResetPassInfo() {
+        String user = etResetPassUser.getText().toString();
+        String resetPassOld = etResetPassOld.getText().toString();
+        String resetPassOld2 = etResetPassOldSecond.getText().toString();
+        String resetPassNew = etResetPassNew.getText().toString();
+        if (TextUtils.isEmpty(user)) {
+            ToastUtils.show(this, "请输入用户名/手机号", Toast.LENGTH_SHORT);
+            return false;
+        } else if (TextUtils.isEmpty(resetPassOld)) {
+            ToastUtils.show(this, "请输入旧密码", Toast.LENGTH_SHORT);
+            return false;
+        } else if (TextUtils.isEmpty(resetPassOld2)) {
+            ToastUtils.show(this, "请再次输入旧密码", Toast.LENGTH_SHORT);
+            return false;
+        } else if (!TextUtils.equals(resetPassOld, resetPassOld2)) {
+            ToastUtils.show(this, "两次旧密码输入不一致", Toast.LENGTH_SHORT);
+            return false;
+        } else if (TextUtils.isEmpty(resetPassNew)) {
+            ToastUtils.show(this, "密码不能为空，请输入新密码", Toast.LENGTH_SHORT);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void clearSmsLoginPanel() {
+        etLoginUserPhone.setText("");
+        etLoginUserPhoneVer.setText("");
+    }
+
+    private void clearRegisterPanel() {
+        etRegisterUserName.setText("");
+        etRegisterUserPass.setText("");
+        etRegisterUserPhone.setText("");
+        etRegisterUserPhoneVer.setText("");
+    }
+
+    private void clearResetPassPanel() {
+        etResetPassOld.setText("");
+        etResetPassOldSecond.setText("");
+        etResetPassNew.setText("");
+    }
+
+    private void clearChangeServerPanel() {
+        String server = (String) mSPUtils.get(SPKeys.SP_KEY_SERVER, "");
+        etChangeServerHost.setText(server);
+    }
+
     /**
      * 页面数据填充
      */
     private void setSPInfo() {
-        try {
-            userPassStr = (String) mSPUtils.get(SPKeys.SP_KEY_USER_PASS, "");
-            userNameStr = (String) mSPUtils.get(SPKeys.SP_KEY_USER_NAME, "");
-            isRememberUser = !TextUtils.isEmpty(userNameStr);
-            cbLoginRememberName.setChecked(isRememberUser);
-            isRememberPWD = !TextUtils.isEmpty(userPassStr);
-            cbLoginRememberPass.setChecked(isRememberPWD);
-            if (isRememberPWD) {
-                String pass = Base64Utils.decode(Base64Utils.decode(userPassStr));
-                String user = Base64Utils.decode(Base64Utils.decode(userNameStr));
-                etLoginUserPass.setText(pass);
-                etLoginUserName.setText(user);
-            } else if (isRememberUser) {
-                String user = Base64Utils.decode(Base64Utils.decode(userNameStr));
-                etLoginUserPass.setText("");
-                etLoginUserName.setText(user);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        String userPassStr = (String) mSPUtils.get(SPKeys.SP_KEY_USER_PASS, "");
+        String userNameStr = (String) mSPUtils.get(SPKeys.SP_KEY_USER_NAME, "");
+
+        LoginBase.isRememberUser = !TextUtils.isEmpty(userNameStr);
+        LoginBase.isRememberPwd = !TextUtils.isEmpty(userPassStr);
+
+        cbLoginRememberName.setChecked(!TextUtils.isEmpty(userNameStr));
+        cbLoginRememberPass.setChecked(!TextUtils.isEmpty(userNameStr));
+
+        if (!TextUtils.isEmpty(userPassStr)) {
+            etLoginUserPass.setText(userPassStr);
+            etLoginUserName.setText(userNameStr);
+        } else if (!TextUtils.isEmpty(userNameStr)) {
+            etLoginUserPass.setText("");
+            etLoginUserName.setText(userNameStr);
+        } else {
+            etLoginUserPass.setText("");
+            etLoginUserName.setText("");
         }
+        String server = (String) mSPUtils.get(SPKeys.SP_KEY_SERVER, "");
+        etChangeServerHost.setText(server);
     }
 
     public void resetUserInfo() {
         mSPUtils.put(SPKeys.SP_KEY_IS_LOGIN, false);
         mSPUtils.put(SPKeys.SP_KEY_USER_NAME, "");
         mSPUtils.put(SPKeys.SP_KEY_USER_PASS, "");
-        mSPUtils.put(SPKeys.SP_KEY_TOKEN_WEB, "");
-        mSPUtils.put(SPKeys.SP_KEY_USER_NAME_WEB, "");
-        isRememberUser = false;
-        isRememberPWD = false;
+        LoginBase.isRememberUser = false;
+        LoginBase.isRememberPwd = false;
         cbLoginRememberName.setChecked(false);
         cbLoginRememberPass.setChecked(false);
         etLoginUserName.setText("");
@@ -297,51 +486,167 @@ public abstract class LoginActivity extends BaseActivity implements View.OnClick
         };
     }
 
-    public abstract void toMain();
-
-    public void toChangeServer() {
-        Intent intent = new Intent(this, ChangeServerActivity.class);
-        startActivityForResult(intent, AppConstants.REQUEST_CODE_CHANGE_SERVER);
-    }
-
-    //    private ImageView ivLoginTop;
+    private WaveView wvWaveView1, wvWaveView2;
+    private View loginCommon, loginOauth, loginSms, register, resetPass, changeServer;
+    //用户名登录相关
     private TextView tvLoginTitle;
-    private EditTextWithClean etLoginUserName, etLoginUserPass, etLoginUserVer;
+    private EditTextWithLRIcon etLoginUserName, etLoginUserPass, etLoginUserVer;
     private RandomVerificationCodeView vvLoginVerView;
     private CheckBox cbLoginRememberName, cbLoginRememberPass;
-    private Button btLoginSubmit, btLoginSubmitTest, btLoginSms;
+    private Button btLoginRegister, btLoginSubmit, btLoginSms, btLoginMissPass;
     private ImageView ivLoginTitleIcon, ivLoginChangeServer;
-    private WaveView wvWaveView1, wvWaveView2;
+    //授权相关
+    private ImageView ivOauthWx, ivOauthQQ, ivOauthSina, ivOauthSimulate;
+    //短信登录相关
+    private EditTextWithLRIcon etLoginUserPhone, etLoginUserPhoneVer;
+    private Button btLoginSmsGetVer, btLoginSmsSubmit, btLoginSmsToLogin;
+    //注册相关
+    private EditTextWithLRIcon etRegisterUserName, etRegisterUserPass, etRegisterUserPhone, etRegisterUserPhoneVer;
+    private Button btRegisterSubmit, btRegisterToLogin, btRegisterUserGetPhoneVer;
+    //重置密码相关
+    private EditTextWithLRIcon etResetPassUser, etResetPassOld, etResetPassOldSecond, etResetPassNew;
+    private Button btResetPassSubmit, btResetPassToLogin;
+    //切换服务地址相关
+    private EditTextWithLRIcon etChangeServerHost;
+    private Button btChangeServerSubmit, btChangeServerToLogin;
 
     private void findView() {
-        //        ivLoginTop = findViewById(R.id.login_top);
-        ivLoginTitleIcon = findViewById(R.id.login_title_icon);
-        tvLoginTitle = findViewById(R.id.login_title);
-        etLoginUserName = findViewById(R.id.login_user_name);
-        etLoginUserPass = findViewById(R.id.login_user_pass);
-        etLoginUserVer = findViewById(R.id.login_user_ver);
-        vvLoginVerView = findViewById(R.id.login_ver_view);
-        cbLoginRememberName = findViewById(R.id.login_remember_name);
-        cbLoginRememberPass = findViewById(R.id.login_remember_pass);
-        ivLoginChangeServer = findViewById(R.id.login_change_server);
-        btLoginSubmit = findViewById(R.id.login_submit);
-        btLoginSubmitTest = findViewById(R.id.login_submit_test);
-        btLoginSms = findViewById(R.id.login_sms);
+        ARouter.getInstance().inject(this);
         wvWaveView1 = findViewById(R.id.login_wave1);
         wvWaveView2 = findViewById(R.id.login_wave2);
+        loginCommon = findViewById(R.id.login_common_layout);
+        loginOauth = findViewById(R.id.login_oauth_layout);
+        loginSms = findViewById(R.id.login_sms_layout);
+        register = findViewById(R.id.register_layout);
+        resetPass = findViewById(R.id.reset_pass_layout);
+        changeServer = findViewById(R.id.change_server_layout);
+        //用户名登录
+        ivLoginTitleIcon = loginCommon.findViewById(R.id.login_title_icon);
+        tvLoginTitle = loginCommon.findViewById(R.id.login_title);
+
+        etLoginUserName = loginCommon.findViewById(R.id.login_user_name);
+        etLoginUserPass = loginCommon.findViewById(R.id.login_user_pass);
+        etLoginUserVer = loginCommon.findViewById(R.id.login_user_ver);
+
+        vvLoginVerView = loginCommon.findViewById(R.id.login_ver_view);
+        cbLoginRememberName = loginCommon.findViewById(R.id.login_remember_name);
+        cbLoginRememberPass = loginCommon.findViewById(R.id.login_remember_pass);
+        ivLoginChangeServer = loginCommon.findViewById(R.id.login_change_server);
+        btLoginRegister = loginCommon.findViewById(R.id.login_register);
+        btLoginSubmit = loginCommon.findViewById(R.id.login_submit);
+        btLoginSms = loginCommon.findViewById(R.id.login_sms);
+        btLoginMissPass = loginCommon.findViewById(R.id.login_miss_pass);
+        //授权
+        ivOauthWx = loginOauth.findViewById(R.id.oauth_login_wx);
+        ivOauthQQ = loginOauth.findViewById(R.id.oauth_login_qq);
+        ivOauthSina = loginOauth.findViewById(R.id.oauth_login_sina);
+        ivOauthSimulate = loginOauth.findViewById(R.id.oauth_login_simulate);
+        //短信登录
+        etLoginUserPhone = loginSms.findViewById(R.id.login_sms_phone);
+        etLoginUserPhoneVer = loginSms.findViewById(R.id.login_sms_ver);
+        btLoginSmsGetVer = loginSms.findViewById(R.id.login_sms_get_ver);
+        btLoginSmsSubmit = loginSms.findViewById(R.id.login_sms_submit);
+        btLoginSmsToLogin = loginSms.findViewById(R.id.login_sms_to_login);
+        //注册
+        etRegisterUserName = register.findViewById(R.id.register_user_name);
+        etRegisterUserPass = register.findViewById(R.id.register_user_pass);
+        etRegisterUserPhone = register.findViewById(R.id.register_user_phone);
+        etRegisterUserPhoneVer = register.findViewById(R.id.register_user_phone_ver);
+        btRegisterSubmit = register.findViewById(R.id.register_submit);
+        btRegisterToLogin = register.findViewById(R.id.register_to_login);
+        btRegisterUserGetPhoneVer = register.findViewById(R.id.register_user_get_phone_ver);
+        //重置密码
+        etResetPassUser = resetPass.findViewById(R.id.reset_pass_user);
+        etResetPassOld = resetPass.findViewById(R.id.reset_pass_old);
+        etResetPassOldSecond = resetPass.findViewById(R.id.reset_pass_old_second);
+        etResetPassNew = resetPass.findViewById(R.id.reset_pass_new);
+        btResetPassSubmit = resetPass.findViewById(R.id.reset_pass_submit);
+        btResetPassToLogin = resetPass.findViewById(R.id.reset_pass_to_login);
+        //切换服务地址
+        etChangeServerHost = changeServer.findViewById(R.id.change_server_host);
+        btChangeServerSubmit = changeServer.findViewById(R.id.change_server_submit);
+        btChangeServerToLogin = changeServer.findViewById(R.id.change_server_to_login);
 
         tvLoginTitle.setText(LoginBase.loginTitle);
+
     }
 
     private void setListener() {
         cbLoginRememberName.setOnCheckedChangeListener(this);
         cbLoginRememberPass.setOnCheckedChangeListener(this);
+        btLoginRegister.setOnClickListener(this);
         btLoginSubmit.setOnClickListener(this);
-        btLoginSubmitTest.setOnClickListener(this);
         btLoginSms.setOnClickListener(this);
+        btLoginMissPass.setOnClickListener(this);
+        ivOauthWx.setOnClickListener(this);
+        ivOauthQQ.setOnClickListener(this);
+        ivOauthSina.setOnClickListener(this);
+        ivOauthSimulate.setOnClickListener(this);
+
+        btLoginSmsGetVer.setOnClickListener(this);
+        btLoginSmsSubmit.setOnClickListener(this);
+        btLoginSmsToLogin.setOnClickListener(this);
+
+        btRegisterUserGetPhoneVer.setOnClickListener(this);
+        btRegisterSubmit.setOnClickListener(this);
+        btRegisterToLogin.setOnClickListener(this);
+
+        btResetPassSubmit.setOnClickListener(this);
+        btResetPassToLogin.setOnClickListener(this);
+
+        btChangeServerSubmit.setOnClickListener(this);
+        btChangeServerToLogin.setOnClickListener(this);
 
         if (LoginBase.needChangeServer) {
             ivLoginChangeServer.setOnClickListener(this);
         }
+    }
+
+    private LoginFunction mLoginFunction;
+    private SmsLoginFunction mSmsLoginFunction;
+    private RegisterFunction mRegisterFunction;
+    private ResetPassFunction mResetPassFunction;
+
+    private void createFunctions() {
+        mLoginFunction = LoginFunction.instance();
+        mSmsLoginFunction = SmsLoginFunction.instance();
+        mRegisterFunction = RegisterFunction.instance();
+        mResetPassFunction = ResetPassFunction.instance();
+
+        mLoginFunction.setActivity(this);
+        mSmsLoginFunction.setActivity(this);
+        mRegisterFunction.setActivity(this);
+        mResetPassFunction.setActivity(this);
+    }
+
+    public void toMain() {
+        ARouter.getInstance().build(ARouterManager.ROUTER_MAIN_MAIN).navigation(this);
+        this.finish();
+    }
+
+    //登录页面板切换动画
+    private void startAnimation(View foldView, View UnfoldView) {
+        Animation animationFold = AnimationUtils.loadAnimation(this, R.anim.scale_x_fold);
+        Animation animationUnfold = AnimationUtils.loadAnimation(this, R.anim.scale_x_unfold);
+        animationFold.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                foldView.setVisibility(View.GONE);
+                foldView.clearAnimation();
+                UnfoldView.setVisibility(View.VISIBLE);
+                UnfoldView.startAnimation(animationUnfold);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        foldView.startAnimation(animationFold);
     }
 }

@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.divine.dy.app_login.LoginBase;
+import com.divine.dy.lib_base.AppBase;
+import com.divine.dy.lib_source.SPKeys;
+import com.divine.dy.lib_utils.sys.SPUtils;
 
 /**
  * Author: Divine
@@ -26,6 +29,7 @@ public class MyApplication extends Application {
         getMetaData();
         setDebugConfig();
         setLoginApp();
+        setAppInfo();
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
     }
 
@@ -34,8 +38,15 @@ public class MyApplication extends Application {
         super.onTerminate();
     }
 
+    private void setAppInfo() {
+        SPUtils mSPUtils = SPUtils.getInstance(this);
+        String server = (String) mSPUtils.get(SPKeys.SP_KEY_SERVER, serverUrl);
+        AppBase.serverUrl = server;
+        mSPUtils.put(SPKeys.SP_KEY_SERVER, AppBase.serverUrl);
+        AppBase.isDebug = isDebug;
+    }
+
     private void setLoginApp() {
-        LoginBase.loginServerPath = serverUrl;
         LoginBase.loginTitle = getResources().getString(R.string.app_name);
         LoginBase.needChangeServer = needChangeServer;
         LoginBase.needVerifyCode = needVerifyCode;

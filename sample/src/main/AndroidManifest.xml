@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApplication"
@@ -12,27 +13,28 @@
         android:label="@string/app_name"
         android:logo="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".WaterMarkActivity"
+            android:name=".widget.WaterMarkActivity"
             android:theme="@style/AppTheme">
 
         </activity>
         <activity
-            android:name=".route.RouteSplashActivity"
+            android:name="com.divine.dy.app_splash.SplashActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".route.RouteLoginActivity"
-            android:screenOrientation="portrait"
+            android:name="com.divine.dy.app_main.MainActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".route.RouteMainActivity"
+            android:name="com.divine.dy.app_login.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name="com.divine.dy.app_login.LoginSmsActivity"

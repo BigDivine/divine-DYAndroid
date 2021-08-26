@@ -80,7 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Log.e(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        //        ARouter.getInstance().inject(this);
+//                ARouter.getInstance().inject(this);
 
         setContentView(getContentViewId());
         Window window = getWindow();

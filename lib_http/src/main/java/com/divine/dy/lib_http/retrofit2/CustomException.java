@@ -1,5 +1,8 @@
 package com.divine.dy.lib_http.retrofit2;
 
+import android.util.Log;
+
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -20,12 +23,21 @@ public class CustomException {
         if (e instanceof ConnectException) {
             GEX = new GeneralException(ConstOfException.NETWORK_ERROR, e.getMessage());
         } else if (e instanceof HttpException) {
-            //网络错误
-            ResponseBody responseBody = ((HttpException) e).response().errorBody();
-            Buffer source = responseBody.source().getBuffer();
-            String[] httpErrorText = source.toString().split("=");
-            String error = httpErrorText[1];
-            GEX = new GeneralException(ConstOfException.NETWORK_ERROR, error);
+            int code = ((HttpException) e).code();
+            if (code == 200) {
+                GEX = new GeneralException(ConstOfException.NETWORK_ERROR, e.getMessage());
+            } else {
+                //网络错误
+                ResponseBody responseBody = ((HttpException) e).response().errorBody();
+                try {
+                    String error = responseBody.string();
+                    Log.e("aaa", error);
+                    GEX = new GeneralException(ConstOfException.NETWORK_ERROR, error);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                    GEX = new GeneralException(ConstOfException.NETWORK_ERROR, code + "");
+                }
+            }
         } else if (e instanceof UnknownHostException || e instanceof SocketTimeoutException) {
             //连接错误
             GEX = new GeneralException(ConstOfException.NETWORK_ERROR, e.getMessage());

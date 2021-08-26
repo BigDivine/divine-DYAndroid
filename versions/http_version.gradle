@@ -30,4 +30,10 @@ ext {
             Rxjava   : "io.reactivex.rxjava3:rxjava:${RxJava3Versions.Rxjava}",
             Rxandroid: "io.reactivex.rxjava3:rxandroid:${RxJava3Versions.RxAndroid}"
     ]
+    GsonVersions = [
+            GsonVersion: '2.8.8',
+    ]
+    Gson = [
+            Gson: "com.google.code.gson:gson:${GsonVersions.GsonVersion}",
+    ]
 }

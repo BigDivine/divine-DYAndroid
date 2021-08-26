@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.divine.dy.lib_http">
+<manifest package="com.divine.dy.lib_http">
 
     <application>
-        <activity
-            android:name="com.divine.dy.sample.http.Retrofit2DemoActivity"
-            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

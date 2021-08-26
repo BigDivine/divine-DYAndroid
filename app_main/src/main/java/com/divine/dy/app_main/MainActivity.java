@@ -4,19 +4,23 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.divine.dy.app_main.home.NavigatorPager2FragmentActivity;
 import com.divine.dy.app_main.home.NavigatorPagerFragmentActivity;
 import com.divine.dy.app_main.home.RadioPager2FragmentActivity;
 import com.divine.dy.app_main.home.RadioPagerFragmentActivity;
 import com.divine.dy.app_main.home.TabPager2FragmentActivity;
 import com.divine.dy.app_main.home.TabPagerFragmentActivity;
+import com.divine.dy.lib_base.arouter.ARouterManager;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_base.base.BaseToolbar;
 import com.divine.dy.lib_base.base.ToolbarClickListener;
 import com.divine.dy.lib_base.getpermission.PermissionList;
 import com.divine.dy.lib_log.LocalLogcat;
 
-public abstract class MainActivity extends BaseActivity implements View.OnClickListener, ToolbarClickListener {
+@Route(path = ARouterManager.ROUTER_MAIN_MAIN)
+public class MainActivity extends BaseActivity implements View.OnClickListener, ToolbarClickListener {
     private static final String TAG = "DY-Main";
     private LocalLogcat mLogcat;
 
@@ -62,6 +66,7 @@ public abstract class MainActivity extends BaseActivity implements View.OnClickL
     private TextView tvTabPagerFragment, tvTabPager2Fragment, tvRadioPagerFragment, tvRadioPager2Fragment, tvNavigatorPagerFragment, tvNavigatorPager2Fragment, tvWaterMarkTextView;
 
     private void findView() {
+        ARouter.getInstance().inject(this);
         tvTabPagerFragment = findViewById(R.id.TabPagerFragment);
         tvTabPager2Fragment = findViewById(R.id.TabPager2Fragment);
         tvRadioPagerFragment = findViewById(R.id.RadioPagerFragment);
@@ -102,7 +107,9 @@ public abstract class MainActivity extends BaseActivity implements View.OnClickL
 
     }
 
-    public abstract void toWaterMarkTextView();
+    public void toWaterMarkTextView() {
+        ARouter.getInstance().build(ARouterManager.ROUTER_VIEW_WATERMARK).navigation();
+    }
 
     @Override
     public void leftClick() {

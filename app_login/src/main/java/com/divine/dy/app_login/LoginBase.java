@@ -6,8 +6,10 @@ package com.divine.dy.app_login;
  * Describe:
  */
 public class LoginBase {
-    public static String loginServerPath;
     public static boolean needChangeServer;
     public static boolean needVerifyCode;
     public static String loginTitle;
+
+    public static boolean isRememberPwd;
+    public static boolean isRememberUser;
 }

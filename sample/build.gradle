@@ -55,11 +55,7 @@ android {
 dependencies {
     implementation project(":lib_over_views")
     implementation project(":lib_over_apps")
-//    implementation project(":app_login")
 
     implementation Ali.Router
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     annotationProcessor Ali.RouterCompiler
 }

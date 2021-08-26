@@ -1,14 +1,16 @@
 package com.divine.dy.app_login;
 
-import com.divine.dy.lib_base.GmtBase;
-import com.divine.dy.lib_http.lib.RetrofitUtils;
-import com.divine.dy.lib_http.retrofit2.GeneralException;
+import com.divine.dy.lib_base.ApiManager;
+import com.divine.dy.lib_base.AppBase;
 import com.divine.dy.lib_http.retrofit2.Retrofit2Callback;
 import com.divine.dy.lib_http.retrofit2.Retrofit2Helper;
+import com.divine.dy.lib_http.retrofit2.Retrofit2IModel;
 import com.divine.dy.lib_http.retrofit2.Retrofit2Service;
+import com.divine.dy.lib_http.retrofit2.RetrofitUtils;
 import com.divine.dy.lib_http.retrofit2.RxJava2ResponseTransformer;
 import com.divine.dy.lib_http.retrofit2.RxJava2SchedulerTransformer;
 
+import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -20,26 +22,38 @@ import okhttp3.RequestBody;
  * CreateDate: 2021/2/4
  * Describe:
  */
-public class LoginModel {
+public class LoginModel extends Retrofit2IModel {
     public void login(String params, Retrofit2Callback callback) {
-        CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-        Retrofit2Service service = Retrofit2Helper.getInstance().getService();
-        String loginServerUrl = GmtBase.serverUrl + LoginBase.loginServerPath;
+        //        params = "{\"userName\":\"admin\"," +
+        //                "\"userPass\":\"admin\"" +
+        //                "}";
+        sendRequestPost(AppBase.serverUrl + ApiManager.userLoginApi
+                , RetrofitUtils.String2RequestBody(params)
+                , callback
+        );
+    }
+
+    public void smsLogin(String params, Retrofit2Callback callback) {
+        String serverUrl = AppBase.serverUrl + ApiManager.userSmsLoginApi;
         RequestBody body = RetrofitUtils.String2RequestBody(params);
-        Disposable disposable = service.sendRequest(loginServerUrl, body)
-                .compose(RxJava2SchedulerTransformer.getInstance().applySchedulers())
-                .compose((ObservableTransformer) RxJava2ResponseTransformer.handleResult())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String o) throws Exception {
-                        callback.onSuccess(o);
-                    }
-                }, new Consumer<GeneralException>() {
-                    @Override
-                    public void accept(GeneralException throwable) throws Exception {
-                        callback.onFailed(throwable.getErrorMessage());
-                    }
-                });
-        mCompositeDisposable.add(disposable);
+        sendRequestPost(serverUrl, body, callback);
+    }
+
+    public void getSmsVer(String phone, Retrofit2Callback callback) {
+        String serverUrl = AppBase.serverUrl + ApiManager.userGetSmsVerApi;
+        RequestBody body = RetrofitUtils.String2RequestBody("{\"userPhone\":\"" + phone + "\"}");
+        sendRequestPost(serverUrl, body, callback);
+    }
+
+    public void resetPass(String params, Retrofit2Callback<String> callback) {
+        String serverUrl = AppBase.serverUrl + ApiManager.userResetPassApi;
+        RequestBody body = RetrofitUtils.String2RequestBody(params);
+        sendRequestPost(serverUrl, body, callback);
+    }
+
+    public void register(String params, Retrofit2Callback callback) {
+        String serverUrl = AppBase.serverUrl + ApiManager.userRegisterApi;
+        RequestBody body = RetrofitUtils.String2RequestBody(params);
+        sendRequestPost(serverUrl, body, callback);
     }
 }

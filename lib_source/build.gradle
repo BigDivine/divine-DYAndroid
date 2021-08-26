@@ -35,5 +35,6 @@ dependencies {
 
     api Glide.Glide
     api Facebook.Fresco
-
+    api Facebook.Fresco
+    api Gson.Gson
 }

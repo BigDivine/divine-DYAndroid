@@ -50,14 +50,13 @@ public class Retrofit2Helper {
         mOkHttpBuilder.connectTimeout(30, TimeUnit.SECONDS);
         mOkHttpBuilder.readTimeout(30, TimeUnit.SECONDS);
         mOkHttpBuilder.writeTimeout(30, TimeUnit.SECONDS);
-//        mOkHttpBuilder.addInterceptor(new OkHttpInterceptor());
         mOkHttpBuilder.addNetworkInterceptor(new OkHttpNetWorkInterceptor());
         mOkHttpClient = mOkHttpBuilder.build();
     }
 
     private void setUpRetrofit2() {
         Retrofit.Builder mRetrofitBuilder = new Retrofit.Builder();
-        mRetrofitBuilder.baseUrl(RequestParams.requestBaseUrl);
+        mRetrofitBuilder.baseUrl("http://10.33.10.28:8080");
         mRetrofitBuilder.client(mOkHttpClient);
         mRetrofitBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         mRetrofitBuilder.addConverterFactory(ScalarsConverterFactory.create());

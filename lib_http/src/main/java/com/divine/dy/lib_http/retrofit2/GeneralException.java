@@ -20,6 +20,8 @@ public class GeneralException extends RuntimeException {
                 this.ErrorMessage = errorObj.optString("msg");
             } else if (errorObj.has("message")) {
                 this.ErrorMessage = errorObj.optString("message");
+            }else if (errorObj.has("error")) {
+                this.ErrorMessage = errorObj.optString("error");
             } else {
                 this.ErrorMessage = ErrorMessage;
             }

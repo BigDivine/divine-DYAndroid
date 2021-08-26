@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.divine.dy.lib_base.arouter.ARouterManager;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
@@ -14,7 +17,8 @@ import java.util.List;
 
 import androidx.viewpager2.widget.ViewPager2;
 
-public abstract class SplashActivity extends BaseActivity implements OnSplashItemClickListener, View.OnClickListener {
+@Route(path = ARouterManager.ROUTER_SPLASH_MAIN)
+public class SplashActivity extends BaseActivity implements OnSplashItemClickListener, View.OnClickListener {
     //wait time
     private Handler mHandler = new Handler();
     private int count = 3;
@@ -107,15 +111,23 @@ public abstract class SplashActivity extends BaseActivity implements OnSplashIte
         }
     }
 
-    public abstract void toLogin();
 
-    public abstract void toMain();
+    public void toLogin() {
+        ARouter.getInstance().build(ARouterManager.ROUTER_LOGIN_MAIN).navigation(this);
+        this.finish();
+    }
+
+    public void toMain() {
+        ARouter.getInstance().build(ARouterManager.ROUTER_MAIN_MAIN).navigation(this);
+        this.finish();
+    }
 
     private ViewPager2 vpSplashGuideImages;
     private ImageView ivSplashImage;
     private Button btSplashTimer;
 
     public void findView() {
+        ARouter.getInstance().inject(this);
         vpSplashGuideImages = findViewById(R.id.splash_guide_images);
         ivSplashImage = findViewById(R.id.splash_image);
         btSplashTimer = findViewById(R.id.splash_timer);
