@@ -24,17 +24,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
 dependencies {
-    api AndroidX.Core
-    api AndroidX.AppCompat
-    api AndroidX.ConstraintLayout
-    api AndroidX.RecyclerView
-    api AndroidX.ViewPager
-    api AndroidX.SwipeRefreshLayout
-
-    api GoogleAndroid.Material
-
-    api Glide.Glide
-    api Facebook.Fresco
-    api Gson.Gson
+    implementation project(":lib_base")
+    implementation project(":lib_source")
+    implementation project(":lib_utils")
+    implementation project(":lib_widget")
 }

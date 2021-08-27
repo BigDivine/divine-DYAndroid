@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/system_background_color"
     tools:context=".home.RadioPager2FragmentActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/radio_pager2_view_pager2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
+        android:layout_marginBottom="@dimen/dp_2"
         app:layout_constraintBottom_toTopOf="@id/radio_pager2_radio_group"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,6 +22,8 @@
         android:id="@+id/radio_pager2_radio_group"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
+        android:background="@color/white"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -29,20 +33,20 @@
         <RadioButton
             android:id="@+id/radio_pager2_radio_button_home"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:drawableTop="@mipmap/ic_main_home"
             android:gravity="center"
-            android:drawableTop="@mipmap/ic_launcher"
             android:text="首页"></RadioButton>
 
         <RadioButton
             android:id="@+id/radio_pager2_radio_button_user"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
+            android:drawableTop="@mipmap/ic_main_user"
             android:gravity="center"
             android:text="个人中心"></RadioButton>
     </RadioGroup>

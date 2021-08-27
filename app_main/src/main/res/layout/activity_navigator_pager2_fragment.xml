@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/system_background_color"
     tools:context=".home.NavigatorPager2FragmentActivity">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -20,6 +21,9 @@
         android:id="@+id/navigator_pager2_bottom_navigator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
+        android:background="@color/white"
+        app:itemIconTint="@drawable/selector_navigator_bottom"
+        app:itemTextColor="@drawable/selector_navigator_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

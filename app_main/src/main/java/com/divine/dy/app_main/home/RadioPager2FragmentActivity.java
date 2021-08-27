@@ -1,12 +1,13 @@
 package com.divine.dy.app_main.home;
 
+import android.content.Intent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.app_main.R;
-import com.divine.dy.app_main.fragment.HomeFragment;
-import com.divine.dy.app_main.fragment.UserFragment;
+import com.divine.dy.app_main.common.FragmentManagerForMain;
+import com.divine.dy.app_main.common.RadioGroupCommon;
+import com.divine.dy.lib_base.base.BaseActivity;
 
 import java.util.ArrayList;
 
@@ -16,8 +17,13 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class RadioPager2FragmentActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+    private static final String TAG = "DY-RP2Activity";
 
-    @Override
+    private ArrayList<Fragment> fragments;
+    private FragmentManagerForMain fmForMain;
+    private RadioGroupCommon rgCommon;
+
+     @Override
     public int getContentViewId() {
         return R.layout.activity_radio_pager2_fragment;
     }
@@ -29,44 +35,51 @@ public class RadioPager2FragmentActivity extends BaseActivity implements RadioGr
 
     @Override
     public void initView() {
+        getIntentData();
         findView();
+        setListener();
+        fmForMain = new FragmentManagerForMain(this);
+        fragments = fmForMain.getFragments();
+        rgCommon = new RadioGroupCommon(this, rgRadioPager2);
+
         FragmentManager mFragmentManager = getSupportFragmentManager();
         Lifecycle mLifeCycle = getLifecycle();
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        HomeFragment mHomeFragment = new HomeFragment();
-        UserFragment mUserFragment = new UserFragment();
-        fragments.add(mHomeFragment);
-        fragments.add(mUserFragment);
         // FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT fragment懒加载
         ViewPager2Adapter mViewPager2Adapter = new ViewPager2Adapter(mFragmentManager, mLifeCycle, fragments);
-        RadioPager2ViewPager2.setAdapter(mViewPager2Adapter);
+        vp2RadioPager2.setAdapter(mViewPager2Adapter);
+        vp2RadioPager2.setCurrentItem(0);
+        rgCommon.setDrawable(R.id.radio_pager2_radio_button_home);
+    }
 
-        RadioPager2ViewPager2.setCurrentItem(0);
+    private ViewPager2 vp2RadioPager2;
+    private RadioGroup rgRadioPager2;
+    private void getIntentData() {
+        Intent intent = getIntent();
+     }
+    private void findView() {
+        vp2RadioPager2 = findViewById(R.id.radio_pager2_view_pager2);
+        rgRadioPager2 = findViewById(R.id.radio_pager2_radio_group);
+    }
 
-        RadioPager2RadioGroup.setOnCheckedChangeListener(this);
-        RadioPager2ViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+    private void setListener() {
+        rgRadioPager2.setOnCheckedChangeListener(this);
+        vp2RadioPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                RadioButton rbCheck = (RadioButton) RadioPager2RadioGroup.getChildAt(position);
+                RadioButton rbCheck = (RadioButton) rgRadioPager2.getChildAt(position);
                 rbCheck.setChecked(true);
+                rgCommon.setDrawable(rbCheck.getId());
             }
         });
     }
 
-    private ViewPager2 RadioPager2ViewPager2;
-    private RadioGroup RadioPager2RadioGroup;
-
-    private void findView() {
-        RadioPager2ViewPager2 = findViewById(R.id.radio_pager2_view_pager2);
-        RadioPager2RadioGroup = findViewById(R.id.radio_pager2_radio_group);
-    }
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        rgCommon.setDrawable(checkedId);
         if (checkedId == R.id.radio_pager2_radio_button_home) {
-            RadioPager2ViewPager2.setCurrentItem(0);
+            vp2RadioPager2.setCurrentItem(0);
         } else if (checkedId == R.id.radio_pager2_radio_button_user) {
-            RadioPager2ViewPager2.setCurrentItem(1);
+            vp2RadioPager2.setCurrentItem(1);
         }
     }
 }

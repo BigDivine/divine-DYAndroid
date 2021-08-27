@@ -1,7 +1,9 @@
 package com.divine.dy.app_main.home;
 
+import android.content.Intent;
 import android.view.MenuItem;
 
+import com.divine.dy.app_main.common.FragmentManagerForMain;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.app_main.R;
 import com.divine.dy.app_main.fragment.HomeFragment;
@@ -17,8 +19,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 public class NavigatorPagerFragmentActivity extends BaseActivity implements ViewPager.OnPageChangeListener, BottomNavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = "DY-NPActivity";
 
-    @Override
+    private ArrayList<Fragment> fragments;
+    private FragmentManagerForMain fmForMain;
+
+     @Override
     public int getContentViewId() {
         return R.layout.activity_navigator_pager_fragment;
     }
@@ -30,29 +36,32 @@ public class NavigatorPagerFragmentActivity extends BaseActivity implements View
 
     @Override
     public void initView() {
+        getIntentData();
         findView();
+        setListener();
+        fmForMain = new FragmentManagerForMain(this);
+        fragments = fmForMain.getFragments();
+
         FragmentManager mFragmentManager = getSupportFragmentManager();
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        HomeFragment mHomeFragment = new HomeFragment();
-        UserFragment mUserFragment = new UserFragment();
-        fragments.add(mHomeFragment);
-        fragments.add(mUserFragment);
         // FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT fragment懒加载
         ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(mFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragments);
-        NavigatorPagerViewPager.setAdapter(mViewPagerAdapter);
-
-        NavigatorPagerViewPager.setCurrentItem(0);
-
-        NavigatorPagerBottomNavigationView.setOnNavigationItemSelectedListener(this);
-        NavigatorPagerViewPager.addOnPageChangeListener(this);
+        vpNavigatorPager.setAdapter(mViewPagerAdapter);
+        vpNavigatorPager.setCurrentItem(0);
     }
 
-    private ViewPager NavigatorPagerViewPager;
-    private BottomNavigationView NavigatorPagerBottomNavigationView;
-
+    private ViewPager vpNavigatorPager;
+    private BottomNavigationView bnvNavigatorPager;
+    private void getIntentData() {
+        Intent intent = getIntent();
+     }
     private void findView() {
-        NavigatorPagerViewPager = findViewById(R.id.navigator_pager_view_pager);
-        NavigatorPagerBottomNavigationView = findViewById(R.id.navigator_pager_bottom_navigator);
+        vpNavigatorPager = findViewById(R.id.navigator_pager_view_pager);
+        bnvNavigatorPager = findViewById(R.id.navigator_pager_bottom_navigator);
+    }
+
+    private void setListener() {
+        bnvNavigatorPager.setOnNavigationItemSelectedListener(this);
+        vpNavigatorPager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -62,7 +71,7 @@ public class NavigatorPagerFragmentActivity extends BaseActivity implements View
 
     @Override
     public void onPageSelected(int position) {
-        MenuItem miCheck = NavigatorPagerBottomNavigationView.getMenu().getItem(position);
+        MenuItem miCheck = bnvNavigatorPager.getMenu().getItem(position);
         miCheck.setChecked(true);
     }
 
@@ -75,11 +84,10 @@ public class NavigatorPagerFragmentActivity extends BaseActivity implements View
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int viewId = item.getItemId();
         if (viewId == R.id.bottom_menu_home) {
-            NavigatorPagerViewPager.setCurrentItem(0);
+            vpNavigatorPager.setCurrentItem(0);
         } else if (viewId == R.id.bottom_menu_user) {
-            NavigatorPagerViewPager.setCurrentItem(1);
+            vpNavigatorPager.setCurrentItem(1);
         }
-
         return true;
     }
 }

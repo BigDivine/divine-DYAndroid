@@ -1,24 +1,20 @@
 package com.divine.dy.app_main.fragment;
 
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.divine.dy.app_main.R;
 import com.divine.dy.lib_base.base.BaseFragment;
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
         findView(view);
         setListener();
-        headerTitle.setText(getTitle());
     }
 
     @Override
     protected void getData() {
-
     }
 
     @Override
@@ -31,23 +27,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         return "首页";
     }
 
-    private TextView headerTitle;
-    private ImageButton headerBack;
+    @Override
+    public int getIconResId() {
+        return R.mipmap.ic_main_home;
+    }
 
     private void findView(View view) {
-        headerTitle = view.findViewById(R.id.HomeLayoutHeaderTitle);
-        headerBack = view.findViewById(R.id.HomeLayoutHeaderBack);
     }
 
     private void setListener() {
-        headerBack.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        int viewId = v.getId();
-        if (viewId == R.id.HomeLayoutHeaderBack) {
-            getActivity().finish();
-        }
     }
 }

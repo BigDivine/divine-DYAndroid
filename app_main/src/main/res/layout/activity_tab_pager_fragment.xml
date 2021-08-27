@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/system_background_color"
     tools:context=".home.TabPagerFragmentActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/tab_pager_view_pager"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
+        android:layout_marginBottom="@dimen/dp_2"
         app:layout_constraintBottom_toTopOf="@id/tab_pager_tab_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,12 +22,11 @@
         android:id="@+id/tab_pager_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tab_pager_view_pager"
-        app:tabBackground="@drawable/shape_gradient_blue_blue"
-        app:tabIndicator="@null"
-        app:tabSelectedTextColor="@color/back_blue"
-        app:tabTextColor="@color/white"></com.google.android.material.tabs.TabLayout>
+        app:tabBackground="@color/white"
+        app:tabIndicator="@null"></com.google.android.material.tabs.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

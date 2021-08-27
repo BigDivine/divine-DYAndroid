@@ -32,7 +32,8 @@ public abstract class BaseFragment extends Fragment {
     public abstract int getContentView();
     // fragment title
     public abstract String getTitle();
-
+    // fragment icon
+    public abstract int getIconResId();
     @Override
     public void onAttach(Context context) {
         Log.e(TAG, "onAttach");

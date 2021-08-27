@@ -6,11 +6,12 @@ package com.divine.dy.lib_source;
  * Describe:
  */
 public class SPKeys {
-    public static String SP_KEY_USER_NAME = "sp_user_name";
-    public static String SP_KEY_USER_PASS = "sp_user_pass";
-    public static String SP_KEY_SERVER = "sp_server";
+    public static final String SP_KEY_APP_TYPE = "sp_app_type";
+    public static final String SP_KEY_USER_NAME = "sp_user_name";
+    public static final String SP_KEY_USER_PASS = "sp_user_pass";
+    public static final String SP_KEY_SERVER = "sp_server";
 
-    public static String SP_KEY_IS_LOGIN = "sp_is_login";
-    public static String SP_KEY_IS_FIRST_START = "sp_is_first_start";
+    public static final String SP_KEY_IS_LOGIN = "sp_is_login";
+    public static final String SP_KEY_IS_FIRST_START = "sp_is_first_start";
 
 }

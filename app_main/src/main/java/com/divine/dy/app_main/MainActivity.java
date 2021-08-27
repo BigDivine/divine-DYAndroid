@@ -2,7 +2,8 @@ package com.divine.dy.app_main;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.Spinner;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -15,14 +16,16 @@ import com.divine.dy.app_main.home.TabPagerFragmentActivity;
 import com.divine.dy.lib_base.arouter.ARouterManager;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_base.base.BaseToolbar;
-import com.divine.dy.lib_base.base.ToolbarClickListener;
 import com.divine.dy.lib_base.getpermission.PermissionList;
 import com.divine.dy.lib_log.LocalLogcat;
+import com.divine.dy.lib_source.SPKeys;
+import com.divine.dy.lib_utils.sys.SPUtils;
 
 @Route(path = ARouterManager.ROUTER_MAIN_MAIN)
-public class MainActivity extends BaseActivity implements View.OnClickListener, ToolbarClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "DY-Main";
     private LocalLogcat mLogcat;
+    private int mainViewType, mainMainType;
 
     @Override
     public int getContentViewId() {
@@ -32,11 +35,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public boolean showToolbar() {
         BaseToolbar toolbar = getBaseToolbar();
+        toolbar.setTitle("选择首页类型");
         toolbar.setLeftVisible(false);
-        toolbar.setRightVisible(true);
-        toolbar.setTitle("DYAndroid");
-        toolbar.setRightText("退出登录");
-        toolbar.setToolbarClickListener(this);
+        toolbar.setRightVisible(false);
         return true;
     }
 
@@ -63,66 +64,54 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mLogcat.stop();
     }
 
-    private TextView tvTabPagerFragment, tvTabPager2Fragment, tvRadioPagerFragment, tvRadioPager2Fragment, tvNavigatorPagerFragment, tvNavigatorPager2Fragment, tvWaterMarkTextView;
+    private Spinner sSelectViewType, sSelectMainType;
+    private Button btMainSubmit;
 
     private void findView() {
         ARouter.getInstance().inject(this);
-        tvTabPagerFragment = findViewById(R.id.TabPagerFragment);
-        tvTabPager2Fragment = findViewById(R.id.TabPager2Fragment);
-        tvRadioPagerFragment = findViewById(R.id.RadioPagerFragment);
-        tvRadioPager2Fragment = findViewById(R.id.RadioPager2Fragment);
-        tvNavigatorPagerFragment = findViewById(R.id.NavigatorPagerFragment);
-        tvNavigatorPager2Fragment = findViewById(R.id.NavigatorPager2Fragment);
-        tvWaterMarkTextView = findViewById(R.id.WaterMarkTextView);
+        sSelectViewType = findViewById(R.id.main_select_view_type);
+        sSelectMainType = findViewById(R.id.main_select_main_type);
+        btMainSubmit = findViewById(R.id.main_submit);
     }
 
     private void setListener() {
-        tvTabPagerFragment.setOnClickListener(this);
-        tvTabPager2Fragment.setOnClickListener(this);
-        tvRadioPagerFragment.setOnClickListener(this);
-        tvRadioPager2Fragment.setOnClickListener(this);
-        tvNavigatorPagerFragment.setOnClickListener(this);
-        tvNavigatorPager2Fragment.setOnClickListener(this);
-        tvWaterMarkTextView.setOnClickListener(this);
+        btMainSubmit.setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v) {
-        int viewId = v.getId();
-        if (viewId == R.id.TabPagerFragment) {
-            startActivity(new Intent(this, TabPagerFragmentActivity.class));
-        } else if (viewId == R.id.TabPager2Fragment) {
-            startActivity(new Intent(this, TabPager2FragmentActivity.class));
-        } else if (viewId == R.id.RadioPagerFragment) {
-            startActivity(new Intent(this, RadioPagerFragmentActivity.class));
-        } else if (viewId == R.id.RadioPager2Fragment) {
-            startActivity(new Intent(this, RadioPager2FragmentActivity.class));
-        } else if (viewId == R.id.NavigatorPagerFragment) {
-            startActivity(new Intent(this, NavigatorPagerFragmentActivity.class));
-        } else if (viewId == R.id.NavigatorPager2Fragment) {
-            startActivity(new Intent(this, NavigatorPager2FragmentActivity.class));
-        } else if (viewId == R.id.WaterMarkTextView) {
-            toWaterMarkTextView();
+    public void onClick(View view) {
+        int viewId = view.getId();
+        if (viewId == R.id.main_submit) {
+            mainViewType = sSelectViewType.getSelectedItemPosition();
+            mainMainType = sSelectMainType.getSelectedItemPosition();
+            toMainPage();
         }
-
     }
 
-    public void toWaterMarkTextView() {
-        ARouter.getInstance().build(ARouterManager.ROUTER_VIEW_WATERMARK).navigation();
-    }
+    private void toMainPage() {
+        Intent intent = new Intent();
+        SPUtils.getInstance(this).put(SPKeys.SP_KEY_APP_TYPE, mainMainType);
+        switch (mainViewType) {
+            case 0:
+                intent.setClass(this, TabPagerFragmentActivity.class);
+                break;
+            case 1:
+                intent.setClass(this, TabPager2FragmentActivity.class);
+                break;
+            case 2:
+                intent.setClass(this, RadioPagerFragmentActivity.class);
+                break;
+            case 3:
+                intent.setClass(this, RadioPager2FragmentActivity.class);
+                break;
+            case 4:
+                intent.setClass(this, NavigatorPagerFragmentActivity.class);
+                break;
+            case 5:
+                intent.setClass(this, NavigatorPager2FragmentActivity.class);
+                break;
+        }
+        startActivity(intent);
 
-    @Override
-    public void leftClick() {
-
-    }
-
-    @Override
-    public void centerClick() {
-
-    }
-
-    @Override
-    public void rightClick() {
-        //        toLogin();
     }
 }

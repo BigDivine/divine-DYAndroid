@@ -164,13 +164,6 @@ public class BaseToolbar {
         menuText.setVisibility(View.GONE);
         menuImg.setVisibility(View.VISIBLE);
         menuImg.setImageResource(rightDrawable);
-        //        menuImg.setOnClickListener(new View.OnClickListener() {
-        //            @Override
-        //            public void onClick(View v) {
-        //                if (null != listener)
-        //                    listener.rightClick();
-        //            }
-        //        });
         this.rightDrawable = rightDrawable;
     }
 

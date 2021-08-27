@@ -56,7 +56,7 @@ public class LoginFunction implements LoginView {
             loginMessage.what = mActivity.HIDDEN_DIALOG_WHAT;
             loginMessage.arg1 = mActivity.LOGIN_SUCCESS;
             mActivity.mHandler.dispatchMessage(loginMessage);
-        }, 3000);
+        }, 1000);
     }
 
     public void userLogin(String userName, String userPass) {

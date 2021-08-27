@@ -59,7 +59,7 @@
             android:paddingRight="10dp"
             android:paddingBottom="20dp"
             android:src="@mipmap/ic_more_line_white"
-            android:visibility="gone" />
+        />
 
         <Button
             android:id="@+id/action_bar_menu_text"
