@@ -6,7 +6,7 @@ import com.divine.dy.app_main.fragment.HomeFragment;
 import com.divine.dy.app_main.fragment.UserFragment;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
-import com.divine.dy.module_home.ShopHomeFragment;
+import com.divine.dy.module_home.shop.ShopHomeFragment;
 
 import java.util.ArrayList;
 

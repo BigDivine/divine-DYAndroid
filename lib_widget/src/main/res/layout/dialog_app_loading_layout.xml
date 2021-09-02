@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/dp_10"
-    android:background="@drawable/round_white_back">
+    android:background="@drawable/shape_white_corner_5dp">
 
     <com.divine.dy.lib_widget.widget.AppLoadingView
         android:id="@+id/progress_app"

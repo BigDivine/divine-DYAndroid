@@ -1,11 +1,14 @@
 package com.divine.dy.app_login;
 
 import android.content.Intent;
+import android.graphics.PointF;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -29,7 +32,8 @@ import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
 import com.divine.dy.lib_widget.widget.DialogUtils;
 import com.divine.dy.lib_widget.widget.EditTextWithLRIcon;
-import com.divine.dy.lib_widget.widget.RandomVerificationCodeView;
+import com.divine.dy.lib_widget.widget.WaterMarkView;
+import com.divine.dy.lib_widget.widget.old.RandomVerificationCodeView;
 import com.divine.dy.lib_widget.widget.ToastUtils;
 import com.divine.dy.lib_widget.widget.WaveView;
 
@@ -648,5 +652,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             }
         });
         foldView.startAnimation(animationFold);
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        //可在该方法中增加水印等
+        ViewGroup parent = (ViewGroup) getWindow().getDecorView();
+        WaterMarkView wmv = new WaterMarkView(this, null);
+        wmv.setTouchPoint(new PointF(event.getX(), event.getY()));
+        parent.addView(wmv);
+        return super.dispatchTouchEvent(event);
     }
 }

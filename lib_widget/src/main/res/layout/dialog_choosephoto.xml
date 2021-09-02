@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/round_white_back"
+        android:background="@drawable/shape_white_corner_5dp"
         android:orientation="vertical">
 
         <TextView
@@ -43,7 +43,7 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_8"
         android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/round_white_back"
+        android:background="@drawable/shape_white_corner_5dp"
         android:gravity="center"
         android:text="取消"
         android:textColor="@color/blue_text_color"

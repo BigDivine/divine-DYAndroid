@@ -80,7 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Log.e(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-//                ARouter.getInstance().inject(this);
+        //                ARouter.getInstance().inject(this);
 
         setContentView(getContentViewId());
         Window window = getWindow();
@@ -180,14 +180,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                 initView();
             } else {
                 // 获取未授权的权限
-                //                String[] deniedPermissions = PermissionUtil.getDeniedPermissions(this,
-                //                                                                                 requestPermissions);
-                //                if (deniedPermissions != null && deniedPermissions.length > 0) {
-                //                    // 弹框请求权限
-                //                    PermissionUtil.requestPermissions(this,
-                //                                                      requestPermissions,
-                //                                                      AppConstants.REQUEST_CODE_PERMISSION);}
-                //                //权限有缺失
+//                String[] deniedPermissions = PermissionUtil.getDeniedPermissions(this, requestPermissions);
+//                if (deniedPermissions != null && deniedPermissions.length > 0) {
+//                    // 弹框请求权限
+//                    PermissionUtil.requestPermissions(this, requestPermissions, AppConstants.REQUEST_CODE_PERMISSION);
+//                }
+                //权限有缺失
                 new AlertDialog.Builder(this)
                         .setMessage("跳转到设置页面允许权限，否则无法正常使用。")
                         .setTitle("授权提示")
@@ -209,16 +207,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        //可在该方法中增加水印等
-        ViewGroup parent = (ViewGroup) getWindow().getDecorView();
-        WaterMarkView wmv = new WaterMarkView(this, null);
-        wmv.setTouchPoint(new PointF(event.getX(), event.getY()));
-        parent.addView(wmv);
-        return super.dispatchTouchEvent(event);
     }
 
     @Override

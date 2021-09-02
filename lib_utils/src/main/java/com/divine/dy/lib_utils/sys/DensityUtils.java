@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.WindowManager;
 
 /**
  * Author: Divine
@@ -32,8 +33,8 @@ public class DensityUtils {
      * @return 像素值
      */
     public static int dip2px(float dipValue, Context context) {
-//        float scale = getDensity(context);
-          float scale = context.getResources().getDisplayMetrics().density;
+        //        float scale = getDensity(context);
+        float scale = context.getResources().getDisplayMetrics().density;
 
         return (int) (dipValue * scale + 0.5f);
     }
@@ -88,7 +89,7 @@ public class DensityUtils {
     /**
      * 获取屏幕宽
      *
-     * @param activity 上下文用于获取windowManager
+     * @param activity 用于获取windowManager
      * @return 手机屏幕的宽度
      */
     public static int getScreenWidth(Activity activity) {
@@ -96,6 +97,21 @@ public class DensityUtils {
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
     }
+
+    /**
+     * 获取屏幕宽
+     *
+     * @param context 用于获取windowManager
+     * @return 手机屏幕的宽度
+     */
+    public static int getScreenWidth(Context context) {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.widthPixels;
+    }
+
     public static int dp2px(Context context, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                                                context.getResources().getDisplayMetrics());
