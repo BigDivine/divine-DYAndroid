@@ -112,6 +112,20 @@ public class DensityUtils {
         return outMetrics.widthPixels;
     }
 
+    /**
+     * 获取屏幕高
+     *
+     * @param context 上下文用于获取windowManager
+     * @return 手机屏幕的高度
+     */
+    public static int getScreenHeight(Context context) {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.heightPixels;
+    }
+
     public static int dp2px(Context context, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                                                context.getResources().getDisplayMetrics());

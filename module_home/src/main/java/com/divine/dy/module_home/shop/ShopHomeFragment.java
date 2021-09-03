@@ -24,7 +24,7 @@ import androidx.viewpager.widget.ViewPager;
  * Describe:
  */
 public class ShopHomeFragment extends BaseFragment {
-    private SwipeRefreshLayout srlShopHomeSwipeLayout;
+//    private SwipeRefreshLayout srlShopHomeSwipeLayout;
     private TabLayout tlShopHomeTop;
     private ImageButton ibtShopHomeScan, ibtShopHomeCamera;
     private Button btShopHomeSearch;
@@ -35,7 +35,7 @@ public class ShopHomeFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
-        srlShopHomeSwipeLayout = view.findViewById(R.id.shop_home_swipe_layout);
+//        srlShopHomeSwipeLayout = view.findViewById(R.id.shop_home_swipe_layout);
         tlShopHomeTop = view.findViewById(R.id.shop_home_top_tab);
         ibtShopHomeScan = view.findViewById(R.id.shop_home_scan);
         ibtShopHomeCamera = view.findViewById(R.id.shop_home_camera);

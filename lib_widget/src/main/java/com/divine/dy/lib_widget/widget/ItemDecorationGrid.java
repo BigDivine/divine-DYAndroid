@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -29,20 +28,30 @@ public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        outRect.left = width;
-        outRect.top = width;
-        //        outRect.right = width ;
-        //        outRect.bottom = width ;
-        int childCount = parent.getAdapter().getItemCount();
+        outRect.left = width / 2;
+        outRect.top = width / 2;
+        outRect.right = width / 2;
+        outRect.bottom = width / 2;
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         int position = parent.getChildAdapterPosition(view);
         int orientation = getOrientation(parent);
         int spanCount = getSpanCount(parent);//列数,如果是水平滚动，就是代表行数
-        int lastSpanCount = getLastSpanCount(parent);
         if (orientation == RecyclerView.VERTICAL) {
-            setVerticalOffsets(outRect, childCount, position, spanCount, lastSpanCount);
+            if (!showCellLine) {
+                outRect.left = 0;
+                outRect.right = 0;
+            }
+            if (layoutManager instanceof StaggeredGridLayoutManager) {
+                setVerticalOffsetsStaggered(outRect, view, position, spanCount);
+            } else if (layoutManager instanceof GridLayoutManager) {
+                setVerticalOffsetsGrid(outRect, position, spanCount);
+            }
         } else if (orientation == RecyclerView.HORIZONTAL) {
-            setHorizontalOffsets(outRect, childCount, position, spanCount, lastSpanCount);
+            if (!showCellLine) {
+                outRect.top = 0;
+                outRect.bottom = 0;
+            }
+            setHorizontalOffsets(outRect, position, spanCount);
         }
     }
 
@@ -57,25 +66,45 @@ public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
         int childCount = parent.getChildCount();
         int orientation = getOrientation(parent);
         int spanCount = getSpanCount(parent);//列数,如果是水平滚动，就是代表行数
-        int lastSpanCount = getLastSpanCount(parent);
         if (spanCount != -1) {
             for (int i = 0; i < childCount; i++) {
                 View child = parent.getChildAt(i);
                 if (orientation == RecyclerView.VERTICAL) {
-                    drawVerticalLine(c, child, mPaint, i, childCount, spanCount, lastSpanCount);
+                    drawVerticalLine(c, child, mPaint, i, spanCount);
                 } else if (orientation == RecyclerView.HORIZONTAL) {
-                    drawHorizontalLine(c, child, mPaint, i, childCount, spanCount, lastSpanCount);
+                    drawHorizontalLine(c, child, mPaint, i, spanCount);
                 }
             }
         }
     }
 
-    private void setVerticalOffsets(Rect outRect, int childCount, int position, int spanCount, int lastSpanCount) {
-        Log.e("yzl", position + "");
-        if (!showCellLine) {
-            //            outRect.right = 0;
-            outRect.left = 0;
+    private void setVerticalOffsetsStaggered(Rect outRect, View view, int position, int spanCount) {
+        if (position < spanCount) {
+            if (position == 0) {
+                outRect.left = 0;
+            }
+            if (position == spanCount - 1) {
+                outRect.right = 0;
+            }
+            outRect.top = 0;
+        } else {
+            if (view != null) {
+                StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
+                int i = layoutParams.getSpanIndex();
+                int spanOver = i % spanCount;
+                if (spanOver == 0) {
+                    //第一列
+                    outRect.left = 0;
+                }
+                if (spanOver == spanCount - 1) {
+                    //最后一列
+                    outRect.right = 0;
+                }
+            }
         }
+    }
+
+    private void setVerticalOffsetsGrid(Rect outRect, int position, int spanCount) {
         int spanOver = position % spanCount;
         if (position < spanCount) {
             //第一行
@@ -85,21 +114,9 @@ public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
             //第一列
             outRect.left = 0;
         }
-        //        if (position >= childCount - lastSpanCount) {
-        //            //最后一行
-        //            outRect.bottom = 0;
-        //        }
-        //        if (spanOver == spanCount - 1) {
-        //            //最后一列
-        //            outRect.right = 0;
-        //        }
     }
 
-    private void setHorizontalOffsets(Rect outRect, int childCount, int position, int spanCount, int lastSpanCount) {
-        if (!showCellLine) {
-            outRect.top = 0;
-            //            outRect.bottom = 0;
-        }
+    private void setHorizontalOffsets(Rect outRect, int position, int spanCount) {
         int spanOver = position % spanCount;
         if (spanOver == 0) {
             //第一行
@@ -109,17 +126,9 @@ public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
             //第一列
             outRect.left = 0;
         }
-        //        if (spanOver == spanCount - 1) {
-        //            //最后一行
-        //            outRect.bottom = 0;
-        //        }
-        //        if (position >= childCount - spanOver) {
-        //            //最后一列
-        //            outRect.right = 0;
-        //        }
     }
 
-    private void drawHorizontalLine(Canvas c, View child, Paint mPaint, int position, int childCount, int spanCount, int lastSpanCount) {
+    private void drawHorizontalLine(Canvas c, View child, Paint mPaint, int position, int spanCount) {
         if (position >= spanCount) {
             //不是第一列
             //画竖线
@@ -132,11 +141,10 @@ public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
         }
     }
 
-    private void drawVerticalLine(Canvas c, View child, Paint mPaint, int position, int childCount, int spanCount, int lastSpanCount) {
+    private void drawVerticalLine(Canvas c, View child, Paint mPaint, int position, int spanCount) {
         if (position >= spanCount) {
             //不是第一行
             //画横线
-
             c.drawRect(child.getLeft(), child.getTop(), child.getRight(), child.getTop() - width, mPaint);
         }
         if (showCellLine && position % spanCount != 0) {
@@ -170,16 +178,6 @@ public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
             orientation = staggeredGridLayoutManager.getOrientation();
         }
         return orientation;
-    }
-
-    private int getLastSpanCount(RecyclerView parent) {
-        int childCount = parent.getAdapter().getItemCount();
-        int spanCount = getSpanCount(parent);//列数,如果是水平滚动，就是代表行数
-        int lastSpanCount = childCount % spanCount;
-        if (lastSpanCount == 0) {
-            lastSpanCount = spanCount;
-        }
-        return lastSpanCount;
     }
 
     /**

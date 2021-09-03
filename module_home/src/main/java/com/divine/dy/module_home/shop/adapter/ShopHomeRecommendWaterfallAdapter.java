@@ -44,8 +44,7 @@ public class ShopHomeRecommendWaterfallAdapter extends RecyclerView.Adapter<Shop
 
     @Override
     public void onBindViewHolder(@NonNull ShopHomeRecommendWaterfallViewHolder holder, int position) {
-        ShopHomeRecommendWaterfallBean bean = data.get(position);
-        Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_album_white);
+         Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_album_white);
         if (position % 2 == 0) {
             bmp = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
         }
