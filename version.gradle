@@ -1,0 +1,6 @@
+ext {
+    LibUtilsVersion = [
+            VersionName: '1.0.0',
+            VersionCode: 1,
+    ]
+}

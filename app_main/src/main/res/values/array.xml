@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="main_view_type">
+        <item>TabLayout+ViewPager+Fragment</item>
+        <item>TabLayout+ViewPager2+Fragment</item>
+        <item>RadioGroup+ViewPager+Fragment</item>
+        <item>RadioGroup+ViewPager2+Fragment</item>
+        <item>BottomNavigationView+ViewPager+Fragment</item>
+        <item>BottomNavigationView+ViewPager2+Fragment</item>
+    </array>
+    <array name="main_main_type">
+        <item>购物应用</item>
+        <item>资讯应用</item>
+        <item>音乐应用</item>
+        <item>地图应用</item>
+        <item>控件浏览</item>
+    </array>
+</resources>

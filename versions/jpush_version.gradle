@@ -1,0 +1,17 @@
+ext {
+    JPushVersions = [
+            JCoreVersion    : "2.7.6",
+            JPushVersion    : "4.0.6",
+            HuaweiHmsVersion: "5.0.2.300",
+    ]
+    JPush = [
+            JCore       : "cn.jiguang.sdk:jcore:${JPushVersions.JCoreVersion}",
+            JPush       : "cn.jiguang.sdk:jpush:${JPushVersions.JPushVersion}",
+            HuaweiPlugin: "cn.jiguang.sdk.plugin:huawei:${JPushVersions.JPushVersion}",
+            HuaweiHms   : "com.huawei.hms:push:${JPushVersions.HuaweiHmsVersion}",
+            XiaomiPlugin: "cn.jiguang.sdk.plugin:xiaomi:${JPushVersions.JPushVersion}",
+            VivoPlugin  : "cn.jiguang.sdk.plugin:vivo:${JPushVersions.JPushVersion}",
+//            MeizuPlugin : "cn.jiguang.sdk.plugin:meizu:${JPushVersions.JPushVersion}",
+            OppoPlugin  : "cn.jiguang.sdk.plugin:oppo:${JPushVersions.JPushVersion}",
+    ]
+}

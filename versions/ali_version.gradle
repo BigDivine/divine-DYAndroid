@@ -1,0 +1,9 @@
+ext {
+    AliVersions = [
+            ARouterVersion: "1.5.2",
+    ]
+    Ali = [
+            RouterCompiler: "com.alibaba:arouter-compiler:${AliVersions.ARouterVersion}",
+            Router        : "com.alibaba:arouter-api:${AliVersions.ARouterVersion}"
+    ]
+}
