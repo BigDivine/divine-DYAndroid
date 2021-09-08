@@ -80,7 +80,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Log.e(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        //                ARouter.getInstance().inject(this);
 
         setContentView(getContentViewId());
         Window window = getWindow();
@@ -106,13 +105,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         requestPermissions = requestPermissions();
         // 获取未授权的权限
-        String[] deniedPermissions = PermissionUtil.getDeniedPermissions(this,
-                                                                         requestPermissions);
+        String[] deniedPermissions = PermissionUtil.getDeniedPermissions(this, requestPermissions);
         if (deniedPermissions != null && deniedPermissions.length > 0) {
             // 弹框请求权限
-            PermissionUtil.requestPermissions(this,
-                                              requestPermissions,
-                                              AppConstants.REQUEST_CODE_PERMISSION);
+            PermissionUtil.requestPermissions(this, requestPermissions, AppConstants.REQUEST_CODE_PERMISSION);
         } else {
             initView();
         }
@@ -180,11 +176,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 initView();
             } else {
                 // 获取未授权的权限
-//                String[] deniedPermissions = PermissionUtil.getDeniedPermissions(this, requestPermissions);
-//                if (deniedPermissions != null && deniedPermissions.length > 0) {
-//                    // 弹框请求权限
-//                    PermissionUtil.requestPermissions(this, requestPermissions, AppConstants.REQUEST_CODE_PERMISSION);
-//                }
+                //                String[] deniedPermissions = PermissionUtil.getDeniedPermissions(this, requestPermissions);
+                //                if (deniedPermissions != null && deniedPermissions.length > 0) {
+                //                    // 弹框请求权限
+                //                    PermissionUtil.requestPermissions(this, requestPermissions, AppConstants.REQUEST_CODE_PERMISSION);
+                //                }
                 //权限有缺失
                 new AlertDialog.Builder(this)
                         .setMessage("跳转到设置页面允许权限，否则无法正常使用。")

@@ -7,8 +7,11 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.divine.dy.lib_base.AppBase;
 import com.divine.dy.lib_base.arouter.ARouterManager;
 import com.divine.dy.lib_base.base.BaseActivity;
+import com.divine.dy.lib_base.getpermission.PermissionList;
+import com.divine.dy.lib_log.LocalLogcat;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
 
@@ -24,6 +27,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     private int count = 3;
     private boolean isJumpToNext;
     protected SPUtils mSPUtils;
+    private LocalLogcat mLogcat;
 
     private Runnable mTimer = new Runnable() {
         @Override
@@ -58,6 +62,8 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
 
     @Override
     public void initView() {
+        mLogcat = LocalLogcat.getInstance(this, AppBase.appDir);
+        mLogcat.start();
         findView();
         boolean fistStart = (boolean) SPUtils.getInstance(this).get(SPKeys.SP_KEY_IS_FIRST_START, true);
         if (!fistStart) {
@@ -90,6 +96,20 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
         int viewId = v.getId();
         if (viewId == R.id.splash_timer) {
             toNextPage();
+        }
+    }
+    @Override
+    public String[] requestPermissions() {
+        return new String[]{
+                PermissionList.WRITE_EXTERNAL_STORAGE,
+                PermissionList.READ_EXTERNAL_STORAGE
+        };
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != mLogcat) {
+            mLogcat.stop();
         }
     }
 

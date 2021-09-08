@@ -17,14 +17,12 @@ import com.divine.dy.lib_base.arouter.ARouterManager;
 import com.divine.dy.lib_base.base.BaseActivity;
 import com.divine.dy.lib_base.base.BaseToolbar;
 import com.divine.dy.lib_base.getpermission.PermissionList;
-import com.divine.dy.lib_log.LocalLogcat;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
 
 @Route(path = ARouterManager.ROUTER_MAIN_MAIN)
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "DY-Main";
-    private LocalLogcat mLogcat;
     private int mainViewType, mainMainType;
 
     @Override
@@ -43,8 +41,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initView() {
-        mLogcat = LocalLogcat.getInstance(this);
-        mLogcat.start();
         findView();
         setListener();
     }
@@ -57,11 +53,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         };
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLogcat.stop();
     }
 
     private Spinner sSelectViewType, sSelectMainType;
@@ -112,6 +106,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
         startActivity(intent);
-
     }
 }

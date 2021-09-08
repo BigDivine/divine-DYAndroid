@@ -8,4 +8,5 @@ package com.divine.dy.lib_base;
 public class AppBase {
     public static String serverUrl;
     public static boolean isDebug;
+    public static String appDir;
 }

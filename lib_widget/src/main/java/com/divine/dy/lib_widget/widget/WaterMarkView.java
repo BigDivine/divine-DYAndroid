@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.divine.dy.lib_utils.sys.RandomUtils;
+import com.divine.dy.lib_utils.old.sys.RandomUtils;
 import com.divine.dy.lib_widget.R;
 
 import androidx.annotation.Nullable;

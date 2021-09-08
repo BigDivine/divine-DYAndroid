@@ -5,10 +5,8 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
-import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * Author: Divine
@@ -117,25 +115,16 @@ public class FileUtils {
     }
 
     /**
-     * 生成一个2020111021548663(yyyyMMdd+8位随机数)的文件名
+     * 生成一个 20210907153633859(yyyyMMddHHmmssSSS)的文件名
+     *
      * @return
      */
-    public static String makeFileName() {
-        String name;
-        //生成8位随机数
-        String SYMBOLS = "0123456789";
-        Random RANDOM = new SecureRandom();
-        char[] nonceChars = new char[8];
-        for (int index = 0; index < nonceChars.length; ++index) {
-            nonceChars[index] = SYMBOLS.charAt(RANDOM.nextInt(SYMBOLS.length()));
-        }
+    public static String makeFileName(String suffix) {
         //生成时间信息
-        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Date date = new Date(System.currentTimeMillis());
         //组合文件名
-        name = sf.format(date) + new String(nonceChars);
-        return name;
+        String name = sf.format(date);
+        return name + "." + suffix;
     }
-
-
 }

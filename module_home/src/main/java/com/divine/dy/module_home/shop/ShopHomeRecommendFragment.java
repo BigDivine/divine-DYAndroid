@@ -25,6 +25,8 @@ public class ShopHomeRecommendFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+        int linePx = DensityUtils.dp2px(mContext, 10);
+        //常用功能
         rvShopHomeRecommendFunction = view.findViewById(R.id.shop_home_recommend_function);
         ArrayList<ShopHomeRecommendFunctionBean> data = new ArrayList<>();
         ShopHomeRecommendFunctionBean bean = new ShopHomeRecommendFunctionBean();
@@ -40,8 +42,21 @@ public class ShopHomeRecommendFragment extends BaseFragment {
         decoration.setWidth(60);
         decoration.setShowCellLine(false);
         rvShopHomeRecommendFunction.addItemDecoration(decoration);
-
-        int linePx = DensityUtils.dp2px(mContext, 10);
+        //特殊功能
+        rvShopHomeRecommendEvent = view.findViewById(R.id.shop_home_recommend_event);
+        ArrayList<ShopHomeRecommendEventBean> eventData = new ArrayList<>();
+        ShopHomeRecommendEventBean eventBean = new ShopHomeRecommendEventBean();
+        eventBean.setImg("a");
+        eventBean.setName("a");
+        for (int i = 0; i < 2; i++) {
+            eventData.add(eventBean);
+        }
+        rvShopHomeRecommendEvent.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
+        rvShopHomeRecommendEvent.setAdapter(new ShopHomeRecommendEventAdapter(getContext(), eventData));
+        ItemDecorationGrid eventDecoration = new ItemDecorationGrid(getContext());
+        eventDecoration.setWidth(linePx);
+        rvShopHomeRecommendEvent.addItemDecoration(eventDecoration);
+        //瀑布流数据
         rvShopHomeRecommendWaterfall = view.findViewById(R.id.shop_home_recommend_waterfall);
         ArrayList<ShopHomeRecommendWaterfallBean> waterfallData = new ArrayList<>();
         ShopHomeRecommendWaterfallBean waterfallBean = new ShopHomeRecommendWaterfallBean();
@@ -57,19 +72,7 @@ public class ShopHomeRecommendFragment extends BaseFragment {
         waterfallDecoration.setWidth(linePx);
         rvShopHomeRecommendWaterfall.addItemDecoration(waterfallDecoration);
 
-        rvShopHomeRecommendEvent = view.findViewById(R.id.shop_home_recommend_event);
-        ArrayList<ShopHomeRecommendEventBean> eventData = new ArrayList<>();
-        ShopHomeRecommendEventBean eventBean = new ShopHomeRecommendEventBean();
-        eventBean.setImg("a");
-        eventBean.setName("a");
-        for (int i = 0; i < 2; i++) {
-            eventData.add(eventBean);
-        }
-        rvShopHomeRecommendEvent.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        rvShopHomeRecommendEvent.setAdapter(new ShopHomeRecommendEventAdapter(getContext(), eventData));
-        ItemDecorationGrid eventDecoration = new ItemDecorationGrid(getContext());
-        eventDecoration.setWidth(linePx);
-        rvShopHomeRecommendEvent.addItemDecoration(eventDecoration);
+
     }
 
     @Override

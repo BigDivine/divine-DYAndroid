@@ -12,7 +12,8 @@ ext {
                     needChangeServer: true,                       //是否可以切换服务地址
                     needVerifyCode  : false,                      //登录是否需要验证码验证
                     isDebug         : true,                       //是否为调试模式
-                    serverUrl       : "http://10.33.10.28:8080",  //服务地址
+                    showHint        : true,  //是否显示相机拍摄时的提示语
+                    serverUrl       : "http://10.33.10.28:6688",  //服务地址
             ]
     ]
     GROOT = [
@@ -23,7 +24,8 @@ ext {
                     needChangeServer: true,                       //是否可以切换服务地址
                     needVerifyCode  : false,                      //登录是否需要验证码验证
                     isDebug         : true,                       //是否为调试模式
-                    serverUrl       : "http://10.33.10.28:8080",  //服务地址
+                    showHint        : true,  //是否显示相机拍摄时的提示语
+                    serverUrl       : "http://10.33.10.28:6688",  //服务地址
             ]
     ]
     DEADPOOL = [
@@ -34,7 +36,8 @@ ext {
                     needChangeServer: true,                       //是否可以切换服务地址
                     needVerifyCode  : false,                      //登录是否需要验证码验证
                     isDebug         : true,                       //是否为调试模式
-                    serverUrl       : "http://10.33.10.28:8080",  //服务地址
+                    showHint        : true,  //是否显示相机拍摄时的提示语
+                    serverUrl       : "http://10.33.10.28:6688",  //服务地址
             ]
     ]
 }

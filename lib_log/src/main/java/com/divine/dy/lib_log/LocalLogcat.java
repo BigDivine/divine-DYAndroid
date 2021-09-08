@@ -1,7 +1,6 @@
 package com.divine.dy.lib_log;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -20,7 +19,7 @@ import java.util.Date;
  * log日志统计保存
  */
 public class LocalLogcat {
-    private static final String TAG = "DY";
+    private static final String TAG = "DY-Logcat";
     private static LocalLogcat INSTANCE = null;
     private static String PATH_LOGCAT;
     private LogDumper mLogDumper = null;
@@ -30,25 +29,24 @@ public class LocalLogcat {
     /**
      * 初始化目录
      */
-    private void init(Context context) {
+    private void init(Context context, String logDir) {
         this.context = context;
-        PATH_LOGCAT = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + File.separator + "DY-LOG";
+        PATH_LOGCAT = logDir + "Log";
         File file = new File(PATH_LOGCAT);
         if (!file.exists()) {
             file.mkdirs();
         }
     }
 
-    public static LocalLogcat getInstance(Context context) {
+    public static LocalLogcat getInstance(Context context, String logDir) {
         if (INSTANCE == null) {
-            INSTANCE = new LocalLogcat(context);
+            INSTANCE = new LocalLogcat(context, logDir);
         }
         return INSTANCE;
     }
 
-    private LocalLogcat(Context context) {
-        init(context);
+    private LocalLogcat(Context context, String logDir) {
+        init(context, logDir);
         mPId = android.os.Process.myPid();
     }
 
