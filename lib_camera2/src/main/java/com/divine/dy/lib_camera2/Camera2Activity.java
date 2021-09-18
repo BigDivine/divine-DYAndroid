@@ -20,7 +20,7 @@ public class Camera2Activity extends BaseActivity {
 
     @Override
     public int getContentViewId() {
-        return R.layout.activity_camera2_demo;
+        return R.layout.activity_camera2;
     }
 
     @Override

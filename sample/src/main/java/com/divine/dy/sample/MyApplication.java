@@ -52,7 +52,7 @@ public class MyApplication extends Application {
         mSPUtils.put(SPKeys.SP_KEY_SERVER, AppBase.serverUrl);
         AppBase.isDebug = isDebug;
         //指定app本地存储目录
-        AppBase.appDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getPackageName() + File.separator;
+        AppBase.appDir = Environment.getExternalStorageDirectory() + File.separator + getPackageName() + File.separator;
         Log.e("dy-application", AppBase.appDir);
     }
 

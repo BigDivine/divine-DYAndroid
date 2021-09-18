@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Rect;
@@ -46,7 +45,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.divine.dy.lib_base.AppConstants;
+import com.divine.dy.lib_base.RouterManager;
 import com.divine.dy.lib_base.base.BaseFragment;
+import com.divine.dy.lib_camera2.edit.MyIMGEditActivity;
 import com.divine.dy.lib_camera2.select.PicSelectActivity;
 import com.divine.dy.lib_camera2.select.PicSelectConfig;
 import com.divine.dy.lib_camera2.widget.AutoFixTextureView;
@@ -65,7 +66,6 @@ import java.util.Arrays;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import static android.app.Activity.RESULT_OK;
@@ -94,6 +94,7 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
     private Handler mainHandler;
     private CameraCharacteristics mCameraCharacteristics;
 
+    private Camera2Callback mCamera2Callback;
 
     //图片路径集合，连拍是需要数量限制
     private ArrayList<String> mPicPathList;
@@ -150,7 +151,6 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
     private CameraDevice.StateCallback deviceStateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(CameraDevice camera) {
-            Log.e(TAG, "CameraDevice.StateCallback:onOpened()");
             mCameraDevice = camera;
             try {
                 takePreview();
@@ -161,13 +161,11 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
 
         @Override
         public void onDisconnected(@NonNull CameraDevice camera) {
-            Log.e(TAG, "CameraDevice.StateCallback:onDisconnected()");
             closeCameraDevice();
         }
 
         @Override
         public void onError(CameraDevice camera, int error) {
-            Log.e(TAG, "CameraDevice.StateCallback:onError()");
             Toast.makeText(getActivity(), "打开摄像头失败", Toast.LENGTH_SHORT).show();
         }
     };
@@ -175,7 +173,6 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
     private CameraCaptureSession.StateCallback mSessionPreviewStateCallback = new CameraCaptureSession.StateCallback() {
         @Override
         public void onConfigured(@NonNull CameraCaptureSession session) {
-            Log.e(TAG, "CameraCaptureSession.StateCallback:onConfigured()");
             mSession = session;
             //配置完毕开始预览
             try {
@@ -188,7 +185,6 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
 
         @Override
         public void onConfigureFailed(@NonNull CameraCaptureSession session) {
-            Log.e(TAG, "CameraCaptureSession.StateCallback:onConfigureFailed()");
             Toast.makeText(getActivity(), "相机预览配置失败", Toast.LENGTH_SHORT).show();
         }
     };
@@ -196,20 +192,17 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
     private CameraCaptureSession.CaptureCallback mSessionCaptureCallback = new CameraCaptureSession.CaptureCallback() {
         @Override
         public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
-            Log.e(TAG, "CameraCaptureSession.CaptureCallback:onCaptureCompleted()");
             mSession = session;
             handler.sendEmptyMessage(HIDE_GREY_MARK);
         }
 
         @Override
         public void onCaptureProgressed(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull CaptureResult partialResult) {
-            Log.e(TAG, "CameraCaptureSession.CaptureCallback:onCaptureProgressed()");
             mSession = session;
         }
 
         @Override
         public void onCaptureFailed(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull CaptureFailure failure) {
-            Log.e(TAG, "CameraCaptureSession.CaptureCallback:onCaptureFailed()");
             super.onCaptureFailed(session, request, failure);
             handler.sendEmptyMessage(HIDE_GREY_MARK);
         }
@@ -240,13 +233,12 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
         }
     }
 
-
     @Override
     protected void getData() { }
 
     @Override
     public int getContentView() {
-        return R.layout.fragment_camera2_layout;
+        return R.layout.fragment_camera2;
     }
 
     @Override
@@ -309,8 +301,10 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
             obj.put("IMAGE_URI", sourceUri);
             obj.put("IMAGE_SAVE_PATH", cropSavePath);
             String params = obj.toString();
-
-            //            navigationTo(RouterManager.router_img_edit, params, AppConstants.REQUEST_CODE_IMAGE_EDIT);
+            Intent intent = new Intent(getActivity(), MyIMGEditActivity.class);
+            intent.putExtra("image_edit_params", params);
+            getActivity().startActivityForResult(intent, AppConstants.REQUEST_CODE_IMAGE_EDIT);
+            //                        navigationTo(RouterManager.router_img_edit, params, AppConstants.REQUEST_CODE_IMAGE_EDIT);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -345,7 +339,7 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
                             e.printStackTrace();
                         }
                     } else {
-                        mCamera2Callback.multiCallback(imageList);
+                        //                        mCamera2Callback.multiCallback(imageList);
                     }
                 }
             }
@@ -480,12 +474,12 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-//        touchX = event.getX();
-//        try {
-//            touchToFocus();
-//        } catch (CameraAccessException e) {
-//            e.printStackTrace();
-//        }
+        //        touchX = event.getX();
+        //        try {
+        //            touchToFocus();
+        //        } catch (CameraAccessException e) {
+        //            e.printStackTrace();
+        //        }
         return false;
     }
 
@@ -527,8 +521,6 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
         mPreviewBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START);
         //触发对焦通过capture发送请求, 因为用户点击屏幕后只需触发一次对焦
         mSession.capture(mPreviewBuilder.build(), mSessionCaptureCallback, mHandler);
-
-
     }
 
     private int clamp(int x, int min, int max) {
@@ -544,23 +536,16 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
     private void selectImages() {
         PicSelectConfig mPicSelectConfig = new PicSelectConfig.Builder()
                 // 是否记住上次选中记录
-                .rememberSelected(false)
-                .needCamera(false)
+                .rememberSelected(true)
+                .needCamera(true)
                 .multiSelect(!isSingle)
                 // 使用沉浸式状态栏
-                .statusBarColor(Color.parseColor("#3F51B5"))
                 .build();
         Intent intent = new Intent(getContext(), PicSelectActivity.class);
         intent.putExtra("config", mPicSelectConfig);
         getActivity().startActivityForResult(intent, AppConstants.REQUEST_CODE_CUSTOM_SELECT_PIC);
     }
 
-
-    private Camera2Callback mCamera2Callback;
-
-    public void setCamera2Callback(Camera2Callback callback) {
-        this.mCamera2Callback = callback;
-    }
 
     public boolean isSingle() {
         return isSingle;
@@ -625,7 +610,7 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
     private void setTextureLayoutParams() {
         int screenWidth = DensityUtils.getScreenWidth(mContext);
         int textureHeight = screenWidth * 16 / 9;
-        mAutoFixTextureView.setLayoutParams(new ConstraintLayout.LayoutParams(screenWidth, textureHeight));
+        mAutoFixTextureView.setLayoutParams(new RelativeLayout.LayoutParams(screenWidth, textureHeight));
     }
 
     private void showImageAlbum() {
@@ -647,4 +632,8 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
         }
     }
 
+
+    public void setCamera2Callback(Camera2Callback callback) {
+        this.mCamera2Callback = callback;
+    }
 }

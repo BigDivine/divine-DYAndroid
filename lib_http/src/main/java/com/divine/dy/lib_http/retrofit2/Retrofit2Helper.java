@@ -51,6 +51,16 @@ public class Retrofit2Helper {
         mOkHttpBuilder.readTimeout(30, TimeUnit.SECONDS);
         mOkHttpBuilder.writeTimeout(30, TimeUnit.SECONDS);
         mOkHttpBuilder.addNetworkInterceptor(new OkHttpNetWorkInterceptor());
+        //        if (!TextUtils.isEmpty(HttpBase.cerFileName)) {
+        //            try {
+        //                SSLSocketClient.setCertificates(mOkHttpBuilder, mContext.getAssets().open("https12306.cer"));
+        //            } catch (IOException e) {
+        //                e.printStackTrace();
+        //            }
+        //        } else {
+        mOkHttpBuilder.sslSocketFactory(SSLSocketClient.getSSLSocketFactory());
+        mOkHttpBuilder.hostnameVerifier(SSLSocketClient.getHostnameVerifier());
+        //        }
         mOkHttpClient = mOkHttpBuilder.build();
     }
 

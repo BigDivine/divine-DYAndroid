@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.divine.dy.lib_camera2">
-
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
-        <activity android:name=".Camera2Activity" />
-    </application>
+        <provider
+            android:name=".CameraProvider"
+            android:authorities="com.divine.dy.sample.file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/camera_paths"></meta-data>
+        </provider>
+        <activity
+            android:name=".edit.IMGGalleryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageGalleryTheme" />
 
+        <activity
+            android:name=".edit.IMGEditActivity"
+            android:theme="@style/ImageEditTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".edit.MyIMGEditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageEditTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+    </application>
 </manifest>

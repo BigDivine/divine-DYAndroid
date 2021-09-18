@@ -27,5 +27,4 @@ android {
 }
 dependencies {
     implementation AndroidX.AppCompat
-
 }

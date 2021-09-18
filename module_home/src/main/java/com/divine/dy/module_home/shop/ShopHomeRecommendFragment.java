@@ -38,9 +38,7 @@ public class ShopHomeRecommendFragment extends BaseFragment {
         }
         rvShopHomeRecommendFunction.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false));
         rvShopHomeRecommendFunction.setAdapter(new ShopHomeRecommendFunctionAdapter(getContext(), data));
-        ItemDecorationGrid decoration = new ItemDecorationGrid(getContext());
-        decoration.setWidth(60);
-        decoration.setShowCellLine(false);
+        ItemDecorationGrid decoration = new ItemDecorationGrid(getContext(), 60, false);
         rvShopHomeRecommendFunction.addItemDecoration(decoration);
         //特殊功能
         rvShopHomeRecommendEvent = view.findViewById(R.id.shop_home_recommend_event);
@@ -53,8 +51,7 @@ public class ShopHomeRecommendFragment extends BaseFragment {
         }
         rvShopHomeRecommendEvent.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
         rvShopHomeRecommendEvent.setAdapter(new ShopHomeRecommendEventAdapter(getContext(), eventData));
-        ItemDecorationGrid eventDecoration = new ItemDecorationGrid(getContext());
-        eventDecoration.setWidth(linePx);
+        ItemDecorationGrid eventDecoration = new ItemDecorationGrid(getContext(), linePx, true);
         rvShopHomeRecommendEvent.addItemDecoration(eventDecoration);
         //瀑布流数据
         rvShopHomeRecommendWaterfall = view.findViewById(R.id.shop_home_recommend_waterfall);
@@ -68,8 +65,7 @@ public class ShopHomeRecommendFragment extends BaseFragment {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, GridLayoutManager.VERTICAL);
         rvShopHomeRecommendWaterfall.setLayoutManager(staggeredGridLayoutManager);
         rvShopHomeRecommendWaterfall.setAdapter(new ShopHomeRecommendWaterfallAdapter(getContext(), waterfallData));
-        ItemDecorationGrid waterfallDecoration = new ItemDecorationGrid(getContext());
-        waterfallDecoration.setWidth(linePx);
+        ItemDecorationGrid waterfallDecoration = new ItemDecorationGrid(getContext(), linePx, true);
         rvShopHomeRecommendWaterfall.addItemDecoration(waterfallDecoration);
 
 

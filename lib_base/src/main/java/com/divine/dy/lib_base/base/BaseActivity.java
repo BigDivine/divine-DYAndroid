@@ -1,27 +1,29 @@
 package com.divine.dy.lib_base.base;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.divine.dy.lib_base.AppConstants;
 import com.divine.dy.lib_base.R;
+import com.divine.dy.lib_base.SecurityCheck;
 import com.divine.dy.lib_base.getpermission.PermissionPageUtils;
 import com.divine.dy.lib_base.getpermission.PermissionUtil;
 import com.divine.dy.lib_utils.ActivitiesManager;
-import com.divine.dy.lib_widget.widget.WaterMarkView;
+import com.divine.dy.lib_widget.widget.DialogUtils;
+import com.divine.dy.lib_widget.widget.ToastUtils;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,6 +105,31 @@ public abstract class BaseActivity extends AppCompatActivity {
         activitiesManager = ActivitiesManager.getInstance();
         activitiesManager.addActivity(this);
 
+        //手机root权限检查
+        if (SecurityCheck.isRoot()) {
+            DialogUtils.showConfirmDialog(this
+                    , "提示"
+                    , "您的手机处于Root状态，不允许应用APP，请解除Root状态后应用"
+                    , (dialog, which) -> {
+                        dialog.dismiss();
+                        this.finish();
+                    }
+            );
+            return;
+        }
+        //app应用签名校验,通过SHA1来验证
+        //        if (!SecurityCheck.signCheck(this)) {
+        //            DialogUtils.showConfirmDialog(this
+        //                    , "提示"
+        //                    , "您的应用签名信息验证失败，不允许使用，请下载官方版本使用"
+        //                    , (dialog, which) -> {
+        //                        dialog.dismiss();
+        //                        this.finish();
+        //                    }
+        //            );
+        //            return;
+        //        }
+
         requestPermissions = requestPermissions();
         // 获取未授权的权限
         String[] deniedPermissions = PermissionUtil.getDeniedPermissions(this, requestPermissions);
@@ -124,6 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         Log.e(TAG, "onStart");
+        getData();
         super.onStart();
     }
 
@@ -131,7 +159,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onRestart() {
         Log.e(TAG, "onRestart");
         super.onRestart();
-        getData();
 
     }
 
@@ -151,13 +178,35 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onStop() {
         Log.e(TAG, "onStop");
         super.onStop();
+        boolean background = !isForeground(this);
+        Log.e(TAG, "isBackground:" + background);
+        if (background)
+            ToastUtils.showShort(this, "当前应用已转到后台运行");
     }
 
     @Override
     protected void onDestroy() {
         Log.e(TAG, "onDestroy");
         super.onDestroy();
-        //        activitiesManager.finishActivity();
+    }
+
+    /**
+     * 判断当前应用在前台
+     */
+    protected boolean isForeground(Context mContext) {
+        ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
+        if (processes == null) {
+            Log.e(TAG, "running app processes is null!");
+            return false;
+        }
+        for (ActivityManager.RunningAppProcessInfo app : processes) {
+            if (app.processName.equals(mContext.getPackageName()) &&
+                    app.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

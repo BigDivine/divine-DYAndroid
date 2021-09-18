@@ -36,14 +36,11 @@ public class OtherBadge {
             channel.setShowBadge(true);
             notificationManager.createNotificationChannel(channel);
         }
-        //        Intent intent = new Intent(context, MainActivity.class);
-        //        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         Notification notification = new NotificationCompat.Builder(context, "badge")
                 .setContentTitle("应用角标")
                 .setContentText("您有" + count + "条未读消息")
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                 .setAutoCancel(true)
-                //                .setContentIntent(pendingIntent)
                 .setChannelId("badge")
                 .setNumber(count)
                 .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL).build();

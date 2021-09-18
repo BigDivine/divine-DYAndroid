@@ -14,26 +14,27 @@
         android:logo="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
+
         android:usesCleartextTraffic="true">
         <activity
             android:name="com.divine.dy.app_splash.SplashActivity"
             android:theme="@style/AppTheme">
-                        <intent-filter>
-                            <category android:name="android.intent.category.LAUNCHER" />
-                            <action android:name="android.intent.action.MAIN" />
-                        </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".Camera2Demo"-->
-<!--            android:theme="@style/AppTheme">-->
-<!--&lt;!&ndash;            <intent-filter>&ndash;&gt;-->
-<!--&lt;!&ndash;                <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
-<!--&lt;!&ndash;                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
-<!--&lt;!&ndash;            </intent-filter>&ndash;&gt;-->
-<!--        </activity>-->
-<!--        <activity-->
-<!--            android:name="com.divine.dy.lib_camera2.select.PicSelectActivity"-->
-<!--            android:theme="@style/AppTheme" />-->
+        <activity
+            android:name="com.divine.dy.lib_camera2.Camera2Activity"
+            android:theme="@style/AppTheme">
+            <!--            <intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name="com.divine.dy.lib_camera2.select.PicSelectActivity"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name="com.divine.dy.app_main.MainActivity"
@@ -63,6 +64,7 @@
         <activity
             android:name=".widget.SignatureViewDemoActivity"
             android:theme="@style/AppTheme" />
+
 
         <meta-data
             android:name="needChangeServer"

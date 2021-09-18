@@ -1,102 +1,122 @@
 package com.divine.dy.lib_camera2.select;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.divine.dy.lib_base.AppConstants;
 import com.divine.dy.lib_base.base.BaseActivity;
-import com.divine.dy.lib_base.base.BaseToolbar;
-import com.divine.dy.lib_base.base.ToolbarClickListener;
 import com.divine.dy.lib_base.getpermission.PermissionList;
+import com.divine.dy.lib_camera2.Camera2Base;
+import com.divine.dy.lib_camera2.CameraUtils;
 import com.divine.dy.lib_camera2.R;
-import com.divine.dy.lib_camera2.interfaces.PicSelectListener;
+import com.divine.dy.lib_camera2.interfaces.OnFolderChangeListener;
+import com.divine.dy.lib_camera2.interfaces.OnPicSelectImageClickListener;
 import com.divine.dy.lib_utils.sys.FileUtils;
+import com.divine.dy.lib_widget.widget.ItemDecorationGrid;
+import com.divine.dy.lib_widget.widget.ItemDecorationLine;
+import com.divine.dy.lib_widget.widget.ToastUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Author: Divine
  * CreateDate: 2020/10/20
  * Describe:
  */
-public class PicSelectActivity extends BaseActivity implements ToolbarClickListener {
+public class PicSelectActivity extends BaseActivity implements View.OnClickListener, OnFolderChangeListener, OnPicSelectImageClickListener {
+    private static final String TAG = "DY-PicSelect";
 
-    private ConstraintLayout mPicSelectHeaderLayout;
+    private final String[] IMAGE_PROJECTION = {
+            MediaStore.Images.Media.DATA,
+            MediaStore.Images.Media.DISPLAY_NAME,
+            MediaStore.Images.Media._ID};
+
+    private List<PicFolderBean> mFolderList = new ArrayList<>();
+    private List<PicBean> mImageList = new ArrayList<>();
+    private PicSelectRvAdapter mPicSelectRvAdapter;
+    private PicSelectVpAdapter mPreviewAdapter;
     private PicSelectConfig mPicSelectConfig;
-    private PicSelectFragment mPicSelectFragment;
     private ArrayList<String> mPicSelectImagesResult = new ArrayList<>();
 
-    private BaseToolbar mBaseToolbar;
-    PicSelectListener mPicSelectListener = new PicSelectListener() {
-        @Override
-        public void onSingleImageSelected(String path) {
-            PicSelectStaticVariable.mPicSelectImageList.add(path);
-            exitPicSelectActivity();
-        }
+    private PopupWindow mPopupWindow;
+    private PicSelectPopRvAdapter mPicSelectPopRvAdapter;
 
+    private final int HANDLE_UPDATE_SELECTED_IMAGE_COUNT = 0;
+    private Handler mHandler = new Handler() {
         @Override
-        public void onMultiImageSelected(String path) {
-            mBaseToolbar.setRightText(String.format("%1$s(%2$d/%3$d)", mPicSelectConfig.btnText, PicSelectStaticVariable.mPicSelectImageList.size(), mPicSelectConfig.maxNum));
-        }
-
-        @Override
-        public void onMultiImageUnselected(String path) {
-            mBaseToolbar.setRightText(String.format("%1$s(%2$d/%3$d)", mPicSelectConfig.btnText, PicSelectStaticVariable.mPicSelectImageList.size(), mPicSelectConfig.maxNum));
-        }
-
-        @Override
-        public void onCameraShot(File imageFile) {
-            if (imageFile != null) {
-                PicSelectStaticVariable.mPicSelectImageList.add(imageFile.getAbsolutePath());
-                mPicSelectConfig.multiSelect = false; // 多选点击拍照，强制更改为单选
-                exitPicSelectActivity();
-            }
-        }
-
-        @Override
-        public void onPreviewChanged(int select, int sum, boolean visible) {
-            if (visible) {
-                mBaseToolbar.setTitle(select + "/" + sum);
-            } else {
-                mBaseToolbar.setTitle(mPicSelectConfig.title);
+        public void handleMessage(@NonNull Message msg) {
+            if (msg.what == HANDLE_UPDATE_SELECTED_IMAGE_COUNT) {
+                btPicSelectSubmit.setText(String.format("%1$s(%2$d/%3$d)",
+                                                        mPicSelectConfig.submitText,
+                                                        PicSelectBase.mPicSelectList.size(),
+                                                        mPicSelectConfig.maxNum));
+                if (PicSelectBase.mPicSelectList.size() > 0) {
+                    btPicSelectSubmit.setBackgroundColor(getResources().getColor(R.color.barGreen));
+                } else {
+                    btPicSelectSubmit.setBackgroundColor(getResources().getColor(R.color.gray_text));
+                }
             }
         }
     };
 
     @Override
     public int getContentViewId() {
-        return R.layout.activity_pic_select_layout;
+        return R.layout.activity_pic_select;
     }
 
     @Override
     public boolean showToolbar() {
-        return true;
+        return false;
     }
 
     @Override
     public void initView() {
+        findView();
+        setListener();
+        createPopupFolderList();
         mPicSelectConfig = (PicSelectConfig) getIntent().getSerializableExtra("config");
-        mPicSelectFragment = PicSelectFragment.instance();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("config", mPicSelectConfig);
-        mPicSelectFragment.setArguments(bundle);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.pic_select_images_frame, mPicSelectFragment, null)
-                .commit();
-        mPicSelectFragment.setPicSelectListener(mPicSelectListener);
-        mBaseToolbar = getBaseToolbar();
-        mBaseToolbar.setToolbarClickListener(this);
-        mPicSelectHeaderLayout = mBaseToolbar.getHeaderContainLayout();
-
         if (mPicSelectConfig != null) {
             initConfig();
         }
         if (!FileUtils.isSdCardAvailable()) {
             Toast.makeText(this, "SD卡不可用", Toast.LENGTH_SHORT).show();
+        } else {
+            rvPicSelectImages.setLayoutManager(new GridLayoutManager(this, 4));
+            ItemDecorationGrid itemDecorationGrid = new ItemDecorationGrid(this, 10, true);
+            rvPicSelectImages.addItemDecoration(itemDecorationGrid);
+            mPicSelectRvAdapter = new PicSelectRvAdapter(this, mImageList, mPicSelectConfig);
+            mPicSelectRvAdapter.setListener(this);
+            rvPicSelectImages.setAdapter(mPicSelectRvAdapter);
+
+            mPreviewAdapter = new PicSelectVpAdapter(this, mImageList, mPicSelectConfig);
+            mPreviewAdapter.setListener(this);
+            mVpPicSelectPicPreview.setAdapter(mPreviewAdapter);
         }
     }
 
@@ -105,26 +125,25 @@ public class PicSelectActivity extends BaseActivity implements ToolbarClickListe
      */
     private void initConfig() {
         if (mPicSelectConfig.backResId != -1) {
-            mBaseToolbar.setLeftDrawable(mPicSelectConfig.backResId);
+            ivPicSelectClose.setImageResource(mPicSelectConfig.backResId);
         }
-        mPicSelectHeaderLayout.setBackgroundColor(mPicSelectConfig.titleBgColor);
-        mBaseToolbar.setTitle(mPicSelectConfig.title);
-        mBaseToolbar.setTitleColor(mPicSelectConfig.titleColor);
-        mBaseToolbar.setRightBgColor(mPicSelectConfig.btnBgColor);
-        mBaseToolbar.setRightTextColor(mPicSelectConfig.btnTextColor);
+        tvPicSelectFolderName.setText(mPicSelectConfig.rootFolderName);
         if (mPicSelectConfig.multiSelect) {
+            btPicSelectSubmit.setVisibility(View.VISIBLE);
             if (!mPicSelectConfig.rememberSelected) {
-                PicSelectStaticVariable.mPicSelectImageList.clear();
+                PicSelectBase.mPicSelectList.clear();
             }
-            mBaseToolbar.setRightText(String.format("%1$s(%2$d/%3$d)", mPicSelectConfig.btnText, PicSelectStaticVariable.mPicSelectImageList.size(), mPicSelectConfig.maxNum));
+            mHandler.dispatchMessage(Message.obtain(mHandler, HANDLE_UPDATE_SELECTED_IMAGE_COUNT));
         } else {
-            PicSelectStaticVariable.mPicSelectImageList.clear();
-            mBaseToolbar.setRightVisible(false);
+            PicSelectBase.mPicSelectList.clear();
+            btPicSelectSubmit.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void getData() {
+        getImages();
+        getFolders();
     }
 
     @Override
@@ -145,48 +164,246 @@ public class PicSelectActivity extends BaseActivity implements ToolbarClickListe
     }
 
     @Override
-    public void leftClick() {
-        onBackPressed();
-    }
-
-    @Override
-    public void centerClick() {
-
-    }
-
-    @Override
-    public void rightClick() {
-        if (PicSelectStaticVariable.mPicSelectImageList != null && !PicSelectStaticVariable.mPicSelectImageList.isEmpty()) {
-            exitPicSelectActivity();
-        } else {
-            Toast.makeText(PicSelectActivity.this, "最少选择一张图片", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
     public void onBackPressed() {
-        if (mPicSelectFragment == null || !mPicSelectFragment.hidePreview()) {
-            PicSelectStaticVariable.mPicSelectImageList.clear();
-            super.onBackPressed();
+        PicSelectBase.mPicSelectList.clear();
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.pic_select_close) {
+            onBackPressed();
+        } else if (id == R.id.pic_select_folder_select) {
+            if (mPopupWindow.isShowing()) {
+                mPopupWindow.dismiss();
+            } else {
+                mPopupWindow.showAsDropDown(rlPicSelectHeader);
+            }
+        } else if (id == R.id.pic_select_submit) {
+            if (PicSelectBase.mPicSelectList != null && !PicSelectBase.mPicSelectList.isEmpty()) {
+                exitPicSelectActivity();
+            } else {
+                ToastUtils.showShort(this, "最少选择一张图片");
+            }
         }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == AppConstants.REQUEST_CODE_CUSTOM_SELECT_PIC_TO_CAMERA) {
+                File tempFile = new File(Camera2Base.camera2PicSourceDir + CameraUtils.getCamera2PicSourceName());
+                if (tempFile != null) {
+                    if (mPicSelectConfig.multiSelect) {
+                        PicSelectBase.mPicSelectList.add(tempFile.getAbsolutePath());
+                        getData();
+                        mHandler.dispatchMessage(Message.obtain(mHandler, HANDLE_UPDATE_SELECTED_IMAGE_COUNT));
+                    } else {
+                        exitPicSelectActivity();
+                    }
+                }
+            }
+        } else {
+            File tempFile = new File(Camera2Base.camera2PicSourceDir + CameraUtils.getCamera2PicSourceName());
+            if (tempFile != null && tempFile.exists()) {
+                tempFile.delete();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onChange(int position, PicFolderBean folder) {
+        mPopupWindow.dismiss();
+        if (position == 0) {
+            tvPicSelectFolderName.setText(mPicSelectConfig.rootFolderName);
+            getImages();
+        } else {
+            tvPicSelectFolderName.setText(folder.name);
+            mImageList.clear();
+            if (mPicSelectConfig.needCamera)
+                mImageList.add(new PicBean());
+            mImageList.addAll(folder.images);
+            mPicSelectRvAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    @Override
+    public void onCameraClick(PicBean item) {
+        if (mPicSelectConfig.maxNum <= PicSelectBase.mPicSelectList.size()) {
+            Toast.makeText(this, String.format("最多选择%1$d张图片", mPicSelectConfig.maxNum), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(this.getPackageManager()) != null) {
+            CameraUtils.setCamera2PicSourceName();
+            File tempFile = new File(Camera2Base.camera2PicSourceDir + CameraUtils.getCamera2PicSourceName());
+            FileUtils.createFile(tempFile);
+            String provider = getPackageName() + ".file_provider";
+            Uri uri = FileProvider.getUriForFile(this, provider, tempFile);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            startActivityForResult(cameraIntent, AppConstants.REQUEST_CODE_CUSTOM_SELECT_PIC_TO_CAMERA);
+        } else {
+            ToastUtils.showShort(this, "打开相机失败");
+        }
+    }
+
+    @Override
+    public void onItemClick(View view, int position, PicBean item) {
+        if (mPicSelectConfig.multiSelect) {
+            if (mVpPicSelectPicPreview.getVisibility() == View.VISIBLE) {
+                mVpPicSelectPicPreview.setVisibility(View.GONE);
+            } else {
+                mVpPicSelectPicPreview.setVisibility(View.VISIBLE);
+                mVpPicSelectPicPreview.setCurrentItem(mPicSelectConfig.needCamera ? position - 1 : position, false);
+            }
+        } else {
+            PicSelectBase.mPicSelectList.add(item.path);
+            exitPicSelectActivity();
+        }
+    }
+
+    @Override
+    public void onItemCheck(View view, int position, PicBean item) {
+        if (item != null) {
+            if (PicSelectBase.mPicSelectList.contains(item.path)) {
+                PicSelectBase.mPicSelectList.remove(item.path);
+            } else {
+                if (mPicSelectConfig.maxNum <= PicSelectBase.mPicSelectList.size()) {
+                    ToastUtils.showShort(this, String.format("最多选择%1$d张图片", mPicSelectConfig.maxNum));
+                } else {
+                    PicSelectBase.mPicSelectList.add(item.path);
+                }
+            }
+            mHandler.dispatchMessage(Message.obtain(mHandler, HANDLE_UPDATE_SELECTED_IMAGE_COUNT));
+
+        }
+    }
+
+    private void createPopupFolderList() {
+        View rootView = LayoutInflater.from(this).inflate(R.layout.common_layout_with_rv, null, false);
+        mPopupWindow = new PopupWindow(this);
+        mPopupWindow.setContentView(rootView);
+        mPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        RecyclerView commonRecyclerView = rootView.findViewById(R.id.common_layout_rv);
+        commonRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ItemDecorationLine line = new ItemDecorationLine(this, R.color.white, 2);
+        commonRecyclerView.addItemDecoration(line);
+        mPicSelectPopRvAdapter = new PicSelectPopRvAdapter(this, mFolderList, mPicSelectConfig);
+        commonRecyclerView.setAdapter(mPicSelectPopRvAdapter);
+        mPicSelectPopRvAdapter.setOnFolderChangeListener(this);
+    }
+
+    private void getImages() {
+        mImageList.clear();
+        if (mPicSelectConfig.needCamera) {
+            mImageList.add(new PicBean());
+        }
+        Cursor cursor = getContentResolver()
+                .query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
+                       null,
+                       null,
+                       MediaStore.Images.Media.DATE_ADDED + " DESC");
+        while (cursor.moveToNext()) {
+            String path = cursor.getString(cursor.getColumnIndexOrThrow(IMAGE_PROJECTION[0]));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));
+            PicBean image = new PicBean(path, name);
+            mImageList.add(image);
+        }
+        for (int i = 0; i < mImageList.size(); i++) {
+            PicBean image = null;
+            if (mPicSelectConfig.needCamera) {
+                if (i > 0) {
+                    image = mImageList.get(i);
+                }
+            } else {
+                image = mImageList.get(i);
+            }
+            if (null != image) {
+                File imageFile = new File(image.path);
+                if (!imageFile.exists() || imageFile.length() < 10) {
+                    mImageList.remove(i);
+                }
+            }
+        }
+        mPicSelectRvAdapter.notifyDataSetChanged();
+        mPreviewAdapter.notifyDataSetChanged();
+    }
+
+    private void getFolders() {
+        mFolderList.clear();
+        for (int i = 0; i < mImageList.size(); i++) {
+            PicBean image = null;
+            if (mPicSelectConfig.needCamera) {
+                if (i > 0) {
+                    image = mImageList.get(i);
+                }
+            } else {
+                image = mImageList.get(i);
+            }
+            if (null != image) {
+                File imageFile = new File(image.path);
+                File folderFile = imageFile.getParentFile();
+
+                PicFolderBean parent = null;
+                for (PicFolderBean folder : mFolderList) {
+                    if (TextUtils.equals(folder.path, folderFile.getAbsolutePath())) {
+                        parent = folder;
+                    }
+                }
+                if (parent != null) {
+                    parent.images.add(image);
+                } else {
+                    parent = new PicFolderBean();
+                    parent.images = new ArrayList<>();
+                    parent.name = folderFile.getName();
+                    parent.path = folderFile.getAbsolutePath();
+                    parent.cover = image;
+                    parent.images.add(image);
+                    mFolderList.add(parent);
+                }
+            }
+        }
+        mPicSelectPopRvAdapter.notifyDataSetChanged();
     }
 
     public void exitPicSelectActivity() {
         mPicSelectImagesResult.clear();
-        mPicSelectImagesResult.addAll(PicSelectStaticVariable.mPicSelectImageList);
+        mPicSelectImagesResult.addAll(PicSelectBase.mPicSelectList);
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("select_pics", mPicSelectImagesResult);
         intent.putExtra("select_pics_bundle", bundle);
         setResult(RESULT_OK, intent);
         if (!mPicSelectConfig.multiSelect) {
-            PicSelectStaticVariable.mPicSelectImageList.clear();
+            PicSelectBase.mPicSelectList.clear();
         }
         finish();
+    }
+
+    private RelativeLayout rlPicSelectHeader;
+    private ImageView ivPicSelectClose;
+    private LinearLayout rlPicSelectFolder;
+    private TextView tvPicSelectFolderName;
+    private Button btPicSelectSubmit;
+    private RecyclerView rvPicSelectImages;
+    private ViewPager mVpPicSelectPicPreview;
+
+    private void findView() {
+        rlPicSelectHeader = findViewById(R.id.pic_select_header);
+        ivPicSelectClose = findViewById(R.id.pic_select_close);
+        rlPicSelectFolder = findViewById(R.id.pic_select_folder_select);
+        tvPicSelectFolderName = findViewById(R.id.pic_select_folder_name);
+        btPicSelectSubmit = findViewById(R.id.pic_select_submit);
+        rvPicSelectImages = findViewById(R.id.pic_select_images);
+        mVpPicSelectPicPreview = findViewById(R.id.pic_select_pic_preview);
+    }
+
+    private void setListener() {
+        ivPicSelectClose.setOnClickListener(this);
+        rlPicSelectFolder.setOnClickListener(this);
+        btPicSelectSubmit.setOnClickListener(this);
     }
 }

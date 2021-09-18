@@ -18,12 +18,83 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
  */
 public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
     private Context mContext;
+    //设置分割线颜色
     private int decorationColor = -1;
-    private int width = 30;
+    //设置分割线宽度
+    private int width = 5;
+    //是否显示行内item的分割线
     private boolean showCellLine = true;
 
+    /**
+     * 默认样式
+     *
+     * @param mContext
+     */
     public ItemDecorationGrid(Context mContext) {
         this.mContext = mContext;
+    }
+
+    /**
+     * 只设置线条颜色
+     *
+     * @param mContext
+     * @param colorResId
+     */
+    public ItemDecorationGrid(Context mContext, int colorResId) {
+        this.mContext = mContext;
+        this.decorationColor = colorResId;
+    }
+
+    /**
+     * 只设置是否显示同行/同列 内线条
+     *
+     * @param mContext
+     * @param showCellLine
+     */
+    public ItemDecorationGrid(Context mContext, boolean showCellLine) {
+        this.mContext = mContext;
+        this.showCellLine = showCellLine;
+    }
+
+    /**
+     * 设置宽度；设置是否显示同行/同列 内线条
+     *
+     * @param mContext
+     * @param width
+     * @param showCellLine
+     */
+    public ItemDecorationGrid(Context mContext, int width, boolean showCellLine) {
+        this.mContext = mContext;
+        this.width = width;
+        this.showCellLine = showCellLine;
+    }
+
+    /**
+     * 设置线条颜色;设置宽度
+     *
+     * @param mContext
+     * @param colorResId
+     * @param width
+     */
+    public ItemDecorationGrid(Context mContext, int colorResId, int width) {
+        this.mContext = mContext;
+        this.decorationColor = colorResId;
+        this.width = width;
+    }
+
+    /**
+     * 设置线条颜色;设置宽度；设置是否显示同行/同列 内线条
+     *
+     * @param mContext
+     * @param colorResId
+     * @param width
+     * @param showCellLine
+     */
+    public ItemDecorationGrid(Context mContext, int colorResId, int width, boolean showCellLine) {
+        this.mContext = mContext;
+        this.decorationColor = colorResId;
+        this.width = width;
+        this.showCellLine = showCellLine;
     }
 
     @Override
@@ -178,32 +249,5 @@ public class ItemDecorationGrid extends RecyclerView.ItemDecoration {
             orientation = staggeredGridLayoutManager.getOrientation();
         }
         return orientation;
-    }
-
-    /**
-     * 设置分割线颜色
-     *
-     * @param colorResId
-     */
-    public void setDecorationColor(int colorResId) {
-        this.decorationColor = decorationColor;
-    }
-
-    /**
-     * 设置分割线宽度
-     *
-     * @param width
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
-     * 是否显示行内item的分割线
-     *
-     * @param showCellLine
-     */
-    public void setShowCellLine(boolean showCellLine) {
-        this.showCellLine = showCellLine;
     }
 }
