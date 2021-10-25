@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.divine.dy.lib_widget.widget.CircleImageView
+        android:id="@+id/item_news_icon"
+        android:layout_width="@dimen/dp_70"
+        android:layout_height="@dimen/dp_50"
+        android:src="@mipmap/ic_photo_task"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/item_news_title"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.divine.dy.lib_widget.widget.CircleImageView>
+
+    <TextView
+        android:id="@+id/item_news_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="店铺全称"
+        android:textColor="@color/back_black"
+        android:textSize="@dimen/sp_15"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/item_news_sub_title_1"
+        app:layout_constraintLeft_toRightOf="@id/item_news_icon"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/item_news_sub_title_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_5"
+        android:text="100w粉丝"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_news_icon"
+        app:layout_constraintRight_toLeftOf="@id/item_news_sub_title_line"
+        app:layout_constraintTop_toBottomOf="@id/item_news_title"></TextView>
+
+    <View
+        android:id="@+id/item_news_sub_title_line"
+        android:layout_width="@dimen/dp_1"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/system_text_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_news_sub_title_1"
+        app:layout_constraintRight_toLeftOf="@id/item_news_sub_title_2"
+        app:layout_constraintTop_toBottomOf="@id/item_news_title" />
+
+    <TextView
+        android:id="@+id/item_news_sub_title_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:text="粉丝都在看"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/item_news_sub_title_line"
+        app:layout_constraintTop_toBottomOf="@id/item_news_title"></TextView>
+
+    <LinearLayout
+        android:id="@+id/item_news_add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_30"
+        android:background="@drawable/shape_white_corner_16dp_theme_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_12"
+            android:src="@mipmap/ic_add"
+            app:tint="@color/LoginThemeColor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="订阅"
+            android:textColor="@color/LoginThemeColor"
+            android:textSize="@dimen/sp_15"></TextView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

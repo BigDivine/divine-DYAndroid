@@ -33,7 +33,7 @@ import com.divine.dy.lib_utils.sys.SPUtils;
 import com.divine.dy.lib_widget.widget.DialogUtils;
 import com.divine.dy.lib_widget.widget.EditTextWithLRIcon;
 import com.divine.dy.lib_widget.widget.WaterMarkView;
-import com.divine.dy.lib_widget.widget.old.RandomVerificationCodeView;
+import com.divine.dy.lib_widget.widget.RandomVerificationCodeView;
 import com.divine.dy.lib_widget.widget.ToastUtils;
 import com.divine.dy.lib_widget.widget.WaveView;
 

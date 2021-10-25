@@ -66,6 +66,7 @@
         android:id="@+id/pic_select_images"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
+        android:overScrollMode="never"
         android:layout_weight="1" />
 
     <androidx.viewpager.widget.ViewPager

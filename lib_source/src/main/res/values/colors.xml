@@ -10,6 +10,7 @@
     <!--    <color name="LoginThemeColor">#D22630</color>-->
     <!--    <color name="LoginWaveColor">#3cD22630</color>-->
     <color name="system_background_color">#F9F9F9</color>
+    <color name="system_text_color">#737373</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#333333</color>

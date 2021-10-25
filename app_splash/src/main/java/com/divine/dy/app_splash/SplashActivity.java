@@ -43,7 +43,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
                 btSplashTimer.setVisibility(View.VISIBLE);
             } else {
                 if (!isJumpToNext) {
-                    toNextPage();
+//                    toNextPage();
                 }
             }
 

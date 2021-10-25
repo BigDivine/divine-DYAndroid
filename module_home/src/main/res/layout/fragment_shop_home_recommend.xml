@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_white_corner_5dp"
+            android:overScrollMode="never"
             android:padding="@dimen/dp_10">
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -25,7 +26,8 @@
             android:id="@+id/shop_home_recommend_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
+            android:layout_marginTop="@dimen/dp_10"
+            android:overScrollMode="never">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -61,7 +63,8 @@
             android:id="@+id/shop_home_recommend_waterfall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
+            android:layout_marginTop="@dimen/dp_10"
+            android:overScrollMode="never">
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>

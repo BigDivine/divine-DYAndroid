@@ -13,6 +13,7 @@
             android:id="@+id/rv_images"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:overScrollMode="never"
             android:layout_weight="1"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="?attr/image_gallery_span_count" />

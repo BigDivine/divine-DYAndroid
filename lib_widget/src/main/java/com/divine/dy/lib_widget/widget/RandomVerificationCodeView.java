@@ -1,4 +1,4 @@
-package com.divine.dy.lib_widget.widget.old;
+package com.divine.dy.lib_widget.widget;
 
 
 import android.content.Context;
