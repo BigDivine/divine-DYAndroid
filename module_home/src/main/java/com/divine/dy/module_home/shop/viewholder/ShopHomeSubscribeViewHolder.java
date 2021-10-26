@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
  * Describe:
  */
 public class ShopHomeSubscribeViewHolder extends RecyclerView.ViewHolder {
-    CircleImageView civShopHomeSubscribeIcon;
-    LinearLayout llShopHomeSubscribeAdd;
-    TextView tvShopHomeSubscribeTitle, tvShopHomeSubscribeSubTitle1, tvShopHomeSubscribeSubTitle2, tvShopHomeSubscribeContentText, tvShopHomeSubscribeContentTextUnfold;
-    RecyclerView rvShopHomeSubscribeContentImg;
+    public CircleImageView civShopHomeSubscribeIcon;
+    public LinearLayout llShopHomeSubscribeAdd;
+    public TextView tvShopHomeSubscribeTitle, tvShopHomeSubscribeSubTitle1, tvShopHomeSubscribeSubTitle2, tvShopHomeSubscribeContentText, tvShopHomeSubscribeContentTextUnfold;
+    public RecyclerView rvShopHomeSubscribeContentImg;
 
     public ShopHomeSubscribeViewHolder(@NonNull View itemView) {
         super(itemView);

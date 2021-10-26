@@ -1,5 +1,6 @@
 package com.divine.dy.module_home.shop;
 
+import android.util.Log;
 import android.view.View;
 
 import com.divine.dy.lib_base.base.BaseFragment;
@@ -8,8 +9,11 @@ import com.divine.dy.module_home.R;
 import com.divine.dy.module_home.shop.adapter.ShopHomeRecommendFunctionAdapter;
 import com.divine.dy.module_home.shop.adapter.ShopHomeSubscribeAdapter;
 import com.divine.dy.module_home.shop.bean.ShopHomeRecommendFunctionBean;
+import com.divine.dy.module_home.shop.bean.ShopHomeSubscribeBean;
+import com.divine.dy.module_home.shop.listener.ShopHomeSubscribeUnfoldListener;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * CreateDate: 2021/8/30
  * Describe:
  */
-public class ShopHomeSubscribeFragment extends BaseFragment {
+public class ShopHomeSubscribeFragment extends BaseFragment implements ShopHomeSubscribeUnfoldListener {
     @Override
     protected void initView(View view) {
         findView(view);
@@ -44,10 +48,33 @@ public class ShopHomeSubscribeFragment extends BaseFragment {
         ItemDecorationGrid decoration = new ItemDecorationGrid(getContext(), 60, false);
         rvShopHomeSubscribeFunction.addItemDecoration(decoration);
 
-        rvShopHomeSubscribeList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        rvShopHomeSubscribeList.setAdapter(new ShopHomeSubscribeAdapter(getContext(), data));
+        ArrayList<ShopHomeSubscribeBean> data1 = new ArrayList<>();
+
+        for (int j = 1; j < 21; j++) {
+            int kMax = new Random().nextInt(9) + 1;
+            Log.e("shop-home", kMax + "");
+            ShopHomeSubscribeBean subBean = new ShopHomeSubscribeBean();
+            subBean.setContent("这是商家发布的信息");
+            subBean.setImg("");
+            subBean.setSubTitle1("副标题1");
+            subBean.setSubTitle2("副标题2");
+            subBean.setTitle("商家名称");
+            ArrayList<String> contentImg = new ArrayList<>();
+            for (int k = 0; k < kMax; k++) {
+                contentImg.add("");
+            }
+            subBean.setContentImg(contentImg);
+            data1.add(subBean);
+        }
+
+        rvShopHomeSubscribeList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        mShopHomeSubscribeAdapter = new ShopHomeSubscribeAdapter(getContext(), data1);
+        mShopHomeSubscribeAdapter.setItemClickListener(this);
+        rvShopHomeSubscribeList.setAdapter(mShopHomeSubscribeAdapter);
         rvShopHomeSubscribeList.addItemDecoration(decoration);
     }
+
+    ShopHomeSubscribeAdapter mShopHomeSubscribeAdapter;
 
     @Override
     protected void getData() {
@@ -69,10 +96,16 @@ public class ShopHomeSubscribeFragment extends BaseFragment {
         return 0;
     }
 
+    @Override
+    public void unfoldClick(int position) {
+        mShopHomeSubscribeAdapter.setUnfoldPosition(position);
+    }
+
     private RecyclerView rvShopHomeSubscribeFunction, rvShopHomeSubscribeList;
 
     private void findView(View view) {
         rvShopHomeSubscribeFunction = view.findViewById(R.id.shop_home_subscribe_function);
         rvShopHomeSubscribeList = view.findViewById(R.id.shop_home_subscribe_list);
     }
+
 }
