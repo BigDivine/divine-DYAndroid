@@ -17,6 +17,12 @@ android {
             }
         }
         productFlavors {
+            abc{
+                applicationId IRONMAN.applicationId
+                versionCode IRONMAN.versionCode
+                versionName IRONMAN.versionName
+                manifestPlaceholders = IRONMAN.manifestPlaceholders
+            }
             IronMan {
                 applicationId IRONMAN.applicationId
                 versionCode IRONMAN.versionCode
@@ -55,6 +61,7 @@ android {
 dependencies {
     implementation project(":lib_over_views")
     implementation project(":lib_over_apps")
+    implementation 'com.github.BigDivine:divine-DYWeChat:1.0.3'
 
     implementation Ali.Router
     annotationProcessor Ali.RouterCompiler

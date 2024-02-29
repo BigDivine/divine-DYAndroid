@@ -1,6 +1,8 @@
 package com.divine.dy.app_main.home;
 
 import android.content.Intent;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -23,7 +25,7 @@ public class RadioPager2FragmentActivity extends BaseActivity implements RadioGr
     private FragmentManagerForMain fmForMain;
     private RadioGroupCommon rgCommon;
 
-     @Override
+    @Override
     public int getContentViewId() {
         return R.layout.activity_radio_pager2_fragment;
     }
@@ -53,9 +55,11 @@ public class RadioPager2FragmentActivity extends BaseActivity implements RadioGr
 
     private ViewPager2 vp2RadioPager2;
     private RadioGroup rgRadioPager2;
+
     private void getIntentData() {
         Intent intent = getIntent();
-     }
+    }
+
     private void findView() {
         vp2RadioPager2 = findViewById(R.id.radio_pager2_view_pager2);
         rgRadioPager2 = findViewById(R.id.radio_pager2_radio_group);
@@ -81,5 +85,10 @@ public class RadioPager2FragmentActivity extends BaseActivity implements RadioGr
         } else if (checkedId == R.id.radio_pager2_radio_button_user) {
             vp2RadioPager2.setCurrentItem(1);
         }
+    }
+
+    @Override
+    public void getData() {
+
     }
 }

@@ -3,18 +3,9 @@ package com.divine.dy.app_login;
 import com.divine.dy.lib_base.ApiManager;
 import com.divine.dy.lib_base.AppBase;
 import com.divine.dy.lib_http.retrofit2.Retrofit2Callback;
-import com.divine.dy.lib_http.retrofit2.Retrofit2Helper;
 import com.divine.dy.lib_http.retrofit2.Retrofit2IModel;
-import com.divine.dy.lib_http.retrofit2.Retrofit2Service;
 import com.divine.dy.lib_http.retrofit2.RetrofitUtils;
-import com.divine.dy.lib_http.retrofit2.RxJava2ResponseTransformer;
-import com.divine.dy.lib_http.retrofit2.RxJava2SchedulerTransformer;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import okhttp3.RequestBody;
 
 /**

@@ -10,6 +10,7 @@ import com.divine.dy.module_home.R;
 import com.divine.dy.module_home.shop.bean.ShopHomeRecommendFunctionBean;
 import com.divine.dy.module_home.shop.viewholder.ShopHomeRecommendFunctionViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -40,14 +41,19 @@ public class ShopHomeRecommendFunctionAdapter extends RecyclerView.Adapter<ShopH
     @Override
     public void onBindViewHolder(@NonNull ShopHomeRecommendFunctionViewHolder holder, int position) {
         ShopHomeRecommendFunctionBean bean = data.get(position);
-        holder.ivShopHomeRecommendFunctionViewHolderIcon.setColorFilter(mContext.getResources().getColor(R.color.LoginThemeColor));
-//        Glide.with(mContext).load(bean.getImg()).placeholder(R.mipmap.ic_album_white).into(holder.ivShopHomeRecommendFunctionViewHolderIcon);
-        Glide.with(mContext).load(R.mipmap.ic_album_white).placeholder(R.mipmap.ic_album_white).into(holder.ivShopHomeRecommendFunctionViewHolderIcon);
-        holder.tvShopHomeRecommendFunctionViewHolderTitle.setText(bean.getTitle());
+        Glide.with(mContext).load(bean.getFunctionImg()).placeholder(R.mipmap.ic_album_white).into(holder.ivShopHomeRecommendFunctionViewHolderIcon);
+        holder.tvShopHomeRecommendFunctionViewHolderTitle.setText(bean.getFunctionTitle());
     }
 
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public void setData(ArrayList<ShopHomeRecommendFunctionBean> data) {
+        this.data.clear();
+        this.data.addAll(data);
+        //        this.notify();
+        this.notifyDataSetChanged();
     }
 }

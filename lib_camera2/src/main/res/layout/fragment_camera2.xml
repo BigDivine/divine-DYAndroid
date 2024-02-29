@@ -6,8 +6,8 @@
 
     <com.divine.dy.lib_camera2.widget.AutoFixTextureView
         android:id="@+id/camera2_camera_texture_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <View
         android:id="@+id/camera2_camera_focus"
@@ -20,6 +20,13 @@
         android:layout_height="match_parent"
         android:background="@color/gray_text"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/camera2_camera_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/barGreen"
+        android:visibility="invisible" />
 
     <RelativeLayout
         android:id="@+id/camera2_camera_header"

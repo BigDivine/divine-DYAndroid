@@ -57,7 +57,7 @@ public class SmsLoginFunction implements SmsLoginView {
     @Override
     public void smsLoginSuccess(String res) {
         Log.e(TAG, "register success:" + res);
-        CustomResponse smsLogin = new Gson().fromJson(res, CustomResponse.class);
+        CustomResponse<String> smsLogin = new Gson().fromJson(res, CustomResponse.class);
 
         if (smsLogin.code == 0) {
             Message loginMessage = Message.obtain();
@@ -86,7 +86,7 @@ public class SmsLoginFunction implements SmsLoginView {
     @Override
     public void smsLoginGetVerSuccess(String res) {
         Log.e(TAG, "getVer success:" + res);
-        CustomResponse smsLogin = new Gson().fromJson(res, CustomResponse.class);
+        CustomResponse<String> smsLogin = new Gson().fromJson(res, CustomResponse.class);
         try {
             if (smsLogin.code == 0) {
                 String data = smsLogin.data;

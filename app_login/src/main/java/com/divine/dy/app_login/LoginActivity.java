@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public final int GET_VER_FAIL = 20012;
     public final int RESET_PASS_SUCCESS = 3001;
     public final int RESET_PASS_FAIL = 3002;
-    public Handler mHandler = new Handler() {
+    public final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             if (msg.what == GET_VER_WHAT) {

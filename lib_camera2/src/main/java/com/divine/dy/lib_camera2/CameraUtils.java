@@ -46,12 +46,15 @@ public class CameraUtils {
     public static Size getBestSize(boolean exchange, List<Size> sizeList) {
         List<Size> enoughSize = new ArrayList<>();
         for (Size size : sizeList) {
+            float di = (float) size.getWidth() / (float) size.getHeight();
             if (exchange) {
-                if ((size.getWidth() / size.getHeight()) == (16 / 9)) {
+                                if (di == (16.0f / 9.0f)) {
+//                if (di == (4.0f / 3.0f)) {
                     enoughSize.add(size);
                 }
             } else {
-                if ((size.getWidth() / size.getHeight()) == (9 / 16)) {
+                                 if (di  == (9.0f / 16.0f)) {
+//                if (di == (3.0f / 4.0f)) {
                     enoughSize.add(size);
                 }
             }

@@ -34,6 +34,7 @@
             android:drawableLeft="@mipmap/ic_login_user_phone"
             android:drawablePadding="@dimen/dp_10"
             android:hint="请输入手机号"
+            android:textColor="@color/LoginThemeColor"
             android:textSize="@dimen/sp_16" />
 
         <LinearLayout
@@ -54,6 +55,7 @@
                 android:drawableLeft="@mipmap/ic_login_user_ver"
                 android:drawablePadding="@dimen/dp_10"
                 android:hint="请输入验证码"
+                android:textColor="@color/LoginThemeColor"
                 android:textSize="@dimen/sp_16" />
 
             <Button

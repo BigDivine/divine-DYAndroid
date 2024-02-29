@@ -10,8 +10,10 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.divine.dy.app_login.LoginBase;
 import com.divine.dy.lib_base.AppBase;
 import com.divine.dy.lib_camera2.Camera2Base;
+import com.divine.dy.lib_http.AppHttp;
 import com.divine.dy.lib_source.SPKeys;
 import com.divine.dy.lib_utils.sys.SPUtils;
+import com.divine.wechat.DYWeChatBase;
 
 import java.io.File;
 
@@ -33,6 +35,7 @@ public class MyApplication extends Application {
         super.onCreate();
         getMetaData();
 
+        DYWeChatBase.APP_KEY = "";
         setAppInfo();
         setLoginApp();
         setDebugConfig();
@@ -54,6 +57,7 @@ public class MyApplication extends Application {
         //指定app本地存储目录
         AppBase.appDir = Environment.getExternalStorageDirectory() + File.separator + getPackageName() + File.separator;
         Log.e("dy-application", AppBase.appDir);
+        AppHttp.severUrl = server;
     }
 
     private void setLoginApp() {

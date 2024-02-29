@@ -62,7 +62,7 @@ public class RegisterFunction implements RegisterView {
     @Override
     public void registerSuccess(String res) {
         Log.e(TAG, "register success:" + res);
-        CustomResponse register = new Gson().fromJson(res, CustomResponse.class);
+        CustomResponse<String> register = new Gson().fromJson(res, CustomResponse.class);
         if (register.code == 0) {
             ToastUtils.showShort(mActivity, "注册成功");
             Message registerMessage = Message.obtain();
@@ -103,6 +103,15 @@ public class RegisterFunction implements RegisterView {
                 Message resetPassMessage = Message.obtain();
                 resetPassMessage.what = mActivity.HIDDEN_DIALOG_WHAT;
                 resetPassMessage.arg1 = mActivity.REGISTER_GET_VER_SUCCESS;
+                mActivity.mHandler.dispatchMessage(resetPassMessage);
+            }else{
+                String data = object.optString("msg");
+//                JSONObject dataObj = new JSONObject(data);
+//                String smsVer = dataObj.optString("smsVer");
+//                SmsLoginExample.RegisterSmsVer = smsVer;
+                Message resetPassMessage = Message.obtain();
+                resetPassMessage.what = mActivity.HIDDEN_DIALOG_WHAT;
+                resetPassMessage.arg1 = mActivity.REGISTER_GET_VER_FAIL;
                 mActivity.mHandler.dispatchMessage(resetPassMessage);
             }
         } catch (JSONException e) {

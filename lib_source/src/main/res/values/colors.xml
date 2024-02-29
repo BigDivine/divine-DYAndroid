@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- demo主题色/默认主题色/中铝颜色-->
-<!--        <color name="LoginThemeColor">#03A4AD</color>-->
-<!--        <color name="LoginWaveColor">#3c03A4AD</color>-->
-    <!--    陕投/陕西地电主题色-->
-    <color name="LoginThemeColor">#F39050</color>
-    <color name="LoginWaveColor">#3cF39050</color>
-    <!--    陕煤主题色-->
-    <!--    <color name="LoginThemeColor">#D22630</color>-->
-    <!--    <color name="LoginWaveColor">#3cD22630</color>-->
+    <!--    groot theme color:  #F39050  -->
+<!--    <color name="LoginThemeColor">#F39050</color>-->
+<!--    <color name="LoginWaveColor">#3cF39050</color>-->
+    <!--    deadPool theme color:  #EF424C  -->
+    <color name="LoginThemeColor">#EF424C</color>
+    <color name="LoginWaveColor">#3cEF424C</color>
+
+
+
     <color name="system_background_color">#F9F9F9</color>
     <color name="system_text_color">#737373</color>
 

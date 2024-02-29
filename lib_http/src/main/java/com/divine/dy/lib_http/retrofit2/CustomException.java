@@ -26,7 +26,9 @@ public class CustomException {
             int code = ((HttpException) e).code();
             if (code == 200) {
                 GEX = new GeneralException(ConstOfException.NETWORK_ERROR, e.getMessage());
-            } else {
+            } else  if (code == 404) {
+                GEX = new GeneralException(ConstOfException.NETWORK_ERROR, e.getMessage());
+            } else{
                 //网络错误
                 ResponseBody responseBody = ((HttpException) e).response().errorBody();
                 try {

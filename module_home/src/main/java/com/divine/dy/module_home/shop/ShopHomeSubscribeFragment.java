@@ -31,17 +31,17 @@ public class ShopHomeSubscribeFragment extends BaseFragment implements ShopHomeS
         //已订阅
         ArrayList<ShopHomeRecommendFunctionBean> data = new ArrayList<>();
         ShopHomeRecommendFunctionBean bean = new ShopHomeRecommendFunctionBean();
-        bean.setImg("a");
-        bean.setName("a");
-        bean.setTitle("四字标题");
-        for (int i = 0; i < 9; i++) {
-            data.add(bean);
-        }
+//        bean.setImg("a");
+//        bean.setName("a");
+//        bean.setTitle("四字标题");
+//        for (int i = 0; i < 9; i++) {
+//            data.add(bean);
+//        }
         ShopHomeRecommendFunctionBean beanAll = new ShopHomeRecommendFunctionBean();
-        beanAll.setImg("a");
-        beanAll.setName("a");
-        beanAll.setTitle("全部订阅");
-        data.add(beanAll);
+//        beanAll.setImg("a");
+//        beanAll.setName("a");
+//        beanAll.setTitle("全部订阅");
+//        data.add(beanAll);
 
         rvShopHomeSubscribeFunction.setLayoutManager(new GridLayoutManager(getContext(), 5, GridLayoutManager.VERTICAL, false));
         rvShopHomeSubscribeFunction.setAdapter(new ShopHomeRecommendFunctionAdapter(getContext(), data));

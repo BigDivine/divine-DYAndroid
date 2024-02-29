@@ -21,7 +21,7 @@ public class RadioGroupCommon {
         this.mRadioGroup = mRadioGroup;
     }
 
-    public void setDrawable(int checkedId){
+    public void setDrawable(int checkedId) {
         for (int i = 0; i < mRadioGroup.getChildCount(); i++) {
             RadioButton rbCheck = (RadioButton) mRadioGroup.getChildAt(i);
             if (rbCheck.getId() == checkedId) {
@@ -31,12 +31,13 @@ public class RadioGroupCommon {
             }
         }
     }
+
     private void setDrawable(RadioButton rb, int tintColor) {
         Drawable[] drawables = rb.getCompoundDrawables();
         Drawable top = drawables[1];
         top.setBounds(0, 0, 50, 50);
         top.setTint(mContext.getResources().getColor(tintColor));
         rb.setCompoundDrawables(drawables[0], top, drawables[2], drawables[3]);
-         rb.setTextColor(mContext.getResources().getColor(tintColor));
+        rb.setTextColor(mContext.getResources().getColor(tintColor));
     }
 }

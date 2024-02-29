@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.divine.dy.module_home.R;
 import com.divine.dy.module_home.shop.viewholder.ShopHomeSubscribeDetailViewHolder;
 
@@ -39,7 +40,7 @@ public class ShopHomeSubscribeDetailAdapter extends RecyclerView.Adapter<ShopHom
     public void onBindViewHolder(@NonNull ShopHomeSubscribeDetailViewHolder holder, int position) {
         String subDetailImg = data.get(position);
 
-        holder.ivShopHomeSubscribeDetailIcon.setImageResource(R.mipmap.ic_motion_18);
+        Glide.with(mContext).load(R.mipmap.ic_motion_18).placeholder(R.mipmap.ic_default_img_grey_alpha).into(holder.ivShopHomeSubscribeDetailIcon);
     }
 
     @Override

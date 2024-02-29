@@ -43,7 +43,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
                 btSplashTimer.setVisibility(View.VISIBLE);
             } else {
                 if (!isJumpToNext) {
-//                    toNextPage();
+                    toNextPage();
                 }
             }
 
@@ -89,6 +89,8 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     public void onLastItemClick(View v) {
         SPUtils.getInstance(this).put(SPKeys.SP_KEY_IS_FIRST_START, false);
         toLogin();
+//        toMain();
+
     }
 
     @Override
@@ -98,6 +100,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
             toNextPage();
         }
     }
+
     @Override
     public String[] requestPermissions() {
         return new String[]{
@@ -105,6 +108,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
                 PermissionList.READ_EXTERNAL_STORAGE
         };
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -123,12 +127,15 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
          * 两种方案：
          * 1、计算上次登录时间与本次登录时间的间隔大于某个值，则需要重新登录
          * 2、记住登录的情况，记录用户名和密码，在首页进行登录接口请求，如果登录失败提示并跳转到登录页
+         *
+         * 改造，直接进入app首页-----2022.02.24
          */
         if (isLogin) {
             toMain();
         } else {
             toLogin();
         }
+
     }
 
 

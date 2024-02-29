@@ -1,13 +1,21 @@
 package com.divine.dy.module_home.shop;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.divine.dy.lib_base.AppBase;
 import com.divine.dy.lib_base.base.BaseFragment;
+import com.divine.dy.lib_http.retrofit2.CustomResponse;
+import com.divine.dy.lib_http.retrofit2.Retrofit2Callback;
+import com.divine.dy.lib_http.retrofit2.Retrofit2IModel;
+import com.divine.dy.lib_http.retrofit2.RetrofitUtils;
 import com.divine.dy.lib_widget.widget.EditTextWithLRIcon;
 import com.divine.dy.module_home.R;
+import com.divine.dy.module_home.shop.bean.ShopHomeRecommendFunctionBean;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -15,7 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 /**
@@ -23,8 +30,8 @@ import androidx.viewpager.widget.ViewPager;
  * CreateDate: 2021/8/27
  * Describe:
  */
-public class ShopHomeFragment extends BaseFragment {
-//    private SwipeRefreshLayout srlShopHomeSwipeLayout;
+public class ShopHomeFragment extends BaseFragment  {
+    //    private SwipeRefreshLayout srlShopHomeSwipeLayout;
     private TabLayout tlShopHomeTop;
     private ImageButton ibtShopHomeScan, ibtShopHomeCamera;
     private Button btShopHomeSearch;
@@ -33,9 +40,15 @@ public class ShopHomeFragment extends BaseFragment {
 
     private ArrayList<Fragment> fragments;
 
+    private ArrayList<ShopHomeFragment> data;
+
+    public ShopHomeFragment(ArrayList<ShopHomeFragment> data) {
+        this.data = data;
+    }
+
     @Override
     protected void initView(View view) {
-//        srlShopHomeSwipeLayout = view.findViewById(R.id.shop_home_swipe_layout);
+        //        srlShopHomeSwipeLayout = view.findViewById(R.id.shop_home_swipe_layout);
         tlShopHomeTop = view.findViewById(R.id.shop_home_top_tab);
         ibtShopHomeScan = view.findViewById(R.id.shop_home_scan);
         ibtShopHomeCamera = view.findViewById(R.id.shop_home_camera);
@@ -45,8 +58,9 @@ public class ShopHomeFragment extends BaseFragment {
         tlShopHomeTop.setupWithViewPager(vpShopHomePager);
 
         fragments = new ArrayList<>();
-        fragments.add(new ShopHomeSubscribeFragment());
+        //        fragments.add(new ShopHomeSubscribeFragment());
         fragments.add(new ShopHomeRecommendFragment());
+
         ShopHomeAdapter adapter = new ShopHomeAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         vpShopHomePager.setAdapter(adapter);
         vpShopHomePager.setCurrentItem(1);
@@ -55,6 +69,13 @@ public class ShopHomeFragment extends BaseFragment {
             BaseFragment fragment = (BaseFragment) fragments.get(i);
             tab.setText(fragment.getTitle());
         }
+        //        ibtShopHomeCamera.setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View v) {
+        //                ARouter.getInstance().build(ARouterManager.ROUTER_LOGIN_MAIN).navigation(this);
+        //
+        //            }
+        //        });
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.divine.dy.lib_http.retrofit2;
 
+import com.divine.dy.lib_http.AppHttp;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -66,7 +68,7 @@ public class Retrofit2Helper {
 
     private void setUpRetrofit2() {
         Retrofit.Builder mRetrofitBuilder = new Retrofit.Builder();
-        mRetrofitBuilder.baseUrl("http://10.33.10.28:8080");
+        mRetrofitBuilder.baseUrl(AppHttp.severUrl);
         mRetrofitBuilder.client(mOkHttpClient);
         mRetrofitBuilder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         mRetrofitBuilder.addConverterFactory(ScalarsConverterFactory.create());

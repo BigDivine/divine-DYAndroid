@@ -11,7 +11,8 @@ import android.view.TextureView;
  * Describe:
  */
 public class AutoFixTextureView extends TextureView {
-    private int ratioW = 720, ratioH = 1280;
+//    private int ratioW = 720, ratioH = 1280;
+    private int ratioW = 3, ratioH = 4;
 
     public AutoFixTextureView(Context context) {
         super(context);
@@ -52,17 +53,17 @@ public class AutoFixTextureView extends TextureView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        if (0 == ratioW || 0 == ratioH) {
-            //未设定宽高比，使用预览窗口默认宽高
-            setMeasuredDimension(width, height);
-        } else {
-            //设定宽高比，调整预览窗口大小（调整后窗口大小不超过默认值）
-            if (width > height * ratioW / ratioH) {
-                setMeasuredDimension(width, width * ratioH / ratioW);
-            } else {
-                setMeasuredDimension(height * ratioW / ratioH, height);
-            }
-        }
+//        if (0 == ratioW || 0 == ratioH) {
+//            //未设定宽高比，使用预览窗口默认宽高
+//            setMeasuredDimension(width, height);
+//        } else {
+//            //设定宽高比，调整预览窗口大小（调整后窗口大小不超过默认值）
+//            if (width > height * ratioW / ratioH) {
+//                setMeasuredDimension(width, width * ratioH / ratioW);
+//            } else {
+//                setMeasuredDimension(height * ratioW / ratioH, height);
+//            }
+//        }
 
     }
 }

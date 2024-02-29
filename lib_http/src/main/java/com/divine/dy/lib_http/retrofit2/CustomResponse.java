@@ -5,9 +5,9 @@ package com.divine.dy.lib_http.retrofit2;
  * CreateDate: 2021/8/24
  * Describe:
  */
-public class CustomResponse {
+public class CustomResponse<T> {
     public String msg;
     public int code;
-    public String data;
+    public T data;
 }
 

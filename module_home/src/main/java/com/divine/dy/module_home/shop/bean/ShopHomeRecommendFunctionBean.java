@@ -6,29 +6,46 @@ package com.divine.dy.module_home.shop.bean;
  * Describe:
  */
 public class ShopHomeRecommendFunctionBean {
-    private String img,name,title;
+    private String functionId, functionName, functionTitle, functionImg;
+    private int functionShow;
 
-    public String getImg() {
-        return img;
+    public String getFunctionId() {
+        return functionId;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setFunctionId(String functionId) {
+        this.functionId = functionId;
     }
 
-    public String getName() {
-        return name;
+    public String getFunctionName() {
+        return functionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFunctionName(String functionName) {
+        this.functionName = functionName;
     }
 
-    public String getTitle() {
-        return title;
+    public String getFunctionTitle() {
+        return functionTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFunctionTitle(String functionTitle) {
+        this.functionTitle = functionTitle;
+    }
+
+    public String getFunctionImg() {
+        return functionImg;
+    }
+
+    public void setFunctionImg(String functionImg) {
+        this.functionImg = functionImg;
+    }
+
+    public int getFunctionShow() {
+        return functionShow;
+    }
+
+    public void setFunctionShow(int functionShow) {
+        this.functionShow = functionShow;
     }
 }

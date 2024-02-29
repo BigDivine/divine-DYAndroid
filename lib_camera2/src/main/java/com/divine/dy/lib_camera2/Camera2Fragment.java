@@ -36,6 +36,7 @@ import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -401,8 +402,15 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
 
             mAutoFixTextureView.setAspectRation(mPicBestPreviewSize.getWidth(), mPicBestPreviewSize.getHeight());
             mAutoFixTextureView.getSurfaceTexture().setDefaultBufferSize(mPicBestPreviewSize.getWidth(), mPicBestPreviewSize.getHeight());
+            int screenWidth = DensityUtils.getScreenWidth(mContext);
+            //            int textureHeight = screenWidth * 16 /9;
+            //            int textureHeight = screenWidth * 4 / 3;
+            //            mAutoFixTextureView.setAspectRation(screenWidth, textureHeight);
+            //            mAutoFixTextureView.getSurfaceTexture().setDefaultBufferSize(screenWidth, textureHeight);
             // 设置ImageReader，用来读取拍摄图像的类
+
             mImageReader = ImageReader.newInstance(mPicBestSaveSize.getWidth(), mPicBestSaveSize.getHeight(), ImageFormat.JPEG,/*maxImages*/2);
+            //            mImageReader = ImageReader.newInstance(screenWidth, textureHeight, ImageFormat.JPEG,/*maxImages*/2);
             //这里必须传入mainHandler，因为涉及到了Ui操作
             mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mainHandler);
             if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -546,7 +554,6 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
         getActivity().startActivityForResult(intent, AppConstants.REQUEST_CODE_CUSTOM_SELECT_PIC);
     }
 
-
     public boolean isSingle() {
         return isSingle;
     }
@@ -592,9 +599,15 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
         mCamera2ButtonAlbum = view.findViewById(R.id.camera2_button_album);
         mCamera2ButtonTakePhoto = view.findViewById(R.id.camera2_button_take_photo);
         mCamera2ButtonSubmit = view.findViewById(R.id.camera2_button_submit);
+
+        camera2_camera_text_view = view.findViewById(R.id.camera2_camera_text_view);
+
+
         setTextureLayoutParams();
         setListener();
     }
+
+    private TextView camera2_camera_text_view;
 
     private void setListener() {
         mCamera2ButtonAlbum.setOnClickListener(this);
@@ -610,7 +623,17 @@ public class Camera2Fragment extends BaseFragment implements TextureView.Surface
     private void setTextureLayoutParams() {
         int screenWidth = DensityUtils.getScreenWidth(mContext);
         int textureHeight = screenWidth * 16 / 9;
-        mAutoFixTextureView.setLayoutParams(new RelativeLayout.LayoutParams(screenWidth, textureHeight));
+        //        int textureHeight = screenWidth * 4 / 3;
+        ViewGroup.LayoutParams mAutoFixTextureViewLayoutParams = mAutoFixTextureView.getLayoutParams();
+        mAutoFixTextureViewLayoutParams.width = screenWidth;
+        mAutoFixTextureViewLayoutParams.height = textureHeight;
+        mAutoFixTextureView.setLayoutParams(mAutoFixTextureViewLayoutParams);
+
+        ViewGroup.LayoutParams camera2_camera_text_view1 = camera2_camera_text_view.getLayoutParams();
+        camera2_camera_text_view1.width = screenWidth;
+        camera2_camera_text_view1.height = textureHeight;
+        camera2_camera_text_view.setLayoutParams(camera2_camera_text_view1);
+
     }
 
     private void showImageAlbum() {

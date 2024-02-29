@@ -6,15 +6,15 @@ apply from: "versions/androidx_version.gradle"
 apply from: "versions/http_version.gradle"
 apply from: "versions/image_version.gradle"
 apply from: "versions/jpush_version.gradle"
-apply from: "versions/tencent_version.gradle"
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public' }
-//        maven { url 'https://maven.aliyun.com/repository/jcenter' }  // <= here
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }  // <= here
         maven { url 'https://maven.aliyun.com/repository/google' }  // <= here
-        google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
@@ -27,10 +27,10 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public' }
-//        maven { url 'https://maven.aliyun.com/repository/jcenter' }  // <= here
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }  // <= here
         maven { url 'https://maven.aliyun.com/repository/google' }  // <= here
-        google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 

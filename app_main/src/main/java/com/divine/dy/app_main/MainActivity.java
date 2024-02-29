@@ -23,7 +23,7 @@ import com.divine.dy.lib_utils.sys.SPUtils;
 @Route(path = ARouterManager.ROUTER_MAIN_MAIN)
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "DY-Main";
-    private int mainViewType, mainMainType;
+    private int mainViewType=3, mainMainType=0;
 
     @Override
     public int getContentViewId() {
@@ -43,6 +43,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void initView() {
         findView();
         setListener();
+
+        toMainPage();
     }
 
     @Override
@@ -96,6 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 intent.setClass(this, RadioPagerFragmentActivity.class);
                 break;
             case 3:
+                // 效果个人最喜欢！其他暂不考虑扩展
                 intent.setClass(this, RadioPager2FragmentActivity.class);
                 break;
             case 4:
@@ -106,5 +109,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
         startActivity(intent);
+        this.finish();
     }
 }

@@ -23,10 +23,10 @@ public class Retrofit2IModel {
                     public void accept(String o) throws Exception {
                         callback.onSuccess(o);
                     }
-                }, new Consumer<Throwable>() {
+                }, new Consumer<GeneralException>() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        callback.onSuccess(throwable.getMessage());
+                    public void accept(GeneralException e) throws Exception {
+                        callback.onFailed(e.getErrorMessage());
                     }
                 });
         CompositeDisposable mCompositeDisposable = new CompositeDisposable();

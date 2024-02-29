@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation project(":lib_source")
 
-    implementation Retrofit2.Retrofit
+    api Retrofit2.Retrofit
     implementation Retrofit2.ConverterGson
     implementation Retrofit2.ConverterScalars
     implementation Retrofit2.AdapterRxjava2
