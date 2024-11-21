@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion appInfo.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion appInfo.minSdkVersion
+        targetSdkVersion appInfo.targetSdkVersion
+        consumerProguardFiles "consumer-rules.pro"
+
+        flavorDimensions 'versionCode'
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
+            }
+        }
+        productFlavors {
+            abc{
+                applicationId IRONMAN.applicationId
+                versionCode IRONMAN.versionCode
+                versionName IRONMAN.versionName
+                manifestPlaceholders = IRONMAN.manifestPlaceholders
+            }
+            IronMan {
+                applicationId IRONMAN.applicationId
+                versionCode IRONMAN.versionCode
+                versionName IRONMAN.versionName
+                manifestPlaceholders = IRONMAN.manifestPlaceholders
+            }
+            Groot {
+                applicationId GROOT.applicationId
+                versionCode GROOT.versionCode
+                versionName GROOT.versionName
+                manifestPlaceholders = GROOT.manifestPlaceholders
+            }
+            Deadpool {
+                applicationId DEADPOOL.applicationId
+                versionCode DEADPOOL.versionCode
+                versionName DEADPOOL.versionName
+                manifestPlaceholders = DEADPOOL.manifestPlaceholders
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation project(":lib_overview")
+    implementation project(":lib_overapp")
+    implementation 'com.github.BigDivine:divine-DYWeChat:1.0.3'
+
+    implementation Ali.Router
+    annotationProcessor Ali.RouterCompiler
+}

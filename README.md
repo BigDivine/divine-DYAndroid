@@ -1,2 +1,2 @@
-# divine-DYUtil
-DY's Android Utils
+# divine-DYAndroid
+DY's Android project

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyVerificationCode">
+                <attr name="titleText" />
+        <attr name="textColor" />
+        <attr name="titleSize" />
+        <attr name="pointSize" />
+        <attr name="lineSize" />
+    </declare-styleable>
+</resources>

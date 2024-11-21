@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp_40"
+    android:layout_marginRight="@dimen/dp_40"
+    app:cardCornerRadius="@dimen/dp_8"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_corner_5dp"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="忘记密码"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18" />
+
+        <com.divine.yang.widget.EditTextWithLRIcon
+            android:id="@+id/reset_pass_user"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_edit_bottom_border_focus"
+            android:drawableLeft="@mipmap/ic_login_user_phone"
+            android:drawablePadding="@dimen/dp_10"
+            android:hint="请输入用户名/手机号"
+            android:textColor="@color/LoginThemeColor"
+            android:textSize="@dimen/sp_16" />
+
+        <com.divine.yang.widget.EditTextWithLRIcon
+            android:id="@+id/reset_pass_old"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_edit_bottom_border_focus"
+            android:drawableLeft="@mipmap/ic_login_user_pass"
+            android:drawablePadding="@dimen/dp_10"
+            android:hint="请输入旧密码"
+            android:textColor="@color/LoginThemeColor"
+            android:textSize="@dimen/sp_16" />
+
+
+        <com.divine.yang.widget.EditTextWithLRIcon
+            android:id="@+id/reset_pass_old_second"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_edit_bottom_border_focus"
+            android:drawableLeft="@mipmap/ic_login_user_pass"
+            android:drawablePadding="@dimen/dp_10"
+            android:hint="请再次输入旧密码"
+            android:textColor="@color/LoginThemeColor"
+            android:textSize="@dimen/sp_16" />
+
+        <com.divine.yang.widget.EditTextWithLRIcon
+            android:id="@+id/reset_pass_new"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_edit_bottom_border_focus"
+            android:drawableLeft="@mipmap/ic_login_user_pass"
+            android:drawablePadding="@dimen/dp_10"
+            android:hint="请输入新密码"
+            android:textColor="@color/LoginThemeColor"
+            android:textSize="@dimen/sp_16" />
+
+        <Button
+            android:id="@+id/reset_pass_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/shape_blue_corner_5dp"
+            android:text="重置"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_19" />
+
+        <Button
+            android:id="@+id/reset_pass_to_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@null"
+            android:text="找到密码，直接登录"
+            android:textColor="@color/LoginThemeColor" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

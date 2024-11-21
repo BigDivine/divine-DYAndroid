@@ -1,0 +1,152 @@
+ext = {
+    versions = [
+            sdk           : [
+                    compile          : 34,
+                    min              : 29,// Android 10.0
+                    target           : 34,// Android 14
+                    buildToolsVersion: "34.0.0",
+
+            ],
+            junits        : [
+                    JunitVersion: "4.13.2",
+            ],
+            androidxTest  : [
+                    TestExtJunitVersion: "1.1.5",
+                    EspressoCoreVersion: "3.5.1"
+            ],
+            androidx      : [
+                    AppCompatVersion          : "1.3.0",
+                    ConstraintLayoutVersion   : "2.0.4",
+                    RecyclerViewVersion       : "1.2.0-alpha05",
+                    NavigationUIVersion       : "2.3.1",
+                    NavigationFragmentVersion : "2.3.1",
+                    LifecycleExtensionsVersion: "2.2.0",
+                    ViewPager2Version         : "1.0.0-alpha02",
+                    CardViewVersion           : "1.0.0",
+                    RoomVersion               : "2.3.0",
+            ],
+            androidSupport: [
+                    DesignVersion: "28.0.0",
+            ],
+            googleAndroid : [
+                    MaterialVersion: "1.4.0",
+            ],
+            facebook      : [
+                    FacebookFrescoVersion: "2.3.0",
+            ],
+            glide         : [
+                    GlideVersion: "4.11.0",
+            ],
+            okHttp3       : [
+                    OkHttp3Version: "4.9.0",
+            ],
+            retrofit2     : [
+                    Retrofit2Version: "2.9.0",
+            ],
+            rxjava2       : [
+                    Rxjava2Rxjava   : "2.2.19",
+                    Rxjava2RxAndroid: "2.1.1",
+            ],
+            rxjava3       : [
+                    Rxjava3Rxjava   : "3.0.6",
+                    Rxjava3RxAndroid: "3.0.0",
+            ],
+            wmRouter      : [
+                    RouterVersion: "1.2.0",
+            ],
+            aRouter       : [
+                    AliRouterVersion: '1.5.2',
+            ],
+            tencent       : [
+                    WeChatVersion: "+",
+            ],
+            jPush         : [
+                    JCoreVersion    : "3.3.0",
+                    JPushVersion    : "4.7.2",
+                    HuaweiHmsVersion: "6.3.0.304",
+            ],
+            zxing         : [
+                    ZxingScannerVersion       : "2.1.6",
+                    ZxingCoreVersion          : "3.3.0",
+                    DynckathlineBarcodeVersion: "2.9",
+            ]
+    ]
+    libraries = [
+            junits        : [
+                    Junit: "junit:junit:${versions.junits.JunitVersion}",
+            ],
+            androidxTest  : [
+                    TestExtJunit: "androidx.test.ext:junit:${versions.androidxTest.TestExtJunitVersion}",
+                    EspressoCore: "androidx.test.espresso:espresso-core:${versions.androidxTest.EspressoCoreVersion}",
+            ],
+            androidx      : [
+                    AppCompat          : "androidx.appcompat:appcompat:${versions.androidx.AppCompatVersion}",
+                    ConstraintLayout   : "androidx.constraintlayout:constraintlayout:${versions.androidx.ConstraintLayoutVersion}",
+                    RecyclerView       : "androidx.recyclerview:recyclerview:${versions.androidx.RecyclerViewVersion}",
+                    NavigationUI       : "androidx.navigation:navigation-ui:${versions.androidx.NavigationUIVersion}",
+                    NavigationFragment : "androidx.navigation:navigation-fragment:${versions.androidx.NavigationFragmentVersion}",
+                    LifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:${versions.androidx.LifecycleExtensionsVersion}",
+                    ViewPager2         : "androidx.viewpager2:viewpager2:${versions.androidx.ViewPager2Version}",
+                    CardView           : "androidx.cardview:cardview:${versions.androidx.CardViewVersion}",
+                    RoomRuntime        : "androidx.room:room-runtime:${versions.androidx.RoomVersion}",
+                    RoomCompiler       : "androidx.room:room-compiler:${versions.androidx.RoomVersion}",
+                    RoomRxJava2        : "androidx.room:room-rxjava2:${versions.androidx.RoomVersion}"
+            ],
+            androidSupport: [
+                    Design: "com.android.support:design:${versions.androidSupport.DesignVersion}",
+            ],
+            googleAndroid : [
+                    Material: "com.google.android.material:material:${versions.googleAndroid.MaterialVersion}",
+            ],
+            facebook      : [
+                    Fresco: "com.facebook.fresco:fresco:${versions.facebook.FacebookFrescoVersion}",
+            ],
+            glide         : [
+                    Glide        : "com.github.bumptech.glide:glide:${versions.glide.GlideVersion}",
+                    GlideCompiler: "com.github.bumptech.glide:compiler:${versions.glide.GlideVersion}"
+            ],
+            okHttp3       : [
+                    Logging: "com.squareup.okhttp3:logging-interceptor:${versions.okHttp3.OkHttp3Version}"
+            ],
+            retrofit2     : [
+                    Retrofit        : "com.squareup.retrofit2:retrofit:${versions.retrofit2.Retrofit2Version}",
+                    ConverterGson   : "com.squareup.retrofit2:converter-gson:${versions.retrofit2.Retrofit2Version}",
+                    ConverterScalars: "com.squareup.retrofit2:converter-scalars:${versions.retrofit2.Retrofit2Version}",
+                    AdapterRxjava2  : "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit2.Retrofit2Version}",
+            ],
+            rxjava2       : [
+                    Rxjava   : "io.reactivex.rxjava2:rxjava:${versions.rxjava2.Rxjava2Rxjava}",
+                    Rxandroid: "io.reactivex.rxjava2:rxandroid:${versions.rxjava2.Rxjava2RxAndroid}"
+            ],
+            rxjava3       : [
+                    Rxjava   : "io.reactivex.rxjava3:rxjava:${versions.Rxjava3Rxjava}",
+                    Rxandroid: "io.reactivex.rxjava3:rxandroid:${versions.Rxjava3RxAndroid}"
+            ],
+            wmRouter      : [
+                    RouterCompiler: "com.sankuai.waimai.router:compiler:${versions.wmRouter.RouterVersion}",
+                    Router        : "com.sankuai.waimai.router:router:${versions.wmRouter.RouterVersion}"
+            ],
+            aRouter       : [
+                    RouterCompiler: "com.alibaba:arouter-compiler:${versions.aRouter.AliRouterVersion}",
+                    Router        : "com.alibaba:arouter-api:${versions.aRouter.AliRouterVersion}"
+            ],
+            tencent       : [
+                    WeChat: "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:${versions.tencent.WeChatVersion}"
+            ],
+            jPush         : [
+                    JCore: "cn.jiguang.sdk:jcore:${versions.jPush.JCoreVersion}",
+                    JPush: "cn.jiguang.sdk:jpush:${versions.jPush.JPushVersion}",
+//                    HuaweiPlugin: "cn.jiguang.sdk.plugin:huawei:${versions.jPush.JPushVersion}",
+//                    HuaweiHms   : "com.huawei.hms:push:${versions.jPush.HuaweiHmsVersion}",
+//                    XiaomiPlugin: "cn.jiguang.sdk.plugin:xiaomi:${versions.jPush.JPushVersion}",
+//                    VivoPlugin  : "cn.jiguang.sdk.plugin:vivo:${versions.jPush.JPushVersion}",
+//                    MeizuPlugin : "cn.jiguang.sdk.plugin:meizu:${versions.jPush.JPushVersion}",
+//                    OppoPlugin  : "cn.jiguang.sdk.plugin:oppo:${versions.jPush.JPushVersion}",
+            ],
+            zxing         : [
+                    ZxingScanner       : "com.mylhyl:zxingscanner:${versions.zxing.ZxingScannerVersion}",
+                    ZxingCore          : "com.google.zxing:core:${versions.zxing.ZxingCoreVersion}",
+                    DynckathlineBarcode: "com.github.dynckathline:barcode:${versions.zxing.DynckathlineBarcodeVersion}",
+            ]
+    ]
+}

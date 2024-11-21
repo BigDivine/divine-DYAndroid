@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp_40"
+    android:layout_marginRight="@dimen/dp_40"
+    app:cardCornerRadius="@dimen/dp_8"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_corner_5dp"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_20">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="注册用户"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18" />
+
+        <com.divine.yang.widget.EditTextWithLRIcon
+            android:id="@+id/register_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_edit_bottom_border_focus"
+            android:drawableLeft="@mipmap/ic_login_user_name"
+            android:drawablePadding="@dimen/dp_10"
+            android:hint="请输入用户名"
+            android:textColor="@color/LoginThemeColor"
+            android:textSize="@dimen/sp_16" />
+
+
+        <com.divine.yang.widget.EditTextWithLRIcon
+            android:id="@+id/register_user_pass"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_edit_bottom_border_focus"
+            android:drawableLeft="@mipmap/ic_login_user_pass"
+            android:drawablePadding="@dimen/dp_10"
+            android:hint="请输入密码"
+            android:textColor="@color/LoginThemeColor"
+            android:textSize="@dimen/sp_16" />
+
+        <com.divine.yang.widget.EditTextWithLRIcon
+            android:id="@+id/register_user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_edit_bottom_border_focus"
+            android:drawableLeft="@mipmap/ic_login_user_phone"
+            android:drawablePadding="@dimen/dp_10"
+            android:hint="请输入手机号"
+            android:textColor="@color/LoginThemeColor"
+            android:textSize="@dimen/sp_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/selector_edit_bottom_border_focus"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dp_2">
+
+            <com.divine.yang.widget.EditTextWithLRIcon
+                android:id="@+id/register_user_phone_ver"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_38"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/ic_login_user_ver"
+                android:drawablePadding="@dimen/dp_10"
+                android:hint="请输入验证码"
+                android:textColor="@color/LoginThemeColor"
+                android:textSize="@dimen/sp_16" />
+
+            <Button
+                android:id="@+id/register_user_get_phone_ver"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_20"
+                android:text="获取验证码"
+                android:textColor="@color/LoginThemeColor"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/register_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/shape_blue_corner_5dp"
+            android:text="立即注册"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_19" />
+
+        <Button
+            android:id="@+id/register_to_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@null"
+            android:text="已有账号，直接登录"
+            android:textColor="@color/LoginThemeColor" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

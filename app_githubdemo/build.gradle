@@ -1,0 +1,47 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+}
+
+def packageName = 'com.divine.yang.githubdemo'
+
+android {
+    namespace packageName
+    compileSdk rootProject.ext.compileSdk
+
+    defaultConfig {
+        applicationId packageName
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
+
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+//    https://github.com/BigDivine/divine-DYBase
+    implementation 'com.github.BigDivine:divine-DYBase:1.0.3r'
+//    https://github.com/BigDivine/divine-DYWidget
+    implementation 'com.github.BigDivine:divine-DYWidget:1.0.4'
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.recyclerview
+
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}

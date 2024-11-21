@@ -1,0 +1,61 @@
+[versions]
+agp = "8.3.2"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+material = "1.10.0"
+
+constraintLayout = "2.1.4"
+recyclerview = "1.3.0"
+cardview = "1.0.0"
+core = "1.13.1"
+viewpager = "1.0.0"
+viewpager2 = "1.0.0"
+swiperefreshlayout = "1.1.0"
+
+aRouter = "1.5.2"
+retrofit2= "2.11.0"
+rxjava2  = "2.2.19"
+rxAndroid2= "2.1.1"
+fresco= "3.4.0"
+glide= "4.16.0"
+gson= "2.11.0"
+activity = "1.8.0"
+
+[libraries]
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
+core = { group = "androidx.core", name = "core", version.ref = "core" }
+viewpager = { group = "androidx.viewpager", name = "viewpager", version.ref = "viewpager" }
+viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
+swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "aRouter" }
+arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "aRouter" }
+retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
+retrofit2-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit2" }
+retrofit2-converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "retrofit2" }
+retrofit2-adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofit2" }
+
+rxjava2 = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava2" }
+rxandroid2 = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxAndroid2" }
+
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glideCompiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+fresco = { group = "com.facebook.fresco", name = "fresco", version.ref = "fresco" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application>
+        <provider
+            android:name="com.divine.yang.camera2.CameraProvider"
+            android:authorities="com.divine.dy.sample.file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/camera_paths"></meta-data>
+        </provider>
+
+        <activity
+            android:name="com.divine.yang.camera2.edit.IMGGalleryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageGalleryTheme" />
+
+        <activity
+            android:name="com.divine.yang.camera2.edit.IMGEditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageEditTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.divine.yang.camera2.edit.MyIMGEditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageEditTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+    </application>
+</manifest>

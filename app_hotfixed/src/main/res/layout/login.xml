@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登陆"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/tv_sign_up"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        app:layout_constraintLeft_toLeftOf="@id/tv_sign_in"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/et_account"
+        app:layout_constraintTop_toBottomOf="@id/tv_sign_in" />
+
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="#FFF000"
+        app:layout_constraintLeft_toRightOf="@id/tv_account"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_account" />
+
+    <TextView
+        android:id="@+id/tv_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/et_pwd"
+        app:layout_constraintTop_toBottomOf="@id/tv_account" />
+
+    <EditText
+        android:id="@+id/et_pwd"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="#FFF000"
+        app:layout_constraintLeft_toRightOf="@id/tv_pwd"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_pwd" />
+</android.support.constraint.ConstraintLayout>

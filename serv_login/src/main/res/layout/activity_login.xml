@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/login_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@mipmap/login_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/LoginThemeColor" />
+
+    <com.divine.yang.widget.WaveView
+        android:id="@+id/login_wave1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        app:amplitudeRatio="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <com.divine.yang.widget.WaveView
+        android:id="@+id/login_wave2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        app:amplitudeRatio="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <include
+        android:id="@+id/login_common_layout"
+        layout="@layout/layout_common_login"
+        android:visibility="visible" />
+
+    <include
+        android:id="@+id/login_sms_layout"
+        layout="@layout/layout_sms_login"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/register_layout"
+        layout="@layout/layout_register"
+        android:visibility="gone" />
+    <include
+        android:id="@+id/reset_pass_layout"
+        layout="@layout/layout_reset_pass"
+        android:visibility="gone" />
+    <include
+        android:id="@+id/change_server_layout"
+        layout="@layout/layout_change_server"
+        android:visibility="gone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

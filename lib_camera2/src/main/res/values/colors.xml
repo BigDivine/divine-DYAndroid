@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    groot theme color:  #F39050  -->
+<!--    <color name="LoginThemeColor">#F39050</color>-->
+<!--    <color name="LoginWaveColor">#3cF39050</color>-->
+    <!--    deadPool theme color:  #EF424C  -->
+    <color name="LoginThemeColor">#EF424C</color>
+    <color name="LoginWaveColor">#3cEF424C</color>
+
+
+
+    <color name="system_background_color">#F9F9F9</color>
+    <color name="system_text_color">#737373</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#333333</color>
+    <color name="content_bg_color">#F2F5FB</color>
+    <color name="main_navigation_bg_color">#F9F9F9</color>
+    <color name="back_black">#323232</color>
+    <color name="back_black_half_alpha">#80323232</color>
+    <color name="back_blue">#276EEB</color>
+    <color name="bottom_bg">#aaaaaa</color>
+    <color name="red_text">#FB514B</color>
+    <color name="back_slide">#E5E5E5</color>
+    <color name="backgroundColor">#0CA6F0</color>
+    <color name="EditTextLineColor">#BCBBC1</color>
+    <color name="gray_text">#838B8F</color>
+
+    <color name="blue_text_color">#1667E0</color>
+    <color name="line_color">#EFEFF4</color>
+    <color name="black_text_color">#24272B</color>
+    <color name="gray_text_color">#364B60</color>
+    <color name="edit_text_color">#77808A</color>
+    <color name="gray_text_color_two">#3E4A59</color>
+    <color name="back_divider">#F2F5FB</color>
+    <color name="blue_button">#2F80F6</color>
+
+    <color name="lowerPowerColor">#ff4d4d</color>
+    <color name="onlineColor">#00d68d</color>
+    <color name="offlineColor">#bfbfbf</color>
+
+    <color name="popup_back">#50000000</color>
+
+    <color name="machine_warn_waiting">#FF4D46</color>
+    <color name="X_axis_default_color">#D8D8D8</color>
+    <color name="X_axis_default_text_color">#3E4A59</color>
+    <color name="broken_line_default_color">#1890FF</color>
+
+    <color name="barGreen">#52C41A</color>
+    <color name="barOrange">#FFAD58</color>
+    <color name="barGray">#E2ECFF</color>
+</resources>

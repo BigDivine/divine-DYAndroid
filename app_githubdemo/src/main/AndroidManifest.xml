@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+   >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_dy_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".widget.CirclePieViewActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".widget.BrokenLineViewActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

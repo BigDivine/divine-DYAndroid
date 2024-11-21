@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/dp_8">
+
+    <ImageView
+        android:id="@+id/item_pic_select_folder_img"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp_10"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_default_img_grey_alpha" />
+
+    <TextView
+        android:id="@+id/item_pic_select_folder_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/item_pic_select_folder_img"
+        android:text="文件夹（999）"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
+
+    <ImageView
+        android:id="@+id/item_pic_select_folder_checked"
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="@dimen/dp_20"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        app:tint="@color/barGreen"
+        android:src="@mipmap/ic_tick" />
+
+
+</RelativeLayout>

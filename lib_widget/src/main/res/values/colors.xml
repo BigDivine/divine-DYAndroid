@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="base_color">#EF424C</color>
+    <color name="system_background_color">#F9F9F9</color>
+    <color name="system_text_color">#737373</color>
+    <color name="popup_back">#50000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue_button">#2F80F6</color>
+    <color name="back_divider">#F2F5FB</color>
+    <color name="back_black">#323232</color>
+    <color name="gray_text">#838B8F</color>
+
+    <color name="gray_text_color_two">#3E4A59</color>
+
+    <color name="barGreen">#52C41A</color>
+    <color name="barOrange">#FFAD58</color>
+    <color name="barGray">#E2ECFF</color>
+
+    <color name="X_axis_default_color">#D8D8D8</color>
+    <color name="X_axis_default_text_color">#3E4A59</color>
+    <color name="broken_line_default_color">#1890FF</color>
+
+    <color name="lowerPowerColor">#ff4d4d</color>
+    <color name="onlineColor">#00d68d</color>
+    <color name="offlineColor">#bfbfbf</color>
+</resources>

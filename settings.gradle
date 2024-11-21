@@ -1,0 +1,51 @@
+
+pluginManagement {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url 'https://jitpack.io' }
+
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        google()
+        mavenCentral()
+
+    }
+}
+rootProject.name = "DivinePlatform"
+include ':app_githubdemo'
+include ':app'
+include ':app_hotfixed'
+include ':app_netencrypt'
+
+include ':lib_util'
+include ':lib_sqlite'
+include ':lib_http'
+
+//include ':lib_widget'
+include ':lib_base'
+//include ':lib_camera2'
+include ':lib_netencryptrsa'
+include ':lib_netencryptserver'
+
+//include ':serv_home'
+//include ':serv_login'
+//include ':serv_main'
+//include ':serv_splash'
