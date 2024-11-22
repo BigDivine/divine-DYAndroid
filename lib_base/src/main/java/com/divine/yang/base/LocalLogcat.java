@@ -66,11 +66,18 @@ public class LocalLogcat {
         }
     }
 
+    public boolean isRunning() {
+        if (mLogDumper != null) {
+            return mLogDumper.mRunning;
+        }
+        return false;
+    }
+
     private class LogDumper extends Thread {
 
         private Process logcatProc;
         private BufferedReader mReader = null;
-        private boolean mRunning = true;
+        public boolean mRunning = true;
         String cmds = null;
         private String mPID;
         private FileOutputStream out = null;

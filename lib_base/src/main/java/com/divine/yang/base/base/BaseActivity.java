@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +29,6 @@ import com.divine.yang.base.utils.ActivitiesManager;
 import com.divine.yang.base.utils.DialogUtils;
 import com.divine.yang.base.utils.ToastUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ActivitiesManager activitiesManager;
     // current time by millisecond:当前时间毫秒数
     private long currentTimeMillis = 0;
+    private LocalLogcat mLocalLogcat;
     // need to request permissions dynamically:需要动态申请的权限
     private String[] requestPermissions;
 
@@ -107,6 +106,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //        }
         requestPermissions = requestPermissions();
         if (isDebug) {
+            mLocalLogcat = LocalLogcat.getInstance(this, logDirPath);
             // 检查文件权限，用于保存日志文件
             getFilePermission();
         } else {
@@ -133,6 +133,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         Log.e(TAG, "onResume");
         super.onResume();
+        if (isDebug && null != mLocalLogcat && !mLocalLogcat.isRunning()) {
+            mLocalLogcat.start();
+        }
     }
 
     @Override
@@ -154,28 +157,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.e(TAG, "onDestroy");
         super.onDestroy();
-        if (isDebug) {
-            LocalLogcat.getInstance(this, logDirPath).stop();
+        if (isDebug && null != mLocalLogcat && mLocalLogcat.isRunning()) {
+            mLocalLogcat.stop();
         }
     }
 
-    /**
-     * 判断当前应用在前台
-     */
-    protected boolean isForeground(Context mContext) {
-        ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
-        if (processes == null) {
-            Log.e(TAG, "running app processes is null!");
-            return false;
-        }
-        for (ActivityManager.RunningAppProcessInfo app : processes) {
-            if (app.processName.equals(mContext.getPackageName()) && app.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void requestCustomPermissions() {
         // 获取未授权的权限
@@ -196,14 +182,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void getFilePermission() {
-        File filesDir = getFilesDir();
-        File cacheDir = getCacheDir();
-        File externalFilesDir = getExternalFilesDir(null);
-        File externalCacheDir = getExternalCacheDir();
-        String ExternalStorageDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        Log.i(TAG, "filesDir:" + filesDir + ";cacheDir:" + cacheDir);
-        Log.i(TAG, "externalFilesDir:" + externalFilesDir + ";externalCacheDir:" + externalCacheDir);
-        Log.i(TAG, "ExternalStorageDir:" + ExternalStorageDir);
+        // File filesDir = getFilesDir();
+        // File cacheDir = getCacheDir();
+        // File externalFilesDir = getExternalFilesDir(null);
+        // File externalCacheDir = getExternalCacheDir();
+        // String ExternalStorageDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        // Log.i(TAG, "filesDir:" + filesDir + ";cacheDir:" + cacheDir);
+        // Log.i(TAG, "externalFilesDir:" + externalFilesDir + ";externalCacheDir:" + externalCacheDir);
+        // Log.i(TAG, "ExternalStorageDir:" + ExternalStorageDir);
+        // // 您可以通过调用 Environment.getExternalStorageState() 查询该卷的状态。
+        // // 如果返回的状态为 MEDIA_MOUNTED，那么您就可以在外部存储空间中读取和写入应用专属文件。
+        // // 如果返回的状态为 MEDIA_MOUNTED_READ_ONLY，您只能读取这些文件。
+        // boolean isExternalStorageWritable = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+        // boolean isExternalStorageReadable = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ||
+        //         Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED_READ_ONLY);
+        // Log.i(TAG, "isExternalStorageWritable:" + isExternalStorageWritable);
+        // Log.i(TAG, "isExternalStorageReadable:" + isExternalStorageReadable);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             // Android 10(sdk-29)及以下 可以访问所有文件，并可以在任何目录创建
             // Android 11(sdk-30)~12(sdk-31、32) 可以访问应用专属目录，并可以在专属目录创建
@@ -212,9 +206,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
             if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{permission}, AppConstants.REQUEST_CODE_PERMISSION_READ_EXTERNAL);
+            } else {
+                initView();
             }
         } else {
-            // Android 13(sdk-33)READ_EXTERNAL_STORAGE和WRITE_EXTERNAL_STORAGE权限失效
+            // Android 13(sdk-33)~15(sdk-35)READ_EXTERNAL_STORAGE和WRITE_EXTERNAL_STORAGE权限失效
             // 新增MANAGE_EXTERNAL_STORAGE 可以访问所有文件，可以在任何目录创建
             // <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
             boolean isExternalStorageManager = Environment.isExternalStorageManager();
@@ -222,20 +218,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+            } else {
+                initView();
             }
         }
-
-        // 您可以通过调用 Environment.getExternalStorageState() 查询该卷的状态。
-        // 如果返回的状态为 MEDIA_MOUNTED，那么您就可以在外部存储空间中读取和写入应用专属文件。
-        // 如果返回的状态为 MEDIA_MOUNTED_READ_ONLY，您只能读取这些文件。
-        boolean isExternalStorageWritable = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-        Log.i(TAG, "isExternalStorageWritable:" + isExternalStorageWritable);
-
-
-        // Checks if a volume containing external storage is available to at least read.
-        boolean isExternalStorageReadable = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ||
-                Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED_READ_ONLY);
-        Log.i(TAG, "isExternalStorageReadable:" + isExternalStorageReadable);
     }
 
     @Override
@@ -251,8 +237,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
             if (isReadExternalGranted) {
                 // 已全部授权
-                if (isDebug) {
-                    LocalLogcat.getInstance(this, logDirPath).start();
+                if (isDebug && null != mLocalLogcat && !mLocalLogcat.isRunning()) {
+                    mLocalLogcat.start();
                 }
                 requestCustomPermissions();
             } else {
@@ -292,17 +278,36 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Log.e(TAG, "onBackPressed");
-        currentTimeMillis = System.currentTimeMillis();
         if (activitiesManager.getActivityStack().size() == 1) {
             if (System.currentTimeMillis() - currentTimeMillis <= 2000) {
                 activitiesManager.AppExit(this);
             } else {
-                Toast.makeText(this, "再按一次返回键，退出应用", Toast.LENGTH_SHORT).show();
+                ToastUtils.show(this, "再按一次返回键，退出应用", Toast.LENGTH_SHORT);
+                currentTimeMillis = System.currentTimeMillis();
             }
         } else {
             super.onBackPressed();
         }
     }
+
+    /**
+     * 判断当前应用在前台
+     */
+    protected boolean isForeground(Context mContext) {
+        ActivityManager am = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processes = am.getRunningAppProcesses();
+        if (processes == null) {
+            Log.e(TAG, "running app processes is null!");
+            return false;
+        }
+        for (ActivityManager.RunningAppProcessInfo app : processes) {
+            if (app.processName.equals(mContext.getPackageName()) && app.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     // public void startActivity(Class targetActivity, Bundle bundle) {
     //     Intent intent = new Intent(this, targetActivity);

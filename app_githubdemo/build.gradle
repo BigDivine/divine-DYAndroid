@@ -33,9 +33,9 @@ android {
 
 dependencies {
 //    https://github.com/BigDivine/divine-DYBase
-    implementation 'com.github.BigDivine:divine-DYBase:1.0.3r'
+//    implementation 'com.github.BigDivine:divine-DYBase:1.0.3r'
 //    https://github.com/BigDivine/divine-DYWidget
-    implementation 'com.github.BigDivine:divine-DYWidget:1.0.4'
+//    implementation 'com.github.BigDivine:divine-DYWidget:1.0.4'
     implementation libs.appcompat
     implementation libs.material
     implementation libs.constraintlayout

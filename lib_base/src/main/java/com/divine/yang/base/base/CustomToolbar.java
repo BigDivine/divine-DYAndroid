@@ -1,6 +1,7 @@
 package com.divine.yang.base.base;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.divine.yang.util.sys.DensityUtils;
  * Describe: 公共标题栏
  */
 public class CustomToolbar {
+    private final String TAG = "DY-CustomToolbar";
     private Context mContext;
     private View mToolbar;
     private ToolbarClickListener listener;
@@ -28,7 +30,7 @@ public class CustomToolbar {
     private int leftTextResId, titleResId, rightTextResId;
     private int leftTextColor, titleColor, rightTextColor;
     private int leftDrawable, rightDrawable;
-    private LinearLayout  leftLayout, centerLayout, rightLayout;
+    private LinearLayout leftLayout, centerLayout, rightLayout;
     View.OnClickListener leftListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -57,7 +59,22 @@ public class CustomToolbar {
         initToolbar();
     }
 
+    public int getStatusBarHeight() {
+        int resultPx = 0;
+        String statusName = "status_bar_height";
+        int resourceId = mContext.getResources().getIdentifier(statusName, "dimen", "android");
+        if (resourceId > 0) {
+            resultPx = mContext.getResources().getDimensionPixelSize(resourceId);
+        }
+        Log.e(TAG, "status_bar_height:px:" + resultPx);
+        // int resultDp = DensityUtils.px2dip(resultPx, mContext);
+        // Log.e(TAG, "status_bar_height:dp:" + resultDp);
+        return resultPx;
+    }
+
     public void initToolbar() {
+        TextView statusBar = mToolbar.findViewById(R.id.status_bar);
+        statusBar.setHeight(getStatusBarHeight());
 
         leftLayout = mToolbar.findViewById(R.id.action_bar_left);
         ImageView backBtn = mToolbar.findViewById(R.id.action_bar_back);
