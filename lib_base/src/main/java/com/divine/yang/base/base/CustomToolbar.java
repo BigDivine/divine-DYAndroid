@@ -3,16 +3,13 @@ package com.divine.yang.base.base;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.divine.yang.base.R;
-import com.divine.yang.util.sys.DensityUtils;
 
 /**
  * Author: Divine
@@ -67,8 +64,6 @@ public class CustomToolbar {
             resultPx = mContext.getResources().getDimensionPixelSize(resourceId);
         }
         Log.e(TAG, "status_bar_height:px:" + resultPx);
-        // int resultDp = DensityUtils.px2dip(resultPx, mContext);
-        // Log.e(TAG, "status_bar_height:dp:" + resultDp);
         return resultPx;
     }
 
@@ -252,9 +247,5 @@ public class CustomToolbar {
 
     public int getRightDrawable() {
         return rightDrawable;
-    }
-
-    public float getActionBarHeightPx() {
-        return (float) DensityUtils.dp2px(mContext, 63);
     }
 }

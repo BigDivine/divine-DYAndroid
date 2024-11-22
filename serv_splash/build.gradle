@@ -37,6 +37,11 @@ android {
 
 
 dependencies {
+    implementation project(":lib_util")
+    implementation project(":lib_base")
+
+    implementation libs.material
+
     implementation libs.arouter.api
     annotationProcessor libs.arouter.compiler
 }

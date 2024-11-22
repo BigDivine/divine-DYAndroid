@@ -12,10 +12,10 @@ import java.util.Map;
  */
 public class SPUtils {
     private static SPUtils mSPUtils;
-    private SharedPreferences sp;
+    private final SharedPreferences sp;
 
     private SPUtils(Context context) {
-        sp = context.getSharedPreferences(context.getPackageName(), context.MODE_PRIVATE);
+        sp = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
     }
 
     public static SPUtils getInstance(Context context) {
@@ -45,7 +45,7 @@ public class SPUtils {
         } else {
             editor.putString(key, (String) obj);
         }
-        editor.commit();
+        editor.apply();
     }
 
 
@@ -73,7 +73,7 @@ public class SPUtils {
     public void remove(String key) {
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
-        editor.commit();
+        editor.apply();
     }
 
 
@@ -81,8 +81,7 @@ public class SPUtils {
      * 返回所有键值对
      */
     public Map<String, ?> getAll() {
-        Map<String, ?> map = sp.getAll();
-        return map;
+        return sp.getAll();
     }
 
     /**
@@ -91,7 +90,7 @@ public class SPUtils {
     public void clear() {
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
 
     /**

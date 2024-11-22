@@ -31,8 +31,6 @@ android {
 }
 
 dependencies {
-    implementation project(":lib_util")
-
     implementation libs.appcompat
     implementation libs.constraintlayout
 

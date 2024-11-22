@@ -5,35 +5,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.divine.yang.base.AppBase;
-import com.divine.yang.base.arouter.ARouterManager;
-import com.divine.yang.base.base.BaseActivity;
-import com.divine.yang.base.getpermission.PermissionList;
-import com.divine.yang.log.LocalLogcat;
-import com.divine.yang.source.SPKeys;
-import com.divine.yang.util.sys.SPUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.MenuProvider;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager2.widget.ViewPager2;
 
-@Route(path = ARouterManager.ROUTER_SPLASH_MAIN)
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.divine.yang.base.arouter.ARouterManager;
+import com.divine.yang.base.base.BaseActivity;
+import com.divine.yang.util.sys.SPUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Route(path = "/splash/main")
 public class SplashActivity extends BaseActivity implements OnSplashItemClickListener, View.OnClickListener {
-    //wait time
-    private Handler mHandler = new Handler();
+    public final String TAG = "SplashActivity";
+    public final String SP_KEY_IS_FIRST_START = "sp_is_first_start";
+    public final String SP_KEY_IS_LOGIN = "sp_is_login";
+    // wait time
+    private final Handler mHandler = new Handler();
     private int count = 3;
     private boolean isJumpToNext;
     protected SPUtils mSPUtils;
-    private LocalLogcat mLogcat;
 
-    private Runnable mTimer = new Runnable() {
+    private final Runnable mTimer = new Runnable() {
         @Override
         public void run() {
             if (count == 0) {
@@ -56,21 +54,19 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
 
     @Override
     public int getContentViewId() {
-        return 0;
-        // return R.layout.activity_splash;
+        return R.layout.activity_splash;
     }
 
     @Override
-    public boolean showToolbar() {
-        return false;
+    public void getData() {
+
     }
 
     @Override
     public void initView() {
-        mLogcat = LocalLogcat.getInstance(this, AppBase.appDir);
-        mLogcat.start();
+
         findView();
-        boolean fistStart = (boolean) SPUtils.getInstance(this).get(SPKeys.SP_KEY_IS_FIRST_START, true);
+        boolean fistStart = (boolean) SPUtils.getInstance(this).get(SP_KEY_IS_FIRST_START, true);
         if (!fistStart) {
             ivSplashImage.setVisibility(View.VISIBLE);
             vpSplashGuideImages.setVisibility(View.GONE);
@@ -79,7 +75,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
             vpSplashGuideImages.setVisibility(View.VISIBLE);
             ivSplashImage.setVisibility(View.GONE);
             List<Integer> data = new ArrayList<>();
-            // data.add(R.mipmap.splash_one);
+            data.add(R.mipmap.splash_one);
             SplashAdapter adapter = new SplashAdapter(this, data);
             adapter.setOnSplashItemClickListener(this);
             vpSplashGuideImages.setAdapter(adapter);
@@ -92,7 +88,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
 
     @Override
     public void onLastItemClick(View v) {
-        SPUtils.getInstance(this).put(SPKeys.SP_KEY_IS_FIRST_START, false);
+        SPUtils.getInstance(this).put(SP_KEY_IS_FIRST_START, false);
         toLogin();
 //        toMain();
 
@@ -101,25 +97,16 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        // if (viewId == R.id.splash_timer) {
-        //     toNextPage();
-        // }
+        if (viewId == R.id.splash_timer) {
+            toNextPage();
+        }
     }
 
     @Override
     public String[] requestPermissions() {
         return new String[]{
-                PermissionList.WRITE_EXTERNAL_STORAGE,
-                PermissionList.READ_EXTERNAL_STORAGE
-        };
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (null != mLogcat) {
-            mLogcat.stop();
-        }
+        };
     }
 
     public void toNextPage() {
@@ -127,12 +114,11 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
             isJumpToNext = true;
         }
         mSPUtils = SPUtils.getInstance(this);
-        boolean isLogin = (boolean) mSPUtils.get(SPKeys.SP_KEY_IS_LOGIN, false);
-        /**
+        boolean isLogin = (boolean) mSPUtils.get(SP_KEY_IS_LOGIN, false);
+        /*
          * 两种方案：
          * 1、计算上次登录时间与本次登录时间的间隔大于某个值，则需要重新登录
          * 2、记住登录的情况，记录用户名和密码，在首页进行登录接口请求，如果登录失败提示并跳转到登录页
-         *
          * 改造，直接进入app首页-----2022.02.24
          */
         if (isLogin) {
@@ -140,9 +126,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
         } else {
             toLogin();
         }
-
     }
-
 
     public void toLogin() {
         ARouter.getInstance().build(ARouterManager.ROUTER_LOGIN_MAIN).navigation(this);
@@ -160,9 +144,9 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
 
     public void findView() {
         ARouter.getInstance().inject(this);
-        // vpSplashGuideImages = findViewById(R.id.splash_guide_images);
-        // ivSplashImage = findViewById(R.id.splash_image);
-        // btSplashTimer = findViewById(R.id.splash_timer);
+        vpSplashGuideImages = findViewById(R.id.splash_guide_images);
+        ivSplashImage = findViewById(R.id.splash_image);
+        btSplashTimer = findViewById(R.id.splash_timer);
         btSplashTimer.setOnClickListener(this);
     }
 
