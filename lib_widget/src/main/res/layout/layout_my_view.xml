@@ -20,7 +20,7 @@
     <!--android:layout_alignParentRight="true"-->
     <!--android:background="@drawable/popup_back"-->
     <!--android:orientation="vertical"-->
-    <!--android:layout_marginRight="@dimen/dp_15"-->
+    <!--android:layout_marginRight="1dp5"-->
     <!--android:layout_marginBottom="@dimen/dp_391">-->
 
     <!--<TextView-->

@@ -10,7 +10,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/navigator_pager2_view_pager2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/navigator_pager2_bottom_navigator"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,8 +20,8 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigator_pager2_bottom_navigator"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
-        android:background="@color/white"
+        android:layout_height="60dp"
+        android:background="@android:color/white"
         app:itemIconTint="@drawable/selector_navigator_bottom"
         app:itemTextColor="@drawable/selector_navigator_bottom"
         app:layout_constraintBottom_toBottomOf="parent"

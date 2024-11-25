@@ -25,21 +25,23 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
 
 dependencies {
     implementation libs.material
-    implementation libs.retrofit2
-    implementation libs.retrofit2.converter.gson
-    implementation libs.retrofit2.converter.scalars
-    implementation libs.retrofit2.adapter.rxjava2
 
-    implementation libs.rxjava2
-    implementation libs.rxandroid2
+    api libs.retrofit2
+    api libs.retrofit2.converter.gson
+    api libs.retrofit2.converter.scalars
+    api libs.retrofit2.adapter.rxjava2
+
+    api libs.rxjava2
+    api libs.rxandroid2
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

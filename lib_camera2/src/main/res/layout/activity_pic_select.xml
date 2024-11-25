@@ -3,69 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/pic_select_header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:background="@color/black"
-        android:padding="@dimen/dp_10">
+        android:layout_height="5dp0"
+        android:background="@adn"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/pic_select_close"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginRight="@dimen/dp_10"
-            android:padding="@dimen/dp_5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
             android:src="@mipmap/ic_close"
-            app:tint="@color/white" />
+            app:tint="@android:color/white" />
 
         <LinearLayout
             android:id="@+id/pic_select_folder_select"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_30"
+            android:layout_height="30dp"
             android:layout_toRightOf="@id/pic_select_close"
             android:background="@drawable/shape_white_corner_16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
                 android:id="@+id/pic_select_folder_name"
-                android:layout_width="@dimen/dp_0"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text=""
                 android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp_13" />
+                android:textColor="@android:color/black"
+                android:textSize="13sp" />
 
             <ImageView
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_15"
+                android:layout_width="30dp"
+                android:layout_height="1dp5"
                 android:src="@mipmap/ic_down_arrow" />
         </LinearLayout>
 
         <Button
             android:id="@+id/pic_select_submit"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_30"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:background="@color/gray_text"
             android:text="确定"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16" />
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pic_select_images"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="0dp"
         android:overScrollMode="never"
         android:layout_weight="1" />
 
@@ -73,7 +73,7 @@
         android:id="@+id/pic_select_pic_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
+        android:background="@android:color/black"
         android:visibility="gone" />
 
 </LinearLayout>

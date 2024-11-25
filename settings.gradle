@@ -27,22 +27,22 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "DivinePlatform"
-include ':app_githubdemo'
+//include ':app_githubdemo'
 include ':app'
-include ':app_hotfixed'
-include ':app_netencrypt'
+//include ':app_hotfixed'
+//include ':app_netencrypt'
 
 include ':lib_util'
-include ':lib_sqlite'
-include ':lib_http'
-
-//include ':lib_widget'
 include ':lib_base'
+include ':lib_http'
+include ':lib_widget'
+include ':lib_sqlite'
+
 //include ':lib_camera2'
 include ':lib_netencryptrsa'
 include ':lib_netencryptserver'
 
-//include ':serv_home'
-//include ':serv_login'
-//include ':serv_main'
 include ':serv_splash'
+include ':serv_login'
+//include ':serv_home'
+//include ':serv_main'

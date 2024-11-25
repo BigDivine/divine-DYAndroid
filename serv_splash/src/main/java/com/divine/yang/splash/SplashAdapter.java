@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
  * Describe:
  */
 public class SplashAdapter extends RecyclerView.Adapter<SplashHolder> {
-    private Context mContext;
-    private List<Integer> data;
+    private final Context mContext;
+    private final List<Integer> data;
     private OnSplashItemClickListener listener;
 
     public SplashAdapter(Context mContext, List<Integer> data) {
@@ -28,21 +28,16 @@ public class SplashAdapter extends RecyclerView.Adapter<SplashHolder> {
     @NonNull
     @Override
     public SplashHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
-        // View itemView = LayoutInflater.from(mContext).inflate(R.layout.splash_item, parent, false);
-        // SplashHolder holder = new SplashHolder(itemView);
-        // return holder;
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.splash_item, parent, false);
+        return new SplashHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SplashHolder holder, int position) {
         holder.image.setImageResource(data.get(position));
         if (position == getItemCount() - 1) {
-            holder.image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onLastItemClick(v);
-                }
+            holder.image.setOnClickListener(view -> {
+                listener.onLastItemClick(view);
             });
         }
     }

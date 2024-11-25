@@ -13,10 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class SplashHolder extends RecyclerView.ViewHolder {
     public ImageView image;
-    //    public TextView text;
 
     public SplashHolder(@NonNull View itemView) {
         super(itemView);
-        // image = itemView.findViewById(R.id.splash_item_image);
+        image = itemView.findViewById(R.id.splash_item_image);
     }
 }

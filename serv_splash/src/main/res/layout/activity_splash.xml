@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.divine.yang.splash.SplashActivity">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -20,7 +21,7 @@
         android:id="@+id/splash_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@mipmap/splash"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,13 +31,14 @@
 
     <Button
         android:id="@+id/splash_timer"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50"
-        android:layout_margin="@dimen/dp_20"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
         android:background="@drawable/shape_oval_black_alpha"
-        android:textColor="@color/EditTextLineColor"
-        android:textSize="@dimen/sp_10"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
         android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SmallSp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

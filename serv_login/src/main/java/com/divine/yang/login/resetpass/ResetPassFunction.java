@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Message;
 import android.util.Log;
 
+import com.divine.yang.base.utils.DialogUtils;
 import com.divine.yang.login.LoginActivity;
-import com.divine.yang.widget.DialogUtils;
 
 /**
  * Author: Divine

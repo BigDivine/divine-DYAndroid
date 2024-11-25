@@ -13,10 +13,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.divine.yang.util.old.sys.RandomUtils;
-import com.divine.yang.widget.R;
-
 import androidx.annotation.Nullable;
+
+import java.security.SecureRandom;
 
 /**
  * Author: Divine
@@ -87,8 +86,7 @@ public class WaterMarkView extends View {
 
     public void setTouchPoint(PointF point) {
         this.touchPoint = point;
-        randomInt = RandomUtils.instance().getRandomInt(20);
-
+        randomInt = new SecureRandom().nextInt(20);
         animator = ValueAnimator.ofFloat(0f, 50f);
         animator.setDuration(3000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

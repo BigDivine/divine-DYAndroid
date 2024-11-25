@@ -8,9 +8,9 @@
     <Spinner
         android:id="@+id/main_select_view_type"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
+        android:layout_height="5dp0"
         android:background="@drawable/layer_layout_top_grey_border"
-        android:dropDownVerticalOffset="@dimen/dp_50"
+        android:dropDownVerticalOffset="5dp0"
         android:entries="@array/main_view_type"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@id/main_select_main_type"
@@ -21,9 +21,9 @@
     <Spinner
         android:id="@+id/main_select_main_type"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
+        android:layout_height="5dp0"
         android:background="@drawable/layer_layout_top_grey_border"
-        android:dropDownVerticalOffset="@dimen/dp_50"
+        android:dropDownVerticalOffset="5dp0"
         android:entries="@array/main_main_type"
         android:spinnerMode="dropdown"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -33,10 +33,10 @@
     <Button
         android:id="@+id/main_submit"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
+        android:layout_height="5dp0"
         android:background="@color/LoginThemeColor"
         android:text="进入首页"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

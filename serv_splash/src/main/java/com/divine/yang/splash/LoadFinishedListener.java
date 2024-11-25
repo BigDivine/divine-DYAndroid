@@ -1,5 +1,7 @@
 package com.divine.yang.splash;
 
+import android.app.Activity;
+
 /**
  * Project Name  : DivinePlatform
  * Package       : com.divine.yang.splash
@@ -9,9 +11,9 @@ package com.divine.yang.splash;
  * Description   :
  */
 public interface LoadFinishedListener {
-    void toLogin();
+    void toLogin(Activity fromActivity);
 
-    void toHome();
+    void toHome(Activity fromActivity);
 
-    void otherHandle();
+    void otherHandle(Activity fromActivity);
 }

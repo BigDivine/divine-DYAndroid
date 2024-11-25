@@ -1,17 +1,26 @@
 package com.divine.yang.platform;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 
 import com.divine.yang.base.base.BaseActivity;
-import com.divine.yang.base.base.CustomToolbar;
+import com.divine.yang.login.LoginActivity;
+import com.divine.yang.splash.LoadFinishedListener;
+import com.divine.yang.splash.Splash;
+import com.divine.yang.splash.SplashActivity;
 
 public class MainActivity extends BaseActivity {
     @Override
     public int getContentViewId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    public boolean showToolbar() {
+        return false;
     }
 
     @Override
@@ -21,9 +30,25 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        View actionBar = findViewById(R.id.main_action_bar);
-        CustomToolbar toolbar = new CustomToolbar(this, actionBar);
-        toolbar.setTitle("这是标题");
+        Splash.instance().setLoadFinishedListener(new LoadFinishedListener() {
+            @Override
+            public void toLogin(Activity fromActivity) {
+                startActivity(new Intent(fromActivity, LoginActivity.class));
+            }
+
+            @Override
+            public void toHome(Activity fromActivity) {
+                // startActivity(new Intent(fromActivity, SplashActivity.class));
+
+            }
+
+            @Override
+            public void otherHandle(Activity fromActivity) {
+                // startActivity(new Intent(fromActivity, SplashActivity.class));
+
+            }
+        });
+        startActivity(new Intent(this, SplashActivity.class));
     }
 
     @Override
@@ -35,4 +60,6 @@ public class MainActivity extends BaseActivity {
     public String[] requestPermissions() {
         return new String[]{};
     }
+
+
 }

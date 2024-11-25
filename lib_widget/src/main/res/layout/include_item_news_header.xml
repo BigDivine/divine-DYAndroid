@@ -78,14 +78,14 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:src="@mipmap/ic_add"
-            app:tint="@color/base_color" />
+            app:tint="@color/theme_color" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="订阅"
-            android:textColor="@color/base_color"
+            android:textColor="@color/theme_color"
             android:textSize="15sp"></TextView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

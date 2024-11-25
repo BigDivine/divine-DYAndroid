@@ -2,8 +2,8 @@ package com.divine.yang.login.login;
 
 import android.util.Log;
 
-import com.divine.yang.login.LoginModel;
 import com.divine.yang.http.retrofit2.Retrofit2Callback;
+import com.divine.yang.login.LoginModel;
 
 /**
  * Author: Divine
@@ -11,8 +11,8 @@ import com.divine.yang.http.retrofit2.Retrofit2Callback;
  * Describe:
  */
 public class LoginPresenter {
-    private LoginModel loginModel;
-    private LoginView loginView;
+    private final LoginModel loginModel;
+    private final LoginView loginView;
 
     public LoginPresenter(LoginView loginView) {
         this.loginView = loginView;

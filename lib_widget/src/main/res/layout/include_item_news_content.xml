@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:background="@color/system_background_color"
         android:text="...展开"
-        android:textColor="@color/base_color"
+        android:textColor="@color/theme_color"
         app:layout_constraintBottom_toTopOf="@id/item_news_content_img"
         app:layout_constraintRight_toRightOf="parent" />
 

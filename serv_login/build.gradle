@@ -16,11 +16,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
-            }
-        }
     }
 
     buildTypes {
@@ -30,25 +25,26 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
 dependencies {
+    implementation project(":lib_util")
+    implementation project(":lib_base")
+    implementation project(":lib_http")
+    implementation project(":lib_widget")
 
     implementation libs.appcompat
     implementation libs.material
-    implementation libs.constraintlayout
-    implementation libs.cardview
+//    implementation libs.constraintlayout
+//    implementation libs.cardview
 
-    implementation libs.arouter.api
-    implementation libs.retrofit2.adapter.rxjava2
+//    implementation libs.retrofit2.adapter.rxjava2
+//    implementation libs.gson
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-
-    annotationProcessor libs.arouter.compiler
-
 }

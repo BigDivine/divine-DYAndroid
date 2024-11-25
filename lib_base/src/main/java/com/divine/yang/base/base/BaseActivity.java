@@ -14,7 +14,9 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.divine.yang.base.AppConstants;
 import com.divine.yang.base.LocalLogcat;
+import com.divine.yang.base.R;
 import com.divine.yang.base.SecurityCheck;
 import com.divine.yang.base.getpermission.PermissionPageUtils;
 import com.divine.yang.base.utils.ActivitiesManager;
@@ -37,8 +40,6 @@ import java.util.List;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private final String TAG = "DY-BaseActivity";
-    private final boolean isDebug = true;
-    private final String logDirPath = "/logs";
     // activity manager class:activity管理类
     private ActivitiesManager activitiesManager;
     // current time by millisecond:当前时间毫秒数
@@ -47,10 +48,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     // need to request permissions dynamically:需要动态申请的权限
     private String[] requestPermissions;
 
+    protected CustomToolbar toolbar;
+
     /**
      * 获取布局的id
      */
     public abstract int getContentViewId();
+
+    public abstract boolean showToolbar();
 
     /**
      * 页面发出请求，获取页面的数据
@@ -66,6 +71,20 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化控件
      */
     public abstract void initView();
+
+    @Override
+    public void setContentView(int layoutResID) {
+        View baseLayout = LayoutInflater.from(this).inflate(R.layout.activity_base_layout, null, false);
+        super.setContentView(baseLayout);
+        View actionBar = baseLayout.findViewById(R.id.main_action_bar);
+        actionBar.setVisibility(showToolbar() ? View.VISIBLE : View.GONE);
+        toolbar = new CustomToolbar(this, actionBar);
+
+
+        FrameLayout mainContain = baseLayout.findViewById(R.id.main_contain);
+        View mainLayout = LayoutInflater.from(this).inflate(layoutResID, null, false);
+        mainContain.addView(mainLayout, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+    }
 
     @Nullable
     @Override
@@ -105,7 +124,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         //            return;
         //        }
         requestPermissions = requestPermissions();
-        if (isDebug) {
+        if (BaseApplication.isDebug) {
+            String logDirPath = "/logs";
             mLocalLogcat = LocalLogcat.getInstance(this, logDirPath);
             // 检查文件权限，用于保存日志文件
             getFilePermission();
@@ -133,7 +153,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         Log.e(TAG, "onResume");
         super.onResume();
-        if (isDebug && null != mLocalLogcat && !mLocalLogcat.isRunning()) {
+        if (BaseApplication.isDebug && null != mLocalLogcat && !mLocalLogcat.isRunning()) {
             mLocalLogcat.start();
         }
     }
@@ -157,7 +177,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.e(TAG, "onDestroy");
         super.onDestroy();
-        if (isDebug && null != mLocalLogcat && mLocalLogcat.isRunning()) {
+        if (BaseApplication.isDebug && null != mLocalLogcat && mLocalLogcat.isRunning()) {
             mLocalLogcat.stop();
         }
     }
@@ -237,7 +257,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
             if (isReadExternalGranted) {
                 // 已全部授权
-                if (isDebug && null != mLocalLogcat && !mLocalLogcat.isRunning()) {
+                if (BaseApplication.isDebug && null != mLocalLogcat && !mLocalLogcat.isRunning()) {
                     mLocalLogcat.start();
                 }
                 requestCustomPermissions();
@@ -307,7 +327,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return false;
     }
-
 
     // public void startActivity(Class targetActivity, Bundle bundle) {
     //     Intent intent = new Intent(this, targetActivity);

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/dp_10">
+        android:padding="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shop_home_recommend_function"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_white_corner_5dp"
             android:overScrollMode="never"
-            android:padding="@dimen/dp_10">
+            android:padding="10dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -26,7 +26,7 @@
             android:id="@+id/shop_home_recommend_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="10dp"
             android:overScrollMode="never">
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -35,24 +35,24 @@
             android:id="@+id/shop_home_recommend_special"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/shop_home_recommend_event_1"
-                android:layout_width="@dimen/dp_0"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/bg_shop" />
 
             <View
-                android:layout_width="@dimen/dp_10"
+                android:layout_width="10dp"
                 android:layout_height="match_parent" />
 
             <ImageView
                 android:id="@+id/shop_home_recommend_event_2"
-                android:layout_width="@dimen/dp_0"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
@@ -63,7 +63,7 @@
             android:id="@+id/shop_home_recommend_waterfall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="10dp"
             android:overScrollMode="never">
 
         </androidx.recyclerview.widget.RecyclerView>

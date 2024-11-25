@@ -15,10 +15,10 @@
             android:id="@+id/shop_home_subscribe_function"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_10"
+            android:layout_margin="10dp"
             android:background="@drawable/shape_white_corner_5dp"
             android:overScrollMode="never"
-            android:padding="@dimen/dp_10">
+            android:padding="10dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -26,10 +26,10 @@
             android:id="@+id/shop_home_subscribe_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="10dp"
             android:background="@color/system_background_color"
             android:overScrollMode="never"
-            android:padding="@dimen/dp_10">
+            android:padding="10dp">
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>

@@ -11,8 +11,8 @@
 
     <View
         android:id="@+id/camera2_camera_focus"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60" />
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
     <View
         android:id="@+id/camera2_camera_gray_mark"
@@ -32,35 +32,35 @@
         android:id="@+id/camera2_camera_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_17"
+        android:layout_marginTop="1dp7"
         android:gravity="center_vertical">
 
         <ImageButton
             android:id="@+id/camera2_camera_header_open_flash_lamp"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginRight="20dp"
             android:background="@android:color/transparent"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_camera_flash"
-            android:tint="@color/white" />
+            android:tint="@android:color/white" />
 
         <ImageButton
             android:id="@+id/camera2_camera_header_close"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
             android:background="@android:color/transparent"
             android:padding="@dimen/dp_7"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_close"
-            android:tint="@color/white" />
+            android:tint="@android:color/white" />
 
         <RadioGroup
             android:id="@+id/camera2_camera_header_pic_mode"
-            android:layout_width="@dimen/dp_150"
-            android:layout_height="@dimen/dp_30"
+            android:layout_width="1dp50"
+            android:layout_height="30dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:orientation="horizontal">
@@ -76,7 +76,7 @@
                 android:gravity="center"
                 android:text="单拍"
                 android:textColor="@drawable/selector_black_white_checked"
-                android:textSize="@dimen/sp_13" />
+                android:textSize="13sp" />
 
             <RadioButton
                 android:id="@+id/camera2_camera_header_continuous"
@@ -88,7 +88,7 @@
                 android:gravity="center"
                 android:text="连拍"
                 android:textColor="@drawable/selector_black_white_checked"
-                android:textSize="@dimen/sp_13" />
+                android:textSize="13sp" />
         </RadioGroup>
     </RelativeLayout>
 
@@ -98,32 +98,32 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/camera2_button_layout"
         android:gravity="center"
-        android:padding="@dimen/dp_10"
+        android:padding="10dp"
         android:text="请保持发票主体清晰"
         android:textColor="#FFFFFF"
-        android:textSize="@dimen/sp_16" />
+        android:textSize="16sp" />
 
     <RelativeLayout
         android:id="@+id/camera2_button_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_150"
+        android:layout_height="1dp50"
         android:layout_alignParentBottom="true"
         android:background="@android:color/transparent"
-        android:paddingTop="@dimen/dp_27"
-        android:paddingBottom="@dimen/dp_27">
+        android:paddingTop="2dp7"
+        android:paddingBottom="2dp7">
 
         <ImageView
             android:id="@+id/camera2_button_image_preview"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
+            android:layout_width="5dp0"
+            android:layout_height="5dp0"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_45"
             android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/camera2_button_image_num"
-            android:layout_width="@dimen/dp_15"
-            android:layout_height="@dimen/dp_15"
+            android:layout_width="1dp5"
+            android:layout_height="1dp5"
             android:layout_alignTop="@id/camera2_button_image_preview"
             android:layout_alignRight="@id/camera2_button_image_preview"
             android:layout_marginTop="-7dp"
@@ -131,20 +131,20 @@
             android:background="@drawable/shape_oval_blue"
             android:gravity="center"
             android:text="9"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/sp_9"
             android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/camera2_button_album"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_45"
             android:background="#00000000"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_camera_preview"
-            android:tint="@color/white" />
+            android:tint="@android:color/white" />
 
         <ImageButton
             android:id="@+id/camera2_button_take_photo"
@@ -155,7 +155,7 @@
             android:background="#00000000"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_camera_button"
-            android:tint="@color/white" />
+            android:tint="@android:color/white" />
 
         <TextView
             android:id="@+id/camera2_button_submit"
@@ -166,8 +166,8 @@
             android:layout_marginRight="@dimen/dp_45"
             android:gravity="right|center_vertical"
             android:text="完成"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
             android:visibility="gone" />
     </RelativeLayout>
 

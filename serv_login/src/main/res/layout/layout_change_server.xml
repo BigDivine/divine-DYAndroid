@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/dp_40"
-    android:layout_marginRight="@dimen/dp_40"
-    app:cardCornerRadius="@dimen/dp_8"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
+    app:cardCornerRadius="8dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
@@ -15,37 +15,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/dp_20">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_20"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
             android:text="服务器地址："
-            android:textSize="@dimen/sp_16" />
+            android:textSize="16sp" />
 
         <com.divine.yang.widget.EditTextWithLRIcon
             android:id="@+id/change_server_host"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
+            android:layout_height="40dp"
             android:background="@drawable/selector_edit_bottom_border_focus"
             android:hint="请输入服务器地址"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
-            android:textColor="@color/LoginThemeColor"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/theme_color"
             android:textCursorDrawable="@drawable/edit_text_cursor"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/change_server_submit"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_40"
-            android:layout_marginRight="@dimen/dp_10"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/shape_blue_corner_5dp"
             android:text="确定"
-            android:textColor="@color/white" />
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/change_server_to_login"
@@ -54,7 +54,7 @@
             android:layout_gravity="right"
             android:background="@null"
             android:text="返回登录"
-            android:textColor="@color/LoginThemeColor" />
+            android:textColor="@color/theme_color" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

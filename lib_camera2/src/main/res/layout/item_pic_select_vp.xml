@@ -19,7 +19,7 @@
         android:id="@+id/pic_select_vp_item_check"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:padding="@dimen/dp_10"
+        android:padding="10dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 </androidx.constraintlayout.widget.ConstraintLayout>

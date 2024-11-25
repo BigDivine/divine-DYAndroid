@@ -17,6 +17,7 @@ import com.divine.yang.base.LocalLogcat;
  */
 
 public abstract class BaseApplication extends Application {
+    public static boolean isDebug = false;
     protected abstract void getMetaData();
 
     @Override

@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.divine.dy.app_login.LoginBase;
 import com.divine.yang.base.AppBase;
 import com.divine.yang.camera2.Camera2Base;
@@ -40,7 +39,6 @@ public class MyApplication extends Application {
         setLoginApp();
         setDebugConfig();
         setCameraConfig();
-        ARouter.init(this); // 尽可能早，推荐在Application中初始化
     }
 
     @Override
@@ -61,15 +59,13 @@ public class MyApplication extends Application {
     }
 
     private void setLoginApp() {
-        LoginBase.loginTitle = getResources().getString(R.string.app_name);
-        LoginBase.needChangeServer = needChangeServer;
-        LoginBase.needVerifyCode = needVerifyCode;
+        // LoginBase.loginTitle = getResources().getString(R.string.app_name);
+        // LoginBase.needChangeServer = needChangeServer;
+        // LoginBase.needVerifyCode = needVerifyCode;
     }
 
     private void setDebugConfig() {
         if (isDebug) {
-            ARouter.openLog();     // 打印日志
-            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         } else {
 
         }

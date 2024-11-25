@@ -11,8 +11,17 @@ import com.divine.yang.base.base.BaseApplication;
  * Description   :
  */
 public class MainApplication extends BaseApplication {
+
     @Override
     protected void getMetaData() {
-
+        isDebug = true;
     }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // if (isDebug) {
+        // }
+    }
+
 }

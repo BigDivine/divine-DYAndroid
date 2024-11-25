@@ -13,12 +13,10 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.divine.yang.widget.R;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import androidx.annotation.Nullable;
 
 /**
  * Author: Divine
@@ -89,21 +87,21 @@ public class RandomVerificationCodeView extends View implements View.OnClickList
 
     public RandomVerificationCodeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        //获取在attr中自定义的属性
+        // 获取在attr中自定义的属性
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.MyVerificationCode, defStyleAttr, 0);
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             int index = a.getIndex(i);
-            if (index ==R.styleable.MyVerificationCode_titleText) {
+            if (index == R.styleable.MyVerificationCode_titleText) {
                 mText = a.getString(index);
-            } else if (index ==R.styleable.MyVerificationCode_textColor) {
+            } else if (index == R.styleable.MyVerificationCode_textColor) {
                 mTextColor = a.getColor(index, Color.BLACK);
-            } else if (index ==R.styleable.MyVerificationCode_titleSize) {
+            } else if (index == R.styleable.MyVerificationCode_titleSize) {
                 mTextSize = a.getDimensionPixelSize(index, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
-            } else if (index ==R.styleable.MyVerificationCode_pointSize) {
+            } else if (index == R.styleable.MyVerificationCode_pointSize) {
                 mPointSize = a.getInteger(index, 40);
-            } else if (index ==R.styleable.MyVerificationCode_lineSize) {
+            } else if (index == R.styleable.MyVerificationCode_lineSize) {
                 mLineSize = a.getInteger(index, 3);
             }
         }
@@ -116,12 +114,12 @@ public class RandomVerificationCodeView extends View implements View.OnClickList
         mPaintBg = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintBg.setColor(Color.parseColor("#cccccc"));
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
-        //设置字体大小
+        // 设置字体大小
         mPaintText.setTextSize(mTextSize);
-        //设置字体粗细
+        // 设置字体粗细
         mPaintText.setFakeBoldText(true);
         mBuilder = new StringBuilder();
-        //这里判断xml中有没有给属性传值，如果没有就随机生成
+        // 这里判断xml中有没有给属性传值，如果没有就随机生成
         if (TextUtils.isEmpty(mText)) {
             for (int i = 0; i < CODE_LENGTH; i++) {
                 mBuilder.append(CHARS[mRandom.nextInt(CHARS.length)]);
@@ -145,15 +143,15 @@ public class RandomVerificationCodeView extends View implements View.OnClickList
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int width = widthSize;
         int height = heightSize;
-        //当宽高都为wrap_content的时候
+        // 当宽高都为wrap_content的时候
         if (widthMode == MeasureSpec.AT_MOST && heightMode == MeasureSpec.AT_MOST) {
             mPaintText.getTextBounds(mBuilder.toString(), 0, mBuilder.toString().length(), mRect);
             width = mRect.width() + getPaddingLeft() + getPaddingRight();
             height = mRect.height() + getPaddingTop() + getPaddingBottom();
-            //当宽为wrap_content
+            // 当宽为wrap_content
         } else if (widthMode == MeasureSpec.AT_MOST) {
             width = mRect.width() + getPaddingLeft() + getPaddingRight();
-            //当高为wrap_content
+            // 当高为wrap_content
         } else if (heightMode == MeasureSpec.AT_MOST) {
             height = mRect.height() + getPaddingTop() + getPaddingBottom();
         }
@@ -169,16 +167,16 @@ public class RandomVerificationCodeView extends View implements View.OnClickList
             makeConfig(width, height);
             refresh = false;
         }
-        //画矩形
+        // 画矩形
         canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), mPaintBg);
         drawText(canvas, width, height);
-        //设置干扰点
+        // 设置干扰点
         for (int i = 0; i < mPointSize; i++) {
             PointBean point = points.get(i);
             mPaintText.setColor(point.color);
             drawPoint(canvas, mPaintText, point);
         }
-        //设置干扰线
+        // 设置干扰线
         for (int i = 0; i < mLineSize; i++) {
             LineBean line = lines.get(i);
             mPaintText.setColor(line.color);
@@ -205,24 +203,24 @@ public class RandomVerificationCodeView extends View implements View.OnClickList
      * @param height view的高度
      */
     private void drawText(Canvas canvas, int width, int height) {
-        //第一个字符距离左边的宽度
+        // 第一个字符距离左边的宽度
         float charWidth = width / 5 - 10;
-        //字符的高度
+        // 字符的高度
         for (int i = 0; i < vers.size(); i++) {
             VerBean ver = vers.get(i);
             ////用来保存Canvas的状态。save之后，可以调用Canvas的平移、放缩、旋转、错切、裁剪等操作。
             canvas.save();
-            //设置旋转
+            // 设置旋转
             canvas.rotate(ver.rotate, width / 2, height / 2);
-            //设置每个字体的颜色
+            // 设置每个字体的颜色
             mPaintText.setColor(ver.color);
-            //画文字
+            // 画文字
             canvas.drawText(String.valueOf(mBuilder.toString().charAt(i)), charWidth, height * 1 / 2 + mRect.height() / 2, mPaintText);
-            //字符距离
+            // 字符距离
             charWidth += width / 5;
             canvas.restore();
         }
-        //重新设置paint
+        // 重新设置paint
         mPaintText.setStrokeWidth(2f);
     }
 
@@ -287,9 +285,9 @@ public class RandomVerificationCodeView extends View implements View.OnClickList
         int verLen = mBuilder.toString().length();
         vers = new ArrayList<>();
         for (int i = 0; i < verLen; i++) {
-            //随机生成倾斜角度
+            // 随机生成倾斜角度
             int rotate = mRandom.nextInt(10);
-            //如果是0则正方向倾斜，如果是1则负方向倾斜
+            // 如果是0则正方向倾斜，如果是1则负方向倾斜
             rotate = mRandom.nextInt(2) == 0 ? rotate : -rotate;
             int color = getTextColor(255, 255, 255);
             vers.add(new VerBean(rotate, color));
@@ -314,7 +312,7 @@ public class RandomVerificationCodeView extends View implements View.OnClickList
 
     public void refresh() {
         refresh = true;
-        //先清空
+        // 先清空
         mBuilder.delete(0, mBuilder.length());
         for (int i = 0; i < CODE_LENGTH; i++) {
             mBuilder.append(CHARS[mRandom.nextInt(CHARS.length)]);

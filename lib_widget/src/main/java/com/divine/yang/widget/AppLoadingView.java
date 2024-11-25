@@ -46,12 +46,12 @@ public class AppLoadingView extends View {
         this.mCanvas = canvas;
         mCanvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 
-        mPaint.setColor(context.getResources().getColor(R.color.white));
+        mPaint.setColor(context.getColor(android.R.color.white));
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(0.1f);
         mPaint.setAntiAlias(true);
 
-        mPaintSin.setColor(context.getResources().getColor(R.color.white));
+        mPaintSin.setColor(context.getColor(android.R.color.white));
         mPaintSin.setStrokeWidth(2f);
         mPaintSin.setAntiAlias(true);
         mCanvas.drawRect(0, 0, getWidth(), getHeight(), mPaintSin);

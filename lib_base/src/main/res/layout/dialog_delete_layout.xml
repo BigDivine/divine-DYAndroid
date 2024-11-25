@@ -12,7 +12,7 @@
 <!--        android:layout_marginTop="20dp"-->
 <!--        android:gravity="center"-->
 <!--        android:text="确定要删除此项数据吗？"-->
-<!--        android:textColor="@color/black_text_color"-->
+<!--        android:textColor="@android:color/black_text_color"-->
 <!--        android:textSize="16sp" />-->
 
 <!--    <RelativeLayout-->
@@ -22,11 +22,11 @@
 
 <!--        <View-->
 <!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/dp_1"-->
+<!--            android:layout_height="1dp"-->
 <!--            android:background="@color/line_color" />-->
 
 <!--        <View-->
-<!--            android:layout_width="@dimen/dp_1"-->
+<!--            android:layout_width="1dp"-->
 <!--            android:layout_height="50dp"-->
 <!--            android:layout_centerHorizontal="true"-->
 <!--            android:background="@color/line_color" />-->

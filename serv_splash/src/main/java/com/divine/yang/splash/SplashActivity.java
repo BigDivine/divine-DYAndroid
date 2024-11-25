@@ -5,26 +5,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.MenuProvider;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.divine.yang.base.arouter.ARouterManager;
 import com.divine.yang.base.base.BaseActivity;
 import com.divine.yang.util.sys.SPUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Route(path = "/splash/main")
 public class SplashActivity extends BaseActivity implements OnSplashItemClickListener, View.OnClickListener {
     public final String TAG = "SplashActivity";
-    public final String SP_KEY_IS_FIRST_START = "sp_is_first_start";
-    public final String SP_KEY_IS_LOGIN = "sp_is_login";
+    private LoadFinishedListener mLoadFinishedListener;
     // wait time
     private final Handler mHandler = new Handler();
     private int count = 3;
@@ -58,15 +49,19 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     }
 
     @Override
+    public boolean showToolbar() {
+        return false;
+    }
+
+    @Override
     public void getData() {
 
     }
 
     @Override
     public void initView() {
-
         findView();
-        boolean fistStart = (boolean) SPUtils.getInstance(this).get(SP_KEY_IS_FIRST_START, true);
+        boolean fistStart = (boolean) SPUtils.getInstance(this).get(Splash.SP_KEY_IS_FIRST_START, true);
         if (!fistStart) {
             ivSplashImage.setVisibility(View.VISIBLE);
             vpSplashGuideImages.setVisibility(View.GONE);
@@ -80,6 +75,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
             adapter.setOnSplashItemClickListener(this);
             vpSplashGuideImages.setAdapter(adapter);
         }
+        mLoadFinishedListener = Splash.instance().loadFinishedListener;
     }
 
     private void startTimer() {
@@ -88,10 +84,8 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
 
     @Override
     public void onLastItemClick(View v) {
-        SPUtils.getInstance(this).put(SP_KEY_IS_FIRST_START, false);
+        SPUtils.getInstance(this).put(Splash.SP_KEY_IS_FIRST_START, false);
         toLogin();
-//        toMain();
-
     }
 
     @Override
@@ -104,9 +98,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
 
     @Override
     public String[] requestPermissions() {
-        return new String[]{
-
-        };
+        return new String[]{};
     }
 
     public void toNextPage() {
@@ -114,7 +106,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
             isJumpToNext = true;
         }
         mSPUtils = SPUtils.getInstance(this);
-        boolean isLogin = (boolean) mSPUtils.get(SP_KEY_IS_LOGIN, false);
+        boolean isLogin = (boolean) mSPUtils.get(Splash.SP_KEY_IS_LOGIN, false);
         /*
          * 两种方案：
          * 1、计算上次登录时间与本次登录时间的间隔大于某个值，则需要重新登录
@@ -129,12 +121,12 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     }
 
     public void toLogin() {
-        ARouter.getInstance().build(ARouterManager.ROUTER_LOGIN_MAIN).navigation(this);
+        mLoadFinishedListener.toLogin(this);
         this.finish();
     }
 
     public void toMain() {
-        ARouter.getInstance().build(ARouterManager.ROUTER_MAIN_MAIN).navigation(this);
+        mLoadFinishedListener.toHome(this);
         this.finish();
     }
 
@@ -143,15 +135,9 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     private Button btSplashTimer;
 
     public void findView() {
-        ARouter.getInstance().inject(this);
         vpSplashGuideImages = findViewById(R.id.splash_guide_images);
         ivSplashImage = findViewById(R.id.splash_image);
         btSplashTimer = findViewById(R.id.splash_timer);
         btSplashTimer.setOnClickListener(this);
-    }
-
-    @Override
-    public void addMenuProvider(@NonNull MenuProvider provider, @NonNull LifecycleOwner owner, @NonNull Lifecycle.State state) {
-
     }
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.PopupWindow;
 
-import com.divine.yang.util.sys.DensityUtils;
 import com.divine.yang.widget.R;
 
 import androidx.annotation.Nullable;
@@ -129,7 +128,9 @@ public class FilterTextView extends AppCompatTextView implements OnClickListener
     public void setDropDown(int resId) {
         Drawable rightDrawable = getContext().getResources().getDrawable(resId);
         setCompoundDrawablesWithIntrinsicBounds(null, null, rightDrawable, null);
-        setCompoundDrawablePadding(DensityUtils.dip2px(8, getContext()));
+        float scale = getContext().getResources().getDisplayMetrics().density;
+        int padding= (int) (8 * scale + 0.5f);
+        setCompoundDrawablePadding(padding);
         postInvalidate();
     }
 }
