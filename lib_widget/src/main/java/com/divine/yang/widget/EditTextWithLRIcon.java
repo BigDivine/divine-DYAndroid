@@ -1,23 +1,20 @@
 package com.divine.yang.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.EditText;
 
-import com.divine.yang.widget.R;
+import androidx.appcompat.widget.AppCompatEditText;
 
 /**
  * Author: Divine
  * CreateDate: 2021/8/25
  * Describe:
  */
-@SuppressLint("AppCompatCustomView")
-public class EditTextWithLRIcon extends EditText {
+public class EditTextWithLRIcon extends AppCompatEditText {
     private Context mContext;
 
     public EditTextWithLRIcon(Context context) {
@@ -35,19 +32,13 @@ public class EditTextWithLRIcon extends EditText {
         initView(context);
     }
 
-    public EditTextWithLRIcon(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initView(context);
-    }
-
     Drawable left, right;
 
     private void initView(Context mContext) {
         this.mContext = mContext;
         Drawable[] compoundDrawables = getCompoundDrawables();
         left = compoundDrawables[0];
-        if (left != null)
-            left.setBounds(0, 0, 60, 60);
+        if (left != null) left.setBounds(0, 0, 60, 60);
         String text = getText().toString();
         if (TextUtils.isEmpty(text)) {
             setCompoundDrawables(left, compoundDrawables[1], null, compoundDrawables[3]);
@@ -87,30 +78,25 @@ public class EditTextWithLRIcon extends EditText {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                //判断是否点击到了右边的图标区域
-                boolean isClean = (event.getX() > (getWidth() - getTotalPaddingRight()))
-                        && (event.getX() < (getWidth() - getPaddingRight()));
-                if (isClean) {
-                    //清除字符
-                    setText("");
-                }
-                break;
+        if (event.getAction() == MotionEvent.ACTION_UP) {// 判断是否点击到了右边的图标区域
+            boolean isClean = (event.getX() > (getWidth() - getTotalPaddingRight())) && (event.getX() < (getWidth() - getPaddingRight()));
+            if (isClean) {
+                // 清除字符
+                setText("");
+            }
         }
         return super.onTouchEvent(event);
     }
 
     protected void setDrawableColor(int color) {
         Drawable[] compoundDrawables = getCompoundDrawables();
-        if (left != null)
-            left.setTint(color);
+        if (left != null) left.setTint(color);
         setCompoundDrawables(left, compoundDrawables[1], compoundDrawables[2], compoundDrawables[3]);
     }
 
     protected void setRightDrawable(Drawable[] compoundDrawables) {
         right = compoundDrawables[2];
-        if (right == null) {
+        if (null == right) {
             right = mContext.getDrawable(R.mipmap.ic_edit_clear);
         }
         right.setBounds(0, 0, 40, 40);

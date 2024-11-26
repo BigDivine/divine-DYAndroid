@@ -1,6 +1,7 @@
 package com.divine.yang.platform;
 
 import com.divine.yang.base.base.BaseApplication;
+import com.divine.yang.login.Login;
 
 /**
  * Project Name  : DivinePlatform
@@ -22,6 +23,8 @@ public class MainApplication extends BaseApplication {
         super.onCreate();
         // if (isDebug) {
         // }
+        Login.instance().needChangeServer = true;
+        Login.instance().needVerifyCode = true;
     }
 
 }
