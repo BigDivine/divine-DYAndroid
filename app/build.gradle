@@ -35,6 +35,7 @@ dependencies {
     implementation project(":lib_base")
     implementation project(":serv_splash")
     implementation project(":serv_login")
+    implementation project(":serv_main")
 
     implementation libs.material
 

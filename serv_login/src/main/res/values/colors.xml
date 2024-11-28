@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="theme_color">#EF424C</color>
-    <color name="theme_color_alpha">#3cEF424C</color>
+
 
     <color name="gray_text">#838B8F</color>
     <color name="back_black_half_alpha">#80323232</color>

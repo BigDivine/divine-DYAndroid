@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="system_background_color">#F9F9F9</color>
-    <color name="system_text_color">#737373</color>
-
-    <color name="BaseThemeColor">#EF424C</color>
-    <color name="GradientColor">#3cEF424C</color>
-</resources>

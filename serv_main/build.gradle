@@ -17,11 +17,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
-            }
-        }
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
+//            }
+//        }
     }
 
     buildTypes {
@@ -38,8 +38,12 @@ android {
 
 
 dependencies {
-    implementation project(":serv_home")
+    implementation project(":lib_theme")
+    implementation project(":lib_base")
+    implementation project(":lib_util")
 
-    implementation libs.arouter.api
-    annotationProcessor libs.arouter.compiler
+    implementation libs.material
+
+//    implementation libs.arouter.api
+//    annotationProcessor libs.arouter.compiler
 }

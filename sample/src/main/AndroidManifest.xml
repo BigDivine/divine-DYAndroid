@@ -37,29 +37,29 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name="com.divine.yang.main.MainActivity"
+            android:name="com.divine.yang.main.old.MainActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name="com.divine.yang.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.divine.yang.main.home.TabPagerFragmentActivity"
+            android:name="com.divine.yang.main.old.home.TabPagerFragmentActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.divine.yang.main.home.TabPager2FragmentActivity"
+            android:name="com.divine.yang.main.old.home.TabPager2FragmentActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.divine.yang.main.home.RadioPagerFragmentActivity"
+            android:name="com.divine.yang.main.old.home.RadioPagerFragmentActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.divine.yang.main.home.RadioPager2FragmentActivity"
+            android:name="com.divine.yang.main.old.home.RadioPager2FragmentActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.divine.yang.main.home.NavigatorPagerFragmentActivity"
+            android:name="com.divine.yang.main.old.home.NavigatorPagerFragmentActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.divine.yang.main.home.NavigatorPager2FragmentActivity"
+            android:name="com.divine.yang.main.old.home.NavigatorPager2FragmentActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".widget.SignatureViewDemoActivity"

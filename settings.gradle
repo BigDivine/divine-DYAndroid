@@ -44,5 +44,6 @@ include ':lib_netencryptserver'
 
 include ':serv_splash'
 include ':serv_login'
+include ':serv_main'
 //include ':serv_home'
-//include ':serv_main'
+include ':lib_theme'

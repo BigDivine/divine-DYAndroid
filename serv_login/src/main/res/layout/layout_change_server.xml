@@ -28,7 +28,7 @@
             android:hint="请输入服务器地址"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/BaseThemeColor"
             android:textCursorDrawable="@drawable/edit_text_cursor"
             android:textSize="16sp" />
 
@@ -50,7 +50,7 @@
             android:layout_gravity="right"
             android:background="@null"
             android:text="返回登录"
-            android:textColor="@color/theme_color" />
+            android:textColor="@color/BaseThemeColor" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

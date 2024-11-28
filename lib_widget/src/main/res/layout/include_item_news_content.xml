@@ -20,9 +20,9 @@
         android:id="@+id/item_news_content_text_unfold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/system_background_color"
+        android:background="@color/SystemBackgroundColor"
         android:text="...展开"
-        android:textColor="@color/theme_color"
+        android:textColor="@color/BaseThemeColor"
         app:layout_constraintBottom_toTopOf="@id/item_news_content_img"
         app:layout_constraintRight_toRightOf="parent" />
 

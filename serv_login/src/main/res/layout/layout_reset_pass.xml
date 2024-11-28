@@ -36,7 +36,7 @@
             android:drawableLeft="@mipmap/ic_login_user_phone"
             android:drawablePadding="10dp"
             android:hint="请输入用户名/手机号"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/BaseThemeColor"
             android:textSize="16sp" />
 
         <com.divine.yang.widget.EditTextWithLRIcon
@@ -48,7 +48,7 @@
             android:drawableLeft="@mipmap/ic_login_user_pass"
             android:drawablePadding="10dp"
             android:hint="请输入旧密码"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/BaseThemeColor"
             android:textSize="16sp" />
 
 
@@ -61,7 +61,7 @@
             android:drawableLeft="@mipmap/ic_login_user_pass"
             android:drawablePadding="10dp"
             android:hint="请再次输入旧密码"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/BaseThemeColor"
             android:textSize="16sp" />
 
         <com.divine.yang.widget.EditTextWithLRIcon
@@ -73,7 +73,7 @@
             android:drawableLeft="@mipmap/ic_login_user_pass"
             android:drawablePadding="10dp"
             android:hint="请输入新密码"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/BaseThemeColor"
             android:textSize="16sp" />
 
         <Button
@@ -93,7 +93,7 @@
             android:layout_gravity="right"
             android:background="@null"
             android:text="找到密码，直接登录"
-            android:textColor="@color/theme_color" />
+            android:textColor="@color/BaseThemeColor" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

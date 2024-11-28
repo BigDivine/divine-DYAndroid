@@ -44,7 +44,7 @@
         android:id="@+id/item_news_sub_title_line"
         android:layout_width="1dp"
         android:layout_height="10dp"
-        android:background="@color/system_text_color"
+        android:background="@color/SystemTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/item_news_sub_title_1"
         app:layout_constraintRight_toLeftOf="@id/item_news_sub_title_2"
@@ -78,14 +78,14 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:src="@mipmap/ic_add"
-            app:tint="@color/theme_color" />
+            app:tint="@color/BaseThemeColor" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="订阅"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/BaseThemeColor"
             android:textSize="15sp"></TextView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

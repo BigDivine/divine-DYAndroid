@@ -30,6 +30,7 @@ android {
     }
 }
 dependencies {
+    implementation project(":lib_theme")
     implementation libs.core
 
     testImplementation libs.junit

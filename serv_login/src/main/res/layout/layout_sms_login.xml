@@ -34,7 +34,7 @@
             android:drawableLeft="@mipmap/ic_login_user_phone"
             android:drawablePadding="10dp"
             android:hint="请输入手机号"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/BaseThemeColor"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -55,7 +55,7 @@
                 android:drawableLeft="@mipmap/ic_login_user_ver"
                 android:drawablePadding="10dp"
                 android:hint="请输入验证码"
-                android:textColor="@color/theme_color"
+                android:textColor="@color/BaseThemeColor"
                 android:textSize="16sp" />
 
             <Button
@@ -67,7 +67,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="获取验证码"
-                android:textColor="@color/theme_color"
+                android:textColor="@color/BaseThemeColor"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -88,7 +88,7 @@
             android:layout_gravity="right"
             android:background="@null"
             android:text="切换用户名登录"
-            android:textColor="@color/theme_color" />
+            android:textColor="@color/BaseThemeColor" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

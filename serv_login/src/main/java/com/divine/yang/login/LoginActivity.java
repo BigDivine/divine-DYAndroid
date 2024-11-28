@@ -68,7 +68,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             if (message.what == GET_VER_WHAT) {
                 if (message.arg1 <= 0) {
                     btLoginSmsGetVer.setText("获取验证码");
-                    btLoginSmsGetVer.setTextColor(getColor(R.color.theme_color));
+                    btLoginSmsGetVer.setTextColor(getColor(com.divine.yang.theme.R.color.BaseThemeColor));
                     canGetSmsVer = true;
                     getSmsVerTimeDelay = 5;
                 } else {
@@ -81,7 +81,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             } else if (message.what == REGISTER_GET_VER_WHAT) {
                 if (message.arg1 <= 0) {
                     btRegisterUserGetPhoneVer.setText("获取验证码");
-                    btRegisterUserGetPhoneVer.setTextColor(getColor(R.color.theme_color));
+                    btRegisterUserGetPhoneVer.setTextColor(getColor(com.divine.yang.theme.R.color.BaseThemeColor));
                     canGetRegisterVer = true;
                     registerGetVerTimeDelay = 5;
                 } else {
@@ -174,7 +174,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         vvLoginVerView.setVisibility(mLogin.needVerifyCode ? View.VISIBLE : View.GONE);
         etLoginUserVer.setVisibility(mLogin.needVerifyCode ? View.VISIBLE : View.GONE);
 
-        int waveColor = getColor(R.color.theme_color_alpha);
+        int waveColor = getColor(com.divine.yang.theme.R.color.GradientColor);
         wvWaveView1.setWaveColor(waveColor);
         wvWaveView2.setWaveColor(waveColor);
         mWaveHelper1 = new WaveHelper(wvWaveView1, 10000);
