@@ -213,9 +213,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         } else if (viewId == R.id.login_submit) {
             // 用户名登录
             if (checkLoginInfo()) {
-                String userNameStr = etLoginUserName.getText().toString();
-                String userPassStr = etLoginUserPass.getText().toString();
-                mLoginFunction.userLogin(userNameStr, userPassStr);
+                    String userNameStr = etLoginUserName.getText().toString();
+                    String userPassStr = etLoginUserPass.getText().toString();
+                    mLoginFunction.userLogin(userNameStr, userPassStr);
             }
         } else if (viewId == R.id.oauth_login_wx) {
             // 微信登录

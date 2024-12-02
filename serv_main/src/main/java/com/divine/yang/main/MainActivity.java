@@ -1,6 +1,16 @@
 package com.divine.yang.main;
 
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.divine.yang.base.base.BaseActivity;
+import com.divine.yang.main.fragment.HomeFragment;
+import com.divine.yang.main.fragment.UserFragment;
 
 /**
  * Project Name  : DivinePlatform
@@ -11,6 +21,10 @@ import com.divine.yang.base.base.BaseActivity;
  * Description   :
  */
 public class MainActivity extends BaseActivity {
+    // private ViewPager2 mViewPager2;
+    // private FrameLayout customFrameLayout;
+    private LinearLayout customNavigatorMain, customNavigatorUser;
+
     @Override
     public int getContentViewId() {
         return R.layout.activity_main;
@@ -33,6 +47,29 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        customNavigatorMain = findViewById(R.id.custom_navigator_main);
+        customNavigatorUser = findViewById(R.id.custom_navigator_user);
+        // customFrameLayout = findViewById(R.id.custom_frame_layout);
 
+        HomeFragment homeFragment = new HomeFragment();
+        UserFragment userFragment = new UserFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.custom_frame_layout, homeFragment);
+        fragmentTransaction.commit();
+        customNavigatorMain.setOnClickListener(view -> {
+            changeFragment(homeFragment);
+        });
+        customNavigatorUser.setOnClickListener(view -> {
+            changeFragment(userFragment);
+        });
+    }
+
+    private void changeFragment(Fragment toFragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.custom_frame_layout, toFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

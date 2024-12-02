@@ -2,54 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-<!--    android:background="@drawable/shape_white_corner_5dp"-->
+    android:orientation="vertical"
+   >
 
-<!--    <TextView-->
-<!--        android:id="@+id/delete_msg"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="确定要删除此项数据吗？"-->
-<!--        android:textColor="@android:color/black_text_color"-->
-<!--        android:textSize="16sp" />-->
+    <TextView
+        android:id="@+id/delete_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="确定要删除此项数据吗？"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="24dp">-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
 
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="@color/line_color" />-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/SystemTextColor" />
 
-<!--        <View-->
-<!--            android:layout_width="1dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:background="@color/line_color" />-->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/SystemTextColor" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/delete_cancel"-->
-<!--            android:layout_width="98dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginLeft="30dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="取消"-->
-<!--            android:textColor="@color/gray_text_color"-->
-<!--            android:textSize="13sp" />-->
+        <TextView
+            android:id="@+id/delete_cancel"
+            android:layout_width="98dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/SystemTextColor"
+            android:textSize="13sp" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/delete_confirm"-->
-<!--            android:layout_width="98dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:layout_marginRight="30dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="确认"-->
-<!--            android:textColor="@color/blue_text_color"-->
-<!--            android:textSize="13sp" />-->
-<!--    </RelativeLayout>-->
+        <TextView
+            android:id="@+id/delete_confirm"
+            android:layout_width="98dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:text="确认"
+            android:textColor="@color/BaseThemeColor"
+            android:textSize="13sp" />
+    </RelativeLayout>
 </LinearLayout>

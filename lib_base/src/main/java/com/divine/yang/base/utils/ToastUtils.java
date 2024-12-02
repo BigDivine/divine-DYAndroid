@@ -33,9 +33,9 @@ public class ToastUtils {
         if (toast == null) {
             toast = Toast.makeText(mContext, message, duration);
         } else {
-            //设置文字
+            // 设置文字
             toast.setText(message);
-            //设置存续期间
+            // 设置存续期间
             toast.setDuration(duration);
         }
         return toast;
@@ -95,7 +95,7 @@ public class ToastUtils {
         TextView tv = view.findViewById(R.id.toast_custom_tv);
         tv.setText(TextUtils.isEmpty(tvStr) ? "" : tvStr);
 
-        Drawable iconDrawable = mContext.getResources().getDrawable(imageResource);
+        Drawable iconDrawable = mContext.getDrawable(imageResource);
         iconDrawable.setBounds(0, 0, iconDrawable.getMinimumWidth(), iconDrawable.getMinimumHeight());
         if (imageResource > 0) {
             tv.setCompoundDrawables(null, iconDrawable, null, null);

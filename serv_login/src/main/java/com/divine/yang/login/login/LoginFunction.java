@@ -49,7 +49,7 @@ public class LoginFunction implements LoginView {
     }
 
     public void userSimulateLogin() {
-        DialogUtils.showAppLoadingDialog(mActivity, "登录中。。。");
+        DialogUtils.showLoadingDialog(mActivity, "登录中。。。");
         new Handler().postDelayed(() -> {
             if (DialogUtils.isShowDialog()) DialogUtils.dismissLoadingDialog();
             Message loginMessage = Message.obtain();
@@ -60,7 +60,7 @@ public class LoginFunction implements LoginView {
     }
 
     public void userLogin(String userName, String userPass) {
-        DialogUtils.showAppLoadingDialog(mActivity, "登录中。。。");
+        DialogUtils.showLoadingDialog(mActivity, "登录中。。。");
         this.userName = userName;
         this.userPass = userPass;
         String params = "{\"userName\":\"" + userName + "\"" + ",\"userPass\":\"" + userPass + "\"" + "}";

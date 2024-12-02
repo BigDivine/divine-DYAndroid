@@ -18,7 +18,7 @@ import com.divine.yang.splash.SplashActivity;
 public class LauncherActivity extends BaseActivity {
     @Override
     public int getContentViewId() {
-        return R.layout.activity_main;
+        return R.layout.activity_launcher;
     }
 
     @Override
@@ -63,6 +63,7 @@ public class LauncherActivity extends BaseActivity {
             }
         });
         startActivity(new Intent(this, SplashActivity.class));
+        this.finish();
     }
 
     @Override
