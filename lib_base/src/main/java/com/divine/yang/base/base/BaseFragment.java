@@ -52,8 +52,8 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.e(TAG, "onCreateView");
         View view = inflater.inflate(getContentView(), null);
-        initView(view);
         getData();
+        initView(view);
         return view;
     }
 

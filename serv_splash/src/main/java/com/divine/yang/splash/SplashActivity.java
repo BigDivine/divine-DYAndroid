@@ -18,7 +18,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     private LoadFinishedListener mLoadFinishedListener;
     // wait time
     private final Handler mHandler = new Handler();
-    private int count = 3;
+    private int count = 1;
     private boolean isJumpToNext;
     protected SPUtils mSPUtils;
 

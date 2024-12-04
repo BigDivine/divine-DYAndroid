@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
 
+    <!--    ListView‌：适合简单的列表展示，但性能较差，不支持局部刷新和复杂的布局。-->
+    <!--    RecyclerView‌：性能更好，支持局部刷新和复杂的布局，但实现复杂度较高。-->
+    <!--    GridView‌：适合固定大小的网格展示，但性能较差，功能相对简单。-->
+    <!--    StaggeredGridView‌：适合展示错位布局的内容，性能和功能介于GridView和RecyclerView之间。-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/button_recycler_list"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:text="列表流"
+        android:textColor="@color/SystemTextColor"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_recycler_fall"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:text="瀑布流"
+        android:textColor="@color/SystemTextColor"
+        app:layout_constraintBottom_toTopOf="@id/button_recycler_card"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_recycler_list" />
+
+    <Button
+        android:id="@+id/button_recycler_card"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:text="卡片流"
+        android:textColor="@color/SystemTextColor"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_recycler_list" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
