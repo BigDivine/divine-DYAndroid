@@ -12,7 +12,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="确定要删除此项数据吗？"
-        android:textColor="@android:color/black"
+
         android:textSize="16sp" />
 
     <RelativeLayout

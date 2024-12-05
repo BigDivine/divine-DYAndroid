@@ -15,7 +15,6 @@
         android:layout_marginBottom="10dp"
         android:drawableTop="@mipmap/ic_launcher"
         android:drawablePadding="5dp"
-        android:textColor="@color/back_black"
         android:textSize="16sp"
         tools:text="点击toast" />
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.divine.yang.base.base.BaseFragment;
 import com.divine.yang.main.R;
+import com.google.android.material.textview.MaterialTextView;
 
 public class UserFragment extends BaseFragment {
 
@@ -35,7 +36,7 @@ public class UserFragment extends BaseFragment {
 
 
     private void findView(View view) {
-
+        MaterialTextView headerOrgNameView = view.findViewById(R.id.header_org_title_in_mine);
     }
 
     private void setListener() {

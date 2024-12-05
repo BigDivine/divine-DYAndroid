@@ -16,6 +16,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="条目标题"
-        android:textColor="@color/back_black"
         android:textSize="13sp" />
 </LinearLayout>
