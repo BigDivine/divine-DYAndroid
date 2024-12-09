@@ -11,7 +11,7 @@
     <!--    GridView‌：适合固定大小的网格展示，但性能较差，功能相对简单。-->
     <!--    StaggeredGridView‌：适合展示错位布局的内容，性能和功能介于GridView和RecyclerView之间。-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_recycler_view"
+        android:id="@+id/recycler_in_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

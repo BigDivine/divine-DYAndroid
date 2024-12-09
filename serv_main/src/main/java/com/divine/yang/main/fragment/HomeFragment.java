@@ -53,7 +53,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private Button listButton, fallButton, cardButton;
 
     private void findView(View view) {
-        homeRecyclerView = view.findViewById(R.id.home_recycler_view);
+        homeRecyclerView = view.findViewById(R.id.recycler_in_home);
         listButton = view.findViewById(R.id.button_recycler_list);
         fallButton = view.findViewById(R.id.button_recycler_fall);
         cardButton = view.findViewById(R.id.button_recycler_card);
@@ -64,7 +64,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         fallButton.setOnClickListener(this);
         cardButton.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View view) {
