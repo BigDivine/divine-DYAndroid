@@ -33,8 +33,8 @@ public class DensityUtils {
      * @return 像素值
      */
     public static int dip2px(float dipValue, Context context) {
-        //        float scale = getDensity(context);
-        float scale = context.getResources().getDisplayMetrics().density;
+        float scale = getDensity(context);
+        // float scale = context.getResources().getDisplayMetrics().density;
 
         return (int) (dipValue * scale + 0.5f);
     }
@@ -128,6 +128,6 @@ public class DensityUtils {
 
     public static int dp2px(Context context, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                                               context.getResources().getDisplayMetrics());
+                context.getResources().getDisplayMetrics());
     }
 }

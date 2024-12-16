@@ -8,7 +8,6 @@
         android:id="@+id/header_bg_in_mine"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-
         android:background="@color/BaseThemeColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -54,7 +53,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="150dp"
         android:layout_marginRight="20dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toTopOf="@id/center_in_mine"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -83,11 +83,12 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/center_in_mine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toTopOf="@id/setting_in_mine"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_org_in_mine">
@@ -96,22 +97,37 @@
             android:id="@+id/center_content_in_mine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            android:padding="10dp" />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/setting_in_mine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/center_in_mine">
+        app:layout_constraintTop_toBottomOf="@id/center_in_mine"
+        app:layout_constraintVertical_weight="1">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_in_mine"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:id="@+id/setting_contain_in_mine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
