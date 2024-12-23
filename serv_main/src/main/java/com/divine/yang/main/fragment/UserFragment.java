@@ -1,5 +1,8 @@
 package com.divine.yang.main.fragment;
 
+import android.content.Intent;
+import android.os.Build;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.divine.yang.base.base.BaseFragment;
 import com.divine.yang.main.R;
+import com.divine.yang.main.activity.BacklogActivity;
 import com.divine.yang.main.bean.SettingBean;
 import com.divine.yang.main.bean.UserBean;
 import com.divine.yang.util.sys.DensityUtils;
@@ -51,12 +55,9 @@ public class UserFragment extends BaseFragment {
     private void findView(View view) {
         MaterialTextView headerUserTitleView = view.findViewById(R.id.header_user_title_in_mine);
         MaterialTextView headerOrgTitleView = view.findViewById(R.id.header_org_title_in_mine);
-        MaterialTextView centerContentView = view.findViewById(R.id.center_content_in_mine);
         // RecyclerView recyclerView = view.findViewById(R.id.recycler_in_mine);
         headerUserTitleView.setText(userBean.getUserName());
         headerOrgTitleView.setText(userBean.getUserOrg());
-        String content = "你有多久没有发自内心的笑过了？你上一次笑着看别人的时候，是发自内心的开心吗？你有多久在笑的时候心里没有悲伤，没有压力过了？\r\n我们都知道20多岁自己想干啥，却不知道30多岁想干啥，因为周围30多岁的都在养孩子。";
-        centerContentView.setText(content);
 
         ArrayList<SettingBean> settingBeans = new ArrayList<>();
         SettingBean settingBean = new SettingBean();
@@ -68,25 +69,36 @@ public class UserFragment extends BaseFragment {
         String[] settingTitles = new String[]{"待办信息", "反馈提醒", "公告", "预警信息", "系统通知", "设置", "版本"};
 
         for (int i = 0; i < settingBeans.size(); i++) {
+            String settingTitle = settingTitles[i];
             View settingView = LayoutInflater.from(mContext).inflate(R.layout.item_user_setting, null);
-            settingView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtils.dip2px(40.0f,mContext)));
+            settingView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtils.dip2px(40.0f, mContext)));
             AppCompatImageView settingImageView = settingView.findViewById(R.id.item_image_in_setting);
             MaterialTextView settingTitleView = settingView.findViewById(R.id.item_title_in_setting);
             MaterialTextView settingOtherView = settingView.findViewById(R.id.item_other_in_setting);
             AppCompatImageView itemArrowView = settingView.findViewById(R.id.item_arrow_in_setting);
             settingImageView.setImageResource(settingImages[i]);
-            settingTitleView.setText(settingTitles[i]);
+            settingTitleView.setText(settingTitle);
             if (i == settingBeans.size() - 1) {
+
                 settingOtherView.setText("v1.0.0");
                 settingOtherView.setVisibility(View.VISIBLE);
                 itemArrowView.setVisibility(View.GONE);
-            }else{
+            } else {
                 itemArrowView.setVisibility(View.VISIBLE);
             }
-            // settingView.setOnClickListener(v->{
-            //     settingViewClick(settingTitles[i]);
-            // });
+
+            settingView.setOnClickListener(v -> {
+                settingViewClick(settingTitle);
+            });
             settingContainView.addView(settingView);
+        }
+    }
+
+    private void settingViewClick(String setTitle) {
+        if (TextUtils.equals(setTitle, "待办信息")) {
+            mContext.startActivity(new Intent(mContext, BacklogActivity.class));
+        } else {
+
         }
     }
 
