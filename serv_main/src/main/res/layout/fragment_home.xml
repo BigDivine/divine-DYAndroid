@@ -23,9 +23,10 @@
         android:id="@+id/button_recycler_list"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:background="@android:color/transparent"
+        android:background="@color/BaseThemeColor"
         android:text="列表流"
-        android:textColor="@color/SystemTextColor"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@id/button_recycler_fall"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,9 +34,9 @@
         android:id="@+id/button_recycler_fall"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:background="@android:color/transparent"
+        android:background="@color/GradientColor"
         android:text="瀑布流"
-        android:textColor="@color/SystemTextColor"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@id/button_recycler_card"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_recycler_list" />
@@ -44,10 +45,10 @@
         android:id="@+id/button_recycler_card"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:background="@android:color/transparent"
+        android:background="@color/BaseThemeColor"
         android:text="卡片流"
-        android:textColor="@color/SystemTextColor"
+        android:textColor="@android:color/white"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_recycler_list" />
+        app:layout_constraintTop_toBottomOf="@id/button_recycler_fall" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

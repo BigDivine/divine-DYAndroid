@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.divine.yang.base.base.BaseActivity;
 import com.divine.yang.main.fragment.HomeFragment;
 import com.divine.yang.main.fragment.UserFragment;
@@ -20,6 +21,7 @@ import com.divine.yang.main.fragment.UserFragment;
  * Create Date   : 2024/11/28
  * Description   :
  */
+@Route(path = "/main/main")
 public class MainActivity extends BaseActivity {
     // private ViewPager2 mViewPager2;
     // private FrameLayout customFrameLayout;

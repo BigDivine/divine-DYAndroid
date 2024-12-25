@@ -7,12 +7,13 @@ import android.widget.ImageView;
 
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.divine.yang.base.base.BaseActivity;
 import com.divine.yang.util.sys.SPUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Route(path = "/splash/main")
 public class SplashActivity extends BaseActivity implements OnSplashItemClickListener, View.OnClickListener {
     public final String TAG = "SplashActivity";
     private LoadFinishedListener mLoadFinishedListener;
@@ -57,7 +58,7 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     public void getData() {
 
     }
-
+    //
     @Override
     public void initView() {
         findView();

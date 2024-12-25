@@ -1,4 +1,3 @@
-
 pluginManagement {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/public/' }
@@ -26,11 +25,14 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
+
 rootProject.name = "DivinePlatform"
 //include ':app_githubdemo'
-include ':app'
 //include ':app_hotfixed'
 //include ':app_netencrypt'
+include ':app'
+
+include ':lib_theme'
 
 include ':lib_util'
 include ':lib_base'
@@ -46,4 +48,4 @@ include ':serv_splash'
 include ':serv_login'
 include ':serv_main'
 //include ':serv_home'
-include ':lib_theme'
+include ':cfas_home'

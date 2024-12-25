@@ -44,7 +44,11 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void update(HomeBean data) {
-        itemImage.setImageURI(Uri.parse(data.getImage()));
+        if (null != data.getImage()) {
+            itemImage.setImageURI(Uri.parse(data.getImage()));
+        } else {
+            itemImage.setImageResource(data.getResImage());
+        }
         itemTitle.setText(data.getTitle());
 
         // if (this.listType == LISTTYPE.LIST.ordinal()) {

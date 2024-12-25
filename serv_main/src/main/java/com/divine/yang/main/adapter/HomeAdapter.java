@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.divine.yang.main.R;
 import com.divine.yang.main.bean.HomeBean;
 import com.divine.yang.main.enums.LISTTYPE;
+import com.divine.yang.main.listener.HomeItemClickListener;
 import com.divine.yang.main.viewholder.HomeViewHolder;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     private Context mContext;
     private int listType;
     private ArrayList<HomeBean> homeBeans;
+    private HomeItemClickListener mHomeItemClickListener;
 
     public HomeAdapter(Context mContext, int type) {
         this.mContext = mContext;
@@ -60,7 +62,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         if (!homeBeans.isEmpty()) {
-            holder.update(homeBeans.get(position));
+            HomeBean curHomeBean = homeBeans.get(position);
+            holder.update(curHomeBean);
+            holder.itemView.setOnClickListener(v -> {
+                mHomeItemClickListener.onItemClick(v, curHomeBean);
+            });
         }
     }
 
@@ -73,5 +79,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     public void setData(ArrayList<HomeBean> homeBeans) {
         this.homeBeans = homeBeans;
         notifyDataSetChanged();
+    }
+
+    public void setHomeItemClickListener(HomeItemClickListener mHomeItemClickListener) {
+        this.mHomeItemClickListener = mHomeItemClickListener;
     }
 }

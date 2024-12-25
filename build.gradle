@@ -1,11 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-//        Android 8.0
-        minSdk = 27
+//        Android 9.0
+        minSdk = 28
 //        Android 14
         targetSdk = 34
         compileSdk = 34
     }
 }
-

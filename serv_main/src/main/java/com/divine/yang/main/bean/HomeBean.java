@@ -9,7 +9,17 @@ package com.divine.yang.main.bean;
  * Description   :
  */
 public class HomeBean {
+    private String code;
     private String image, title;
+    private int resImage;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getImage() {
         return image;
@@ -27,8 +37,21 @@ public class HomeBean {
         this.title = title;
     }
 
+    public int getResImage() {
+        return resImage;
+    }
+
+    public void setResImage(int resImage) {
+        this.resImage = resImage;
+    }
+
     @Override
     public String toString() {
-        return "HomeBean{" + "image='" + image + '\'' + ", title='" + title + '\'' + '}';
+        return "HomeBean{" +
+                "code='" + code + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", resImage=" + resImage +
+                '}';
     }
 }

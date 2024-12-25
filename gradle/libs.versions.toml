@@ -1,4 +1,6 @@
 [versions]
+jbap = "1.0.2"
+
 agp = "8.3.2"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -27,7 +29,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-#
+
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
@@ -56,4 +58,5 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-
+aRouterJailedBirdLibrary = { id = "io.github.JailedBird.ARouterPlugin", version.ref = "jbap" }
+aRouteLibrary = { id = "com.alibaba.arouter", version.ref = "jbap" }

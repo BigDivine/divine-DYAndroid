@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.divine.yang.base.base.BaseActivity;
 import com.divine.yang.base.utils.DialogUtils;
 import com.divine.yang.base.utils.ToastUtils;
@@ -40,6 +41,7 @@ import com.divine.yang.widget.WaveView;
  * CreateDate: 2020/11/03
  * Describe: 登录模块界面
  */
+@Route(path = "/login/main")
 public class LoginActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     private final String TAG = "DY-LoginActivity";
     private WaveHelper mWaveHelper1, mWaveHelper2;

@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.divine.yang.base.AppConstants;
 import com.divine.yang.base.LocalLogcat;
 import com.divine.yang.base.R;
@@ -80,7 +81,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         actionBar.setVisibility(showToolbar() ? View.VISIBLE : View.GONE);
         toolbar = new CustomToolbar(this, actionBar);
 
-
         FrameLayout mainContain = baseLayout.findViewById(R.id.main_contain);
         View mainLayout = LayoutInflater.from(this).inflate(layoutResID, null, false);
         mainContain.addView(mainLayout, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -98,6 +98,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         Log.e(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
+
+        ARouter.getInstance().inject(this);
 
         activitiesManager = ActivitiesManager.getInstance();
         activitiesManager.addActivity(this);
@@ -328,18 +330,22 @@ public abstract class BaseActivity extends AppCompatActivity {
         return false;
     }
 
-    // public void startActivity(Class targetActivity, Bundle bundle) {
-    //     Intent intent = new Intent(this, targetActivity);
-    //     if (bundle != null) {
-    //         intent.putExtra("bundle", bundle);
-    //     }
-    //     startActivity(intent);
+    public void toActivity(Class targetActivity) {
+        toActivity(targetActivity, null);
+    }
+
+    public void toActivity(Class targetActivity, Bundle bundle) {
+        Intent intent = new Intent(this, targetActivity);
+        if (bundle != null) {
+            intent.putExtra("bundle", bundle);
+        }
+        startActivity(intent);
+    }
+    // public void navigationTo(String path) {
+    //     ARouter.getInstance()
+    //             .build(path)
+    //             .navigation(this);
     // }
-    //    public void navigationTo(String path) {
-    //        ARouter.getInstance()
-    //                .build(path)
-    //                .navigation(this);
-    //    }
     //
     //    public void navigationTo(String path, String params) {
     //        ARouter.getInstance()

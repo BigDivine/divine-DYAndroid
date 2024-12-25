@@ -13,15 +13,15 @@ android {
         targetSdk rootProject.ext.targetSdk
 
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments = [AROUTER_MODULE_NAME: project.getName(), AROUTER_GENERATE_DOC: "enable"]
-//            }
-//        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -47,6 +47,9 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
 
-//    implementation libs.arouter.api
-//    annotationProcessor libs.arouter.compiler
+    annotationProcessor libs.arouter.compiler
+
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
 }

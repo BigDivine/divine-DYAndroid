@@ -1,19 +1,16 @@
 package com.divine.yang.platform;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.divine.yang.base.base.BaseActivity;
 import com.divine.yang.login.Login;
-import com.divine.yang.login.LoginActivity;
 import com.divine.yang.login.LoginListener;
-import com.divine.yang.main.MainActivity;
 import com.divine.yang.splash.LoadFinishedListener;
 import com.divine.yang.splash.Splash;
-import com.divine.yang.splash.SplashActivity;
 
 public class LauncherActivity extends BaseActivity {
     @Override
@@ -36,33 +33,36 @@ public class LauncherActivity extends BaseActivity {
         Splash.instance().setLoadFinishedListener(new LoadFinishedListener() {
             @Override
             public void toLogin(Activity fromActivity) {
-                startActivity(new Intent(fromActivity, LoginActivity.class));
+                // startActivity(new Intent(fromActivity, LoginActivity.class));
+                ARouter.getInstance().build("/login/main").navigation(fromActivity);
             }
 
             @Override
             public void toHome(Activity fromActivity) {
-                startActivity(new Intent(fromActivity, MainActivity.class));
+                // startActivity(new Intent(fromActivity, MainActivity.class));
+                ARouter.getInstance().build("/main/main").navigation(fromActivity);
             }
 
             @Override
             public void otherHandle(Activity fromActivity) {
                 // startActivity(new Intent(fromActivity, SplashActivity.class));
-
             }
         });
         Login.instance().setLoginListener(new LoginListener() {
             @Override
             public void toHome(Activity fromActivity) {
-                startActivity(new Intent(fromActivity, MainActivity.class));
+                // startActivity(new Intent(fromActivity, MainActivity.class));
+                ARouter.getInstance().build("/main/main").navigation(fromActivity);
             }
 
             @Override
             public void otherHandle(Activity fromActivity) {
                 // startActivity(new Intent(fromActivity, SplashActivity.class));
-
+                ARouter.getInstance().build("/splash/main").navigation(fromActivity);
             }
         });
-        startActivity(new Intent(this, SplashActivity.class));
+        // startActivity(new Intent(this, SplashActivity.class));
+        ARouter.getInstance().build("/splash/main").navigation(this);
         this.finish();
     }
 
