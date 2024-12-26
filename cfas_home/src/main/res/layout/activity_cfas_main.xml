@@ -22,7 +22,9 @@
     <RadioGroup
         android:id="@+id/cfas_main_tab"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/action_bar_height"
+        android:layout_height="@dimen/bottom_tab_height"
+        android:layout_marginTop="2dp"
+        android:background="@android:color/white"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -30,35 +32,53 @@
         app:layout_constraintTop_toBottomOf="@id/cfas_main_frame_layout">
 
 
-
         <com.divine.yang.widget.CustomRadioButton
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/cfas_drawable_tab_home"
-            android:gravity="center"
-            app:drawable_size="20dp"
+             android:gravity="center"
+            android:text="首页"
+            android:textColor="@drawable/cfas_drawable_tab_text"
             app:drawable_color="@color/BaseThemeColor"
-            android:text="首页" />
+            app:drawable_size="30dp" />
 
-        <RadioButton
+        <com.divine.yang.widget.CustomRadioButton
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@null" />
+            android:button="@null"
+            android:drawableTop="@drawable/cfas_drawable_tab_bill"
+             android:gravity="center"
+            android:text="单据"
+            android:textColor="@drawable/cfas_drawable_tab_text"
+            app:drawable_color="@color/BaseThemeColor"
+            app:drawable_size="30dp" />
 
-        <RadioButton
+        <com.divine.yang.widget.CustomRadioButton
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@null" />
+            android:button="@null"
+            android:drawableTop="@drawable/cfas_drawable_tab_approval"
+            android:gravity="center"
+            android:text="审批"
+            android:textColor="@drawable/cfas_drawable_tab_text"
+            app:drawable_color="@color/BaseThemeColor"
+            app:drawable_size="25dp" />
 
-        <RadioButton
+        <com.divine.yang.widget.CustomRadioButton
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@null" />
+            android:button="@null"
+            android:drawableTop="@drawable/cfas_drawable_tab_mine"
+             android:gravity="center"
+            android:text="我的"
+            android:textColor="@drawable/cfas_drawable_tab_text"
+            app:drawable_color="@color/BaseThemeColor"
+            app:drawable_size="25dp" />
     </RadioGroup>
 
 
