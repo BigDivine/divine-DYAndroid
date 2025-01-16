@@ -10,11 +10,16 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@mipmap/ic_launcher" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="160dp">
     <TextView
         android:id="@+id/item_img_text_v_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="条目标题"
-        android:textSize="12sp" />
+        android:text="条目标题1"
+        android:drawableTop="@mipmap/ic_launcher"
+
+       /></LinearLayout>
 </LinearLayout>

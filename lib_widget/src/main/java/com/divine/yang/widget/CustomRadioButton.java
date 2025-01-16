@@ -2,15 +2,12 @@ package com.divine.yang.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.google.android.material.radiobutton.MaterialRadioButton;
+import androidx.appcompat.widget.AppCompatRadioButton;
 
 /**
  * Project Name  : DivinePlatform
@@ -20,7 +17,7 @@ import com.google.android.material.radiobutton.MaterialRadioButton;
  * Create Date   : 2024/12/25
  * Description   :
  */
-public class CustomRadioButton extends MaterialRadioButton {
+public class CustomRadioButton extends AppCompatRadioButton {
     public CustomRadioButton(@NonNull Context context) {
         super(context);
         initView(context, null, 0);
@@ -40,14 +37,11 @@ public class CustomRadioButton extends MaterialRadioButton {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomRadioButton, defStyleAttr, 0);
         int drawableSizeDip = typedArray.getDimensionPixelOffset(R.styleable.CustomRadioButton_drawable_size, 20);
         int drawableColor = typedArray.getColor(R.styleable.CustomRadioButton_drawable_color, -1);
-        // int drawableCheckedColor = typedArray.getColor(R.styleable.CustomRadioButton_drawable_checkedColor, -1);
-        // int drawableUncheckedColor = typedArray.getColor(R.styleable.CustomRadioButton_drawable_uncheckedColor, -1);
-        Drawable[] compoundDrawables = getCompoundDrawables();
-        Drawable drawableLeft = compoundDrawables[0];
-        Drawable drawableTop = compoundDrawables[1];
-        Drawable drawableRight = compoundDrawables[2];
-        Drawable drawableBottom = compoundDrawables[3];
-
+        Drawable[] drawables = getCompoundDrawables();
+        Drawable drawableLeft = drawables[0];
+        Drawable drawableTop = drawables[1];
+        Drawable drawableRight = drawables[2];
+        Drawable drawableBottom = drawables[3];
         if (null != drawableLeft) {
             drawableLeft.setBounds(0, 0, drawableSizeDip, drawableSizeDip);
             if (drawableColor != -1) {
@@ -72,8 +66,8 @@ public class CustomRadioButton extends MaterialRadioButton {
                 drawableBottom.setTint(drawableColor);
             }
         }
+        typedArray.recycle();
 
         setCompoundDrawables(drawableLeft, drawableTop, drawableRight, drawableBottom);
-        typedArray.recycle();
     }
 }

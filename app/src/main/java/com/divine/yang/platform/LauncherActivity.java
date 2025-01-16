@@ -34,7 +34,8 @@ public class LauncherActivity extends BaseActivity {
             @Override
             public void toLogin(Activity fromActivity) {
                 // startActivity(new Intent(fromActivity, LoginActivity.class));
-                ARouter.getInstance().build("/login/main").navigation(fromActivity);
+                // ARouter.getInstance().build("/login/main").navigation(fromActivity);
+                ARouter.getInstance().build("/cfas/main").navigation(fromActivity);
             }
 
             @Override

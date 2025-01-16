@@ -106,10 +106,16 @@
         <attr name="showWave" format="boolean" />
     </declare-styleable>
     <!--    20241225 ADD FOR CustomRadioButton-->
+    <!--    20250116 LAST FOR CustomRadioButton-->
     <declare-styleable name="CustomRadioButton">
         <attr name="drawable_size" format="dimension" />
         <attr name="drawable_color" format="color" />
-<!--        <attr name="drawable_checkedColor" format="color" />-->
-<!--        <attr name="drawable_uncheckedColor" format="color" />-->
+    </declare-styleable>
+    <!--    20250116 ADD FOR CustomRadioButtonDemo-->
+    <declare-styleable name="CustomRadioButtonDemo">
+        <attr name="drawable_size_demo" format="dimension" />
+        <attr name="drawable_color_demo" format="color" />
+        <attr name="custom_background_demo" format="reference" />
+
     </declare-styleable>
 </resources>
