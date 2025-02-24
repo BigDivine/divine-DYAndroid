@@ -18,8 +18,8 @@ import java.util.ArrayList;
 /**
  * Project Name  : DivinePlatform
  * Package       : com.divine.yang.main.adapter
- * Author        : yangzelong(Divine)
- * Email         : yangzelong@jiuqi.com.cn
+ * Author        : Divine.Yang(Divine)
+ * Email         : 
  * Create Date   : 2024/12/4
  * Description   :
  */

@@ -18,6 +18,11 @@ public class BacklogActivity extends BaseActivity {
     }
 
     @Override
+    public void setTheme() {
+
+    }
+
+    @Override
     public void getData() {
 
     }

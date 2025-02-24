@@ -24,6 +24,11 @@ public class LauncherActivity extends BaseActivity {
     }
 
     @Override
+    public void setTheme() {
+
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }

@@ -16,8 +16,8 @@ import com.divine.yang.main.fragment.UserFragment;
 /**
  * Project Name  : DivinePlatform
  * Package       : com.divine.yang.main
- * Author        : yangzelong(Divine)
- * Email         : yangzelong@jiuqi.com.cn
+ * Author        : Divine.Yang(Divine)
+ * Email         : 
  * Create Date   : 2024/11/28
  * Description   :
  */
@@ -35,6 +35,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean showToolbar() {
         return false;
+    }
+
+    @Override
+    public void setTheme() {
+
     }
 
     @Override

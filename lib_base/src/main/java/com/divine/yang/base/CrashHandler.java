@@ -5,8 +5,8 @@ import android.content.Context;
 /**
  * Project Name  : DivinePlatform
  * Package       : com.divine.yang.base
- * Author        : yangzelong(Divine)
- * Email         : yangzelong@jiuqi.com.cn
+ * Author        : Divine.Yang(Divine)
+ * Email         : 
  * Create Date   : 2024/11/21
  * Description   :
  */

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    WebViewActivity.java-->
+    <string name="load_url_error_text">There is a problem with the service address. Please check the service address!</string>
+    <!--    SchemeHelper.java--><!--    MyWebViewClient.java-->
+    <string name="dialog_no_alipay_msg">Alipay client not detected. Please install and try again.</string>
+    <string name="dialog_no_alipay_install_text">Install Now</string>
+    <string name="dialog_no_amap_msg">AutoNavi Map client not detected. Please install and try again.</string>
+    <string name="dialog_no_bmap_msg">Baidu Map client not detected. Please install and try again.</string>
+    <string name="dialog_no_tmap_msg">Tencent Map client not detected. Please install and try again.</string>
+    <!--    MyWebChromeClient.java-->
+    <string name="dialog_web_title">Prompt</string>
+    <string name="dialog_web_confirm_text">OK</string>
+    <string name="dialog_web_cancel_text">Cancel</string>
+    <string name="toast_web_no_css_msg">Prompt prompt box interception. If the style is not appropriate, please customize it in the native code.</string>
+    <!--    MyWebViewClient.java-->
+    <string name="toast_web_url_error_msg">Network addressing failed. Error code: %d, Error message: %s, Error address: %s</string>
+    <string name="toast_net_error_msg">Connection error. Please check the network status and service address!</string>
+    <string name="toast_net_timeout_msg">Connection timed out. Please check the network status and service address!</string>
+    <string name="toast_net_unknown_msg">The network has been hijacked!</string>
+    <!--    popup_select_photo_camera.xml-->
+    <string name="popup_select_file_task_text">File</string>
+    <string name="popup_select_photo_task_text">Album</string>
+    <string name="popup_select_camera_task_text">Take Photo</string>
+    <string name="popup_select_cancel_text">Cancel</string>
+    <!--    net_loading_layout.xml-->
+    <string name="net_loading_text">Loading…</string>
+    <!--    net_error_layout.xml-->
+    <string name="net_error_title">Network Error</string>
+    <string name="net_error_message_text">The network has been hijacked!!!</string>
+    <string name="to_setting_btn_text">Please check the network settings</string>
+</resources>

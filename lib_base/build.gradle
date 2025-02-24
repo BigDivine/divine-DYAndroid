@@ -31,8 +31,8 @@ android {
 }
 
 dependencies {
-    implementation project(":lib_theme")
     implementation libs.material
+    implementation project(":lib_theme")
 
     api libs.arouter.api
 

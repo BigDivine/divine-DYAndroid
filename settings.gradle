@@ -40,6 +40,8 @@ include ':lib_http'
 include ':lib_widget'
 include ':lib_sqlite'
 
+include ':serv_webview'
+
 //include ':lib_camera2'
 include ':lib_netencryptrsa'
 include ':lib_netencryptserver'
@@ -49,3 +51,4 @@ include ':serv_login'
 include ':serv_main'
 //include ':serv_home'
 include ':cfas_home'
+include ':app_see_you'

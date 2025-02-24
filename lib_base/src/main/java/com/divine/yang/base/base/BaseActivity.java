@@ -3,6 +3,7 @@ package com.divine.yang.base.base;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -57,6 +58,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract int getContentViewId();
 
     public abstract boolean showToolbar();
+    /**
+     * 初始化控件的主题样式，主要是颜色
+     */
+    public abstract void setTheme();
 
     /**
      * 页面发出请求，获取页面的数据
@@ -184,6 +189,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstants.REQUEST_CODE_PERMISSION_MANAGE_EXTERNAL) {
+            restartApp();
+        }
+    }
 
     private void requestCustomPermissions() {
         // 获取未授权的权限
@@ -266,6 +278,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             } else {
                 Log.e(TAG, "未同意文件权限，不会保存日志文件");
             }
+            initView();
         }
         if (requestCode == AppConstants.REQUEST_CODE_PERMISSION) {
             boolean isAllGranted = true;// 是否全部权限已授权
@@ -329,7 +342,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return false;
     }
-
+    public void restartApp() {
+        Intent intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+        ComponentName componentName = intent.getComponent();
+        Intent mainIntent = Intent.makeRestartActivityTask(componentName);
+        startActivity(mainIntent);
+        Runtime.getRuntime().exit(0);
+    }
     public void toActivity(Class targetActivity) {
         toActivity(targetActivity, null);
     }

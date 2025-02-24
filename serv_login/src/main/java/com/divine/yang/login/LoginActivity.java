@@ -161,6 +161,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
+    public void setTheme() {
+
+    }
+
+    @Override
     public void initView() {
         mLogin = Login.instance();
         mLoginListener = mLogin.loginListener;

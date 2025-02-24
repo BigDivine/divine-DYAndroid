@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 /**
  * Project Name  : DivinePlatform
  * Package       : com.divine.yang.widget
- * Author        : yangzelong(Divine)
- * Email         : yangzelong@jiuqi.com.cn
+ * Author        : Divine.Yang(Divine)
+ * Email         : 
  * Create Date   : 2025/01/16
  * Description   :
  */

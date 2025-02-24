@@ -55,6 +55,11 @@ public class SplashActivity extends BaseActivity implements OnSplashItemClickLis
     }
 
     @Override
+    public void setTheme() {
+
+    }
+
+    @Override
     public void getData() {
 
     }

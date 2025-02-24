@@ -3,8 +3,8 @@ package com.divine.yang.main.bean;
 /**
  * Project Name  : DivinePlatform
  * Package       : com.divine.yang.main.bean
- * Author        : yangzelong(Divine)
- * Email         : yangzelong@jiuqi.com.cn
+ * Author        : Divine.Yang(Divine)
+ * Email         : 
  * Create Date   : 2024/12/6
  * Description   :
  */

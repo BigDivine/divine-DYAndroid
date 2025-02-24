@@ -21,6 +21,11 @@ public class CfasMainActivity extends BaseActivity {
     }
 
     @Override
+    public void setTheme() {
+
+    }
+
+    @Override
     public void getData() {
 
     }

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             "qLjgSkkbfHTRr8JFUwIDAQAB";
 
     private String url = "http://192.168.1.13";
-    private final String TAG = "yangzelong";
+    private final String TAG = "Divine.Yang";
 
     private byte[] mAesKey;
 

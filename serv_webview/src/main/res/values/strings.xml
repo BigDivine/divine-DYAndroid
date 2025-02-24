@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    WebViewActivity.java-->
+    <string name="load_url_error_text">服务地址有问题，请检查服务地址！</string>
+    <!--    SchemeHelper.java--><!--    MyWebViewClient.java-->
+    <string name="dialog_no_alipay_msg">未检测到支付宝客户端，请安装后重试。</string>
+    <string name="dialog_no_alipay_install_text">立即安装</string>
+    <string name="dialog_no_amap_msg">未检测到高德地图客户端，请安装后重试。</string>
+    <string name="dialog_no_bmap_msg">未检测到百度地图客户端，请安装后重试。</string>
+    <string name="dialog_no_tmap_msg">未检测到腾讯地图客户端，请安装后重试。</string>
+    <!--    MyWebChromeClient.java-->
+    <string name="dialog_web_title">提示</string>
+    <string name="dialog_web_confirm_text">确定</string>
+    <string name="dialog_web_cancel_text">取消</string>
+    <string name="toast_web_no_css_msg">Prompt提示框拦截,若样式不合适，请到原生代码进行定制</string>
+    <!--    MyWebViewClient.java-->
+    <string name="toast_web_url_error_msg">网络寻址失败，错误码：%d,错误信息：%s,错误地址：%s</string>
+    <string name="toast_net_error_msg">连接报错了，请检查网络状态和服务地址！</string>
+    <string name="toast_net_timeout_msg">连接超时了，请检查网络状态和服务地址！</string>
+    <string name="toast_net_unknown_msg">网络被劫持了！</string>
+<!--    popup_select_photo_camera.xml-->
+    <string name="popup_select_file_task_text">文件</string>
+    <string name="popup_select_photo_task_text">相册</string>
+    <string name="popup_select_camera_task_text">拍照</string>
+    <string name="popup_select_cancel_text">取消</string>
+<!--    net_loading_layout.xml-->
+    <string name="net_loading_text">正在努力加载中...</string>
+<!--    net_error_layout.xml-->
+    <string name="net_error_title">网络错误</string>
+    <string name="net_error_message_text">网络被劫持了！！！</string>
+    <string name="to_setting_btn_text">请检查网络设置</string>
+</resources>

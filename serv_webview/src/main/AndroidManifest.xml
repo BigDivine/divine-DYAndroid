@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- 动态获取-->
+    <!--    存储权限-->
+    <!--    Devices running Android 12L (API level 32) or lower  -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <!--    Android 11又添加了一个MANAGE_EXTERNAL_STORAGE 增加了tools:ignore="ScopedStorage"这样一个属性。因为如果不加上这个属性，Android Studio会用一个警告提醒我们，绝大部分的应用程序都不应该申请这个权限-->
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <!--    Android 13系统废弃了READ_EXTERNAL_STORAGE权限，新增了READ_MEDIA_IMAGES、READ_MEDIA_VIDEO和READ_MEDIA_AUDIO这3个新的运行时权限，分别用于控制App对照片、视频、音频的访问。-->
+    <!--    Devices running Android 13 (API level 33) or higher -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <!--    To handle the reselection within the app on Android 14 (API level 34) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+    <!--    相机权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问系统接口提供的卫星定位信息-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--    在Android 12当中增加了  BLUETOOTH_SCAN  BLUETOOTH_ADVERTISE   BLUETOOTH_CONNECT，这3个运行时权限。这样当开发者需要访问蓝牙相关的接口时，只需要请求这些蓝牙权限即可-->
+    <!--    如果您的应用不使用蓝牙扫描结果来推导物理位置，您可以坚信您的应用绝不会使用蓝牙权限来推导物理位置，在BLUETOOTH_SCAN声明 android:usesPermissionFlags="neverForLocation"-->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!--声明即可-->
+    <!--    网络相关-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--    增删SD卡的权限:打开相册选取图片所必须的权限-->
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <!--    Bluetooth permissions on older devices. -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
+    <application>
+        <activity
+            android:name=".WebViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask" />
+    </application>
+</manifest>

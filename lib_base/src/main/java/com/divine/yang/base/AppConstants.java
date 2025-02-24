@@ -22,5 +22,5 @@ public class AppConstants {
     public static final int REQUEST_CODE_PERMISSION_GPS = 1002;
     public static final int REQUEST_CODE_PERMISSION_CAMERA = 1003;
     public static final int REQUEST_CODE_PERMISSION_READ_EXTERNAL = 1004;
-
+    public static final int REQUEST_CODE_PERMISSION_MANAGE_EXTERNAL = 1005;
 }
