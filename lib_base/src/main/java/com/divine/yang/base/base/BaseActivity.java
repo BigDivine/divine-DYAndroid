@@ -58,6 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract int getContentViewId();
 
     public abstract boolean showToolbar();
+
     /**
      * 初始化控件的主题样式，主要是颜色
      */
@@ -80,15 +81,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(int layoutResID) {
-        View baseLayout = LayoutInflater.from(this).inflate(R.layout.activity_base_layout, null, false);
-        super.setContentView(baseLayout);
-        View actionBar = baseLayout.findViewById(R.id.main_action_bar);
-        actionBar.setVisibility(showToolbar() ? View.VISIBLE : View.GONE);
-        toolbar = new CustomToolbar(this, actionBar);
+        if (showToolbar()) {
+            View baseLayout = LayoutInflater.from(this).inflate(R.layout.activity_base_layout, null, false);
+            super.setContentView(baseLayout);
+            View actionBar = baseLayout.findViewById(R.id.main_action_bar);
+            actionBar.setVisibility(showToolbar() ? View.VISIBLE : View.GONE);
+            toolbar = new CustomToolbar(this, actionBar);
 
-        FrameLayout mainContain = baseLayout.findViewById(R.id.main_contain);
-        View mainLayout = LayoutInflater.from(this).inflate(layoutResID, null, false);
-        mainContain.addView(mainLayout, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            FrameLayout mainContain = baseLayout.findViewById(R.id.main_contain);
+            View mainLayout = LayoutInflater.from(this).inflate(layoutResID, null, false);
+            mainContain.addView(mainLayout, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        } else {
+            super.setContentView(layoutResID);
+        }
     }
 
     @Nullable
@@ -342,6 +347,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return false;
     }
+
     public void restartApp() {
         Intent intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
         ComponentName componentName = intent.getComponent();
@@ -349,6 +355,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(mainIntent);
         Runtime.getRuntime().exit(0);
     }
+
     public void toActivity(Class targetActivity) {
         toActivity(targetActivity, null);
     }

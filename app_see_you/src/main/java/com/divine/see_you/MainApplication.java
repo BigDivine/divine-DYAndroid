@@ -27,7 +27,7 @@ public class MainApplication extends BaseApplication {
         }
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
         GmtWebView.webServerUrl = "http://10.97.10.53:9999";
-        GmtWebView.webServerPath = "";
+        GmtWebView.webServerPath = "/#/";
     }
 
     @Override

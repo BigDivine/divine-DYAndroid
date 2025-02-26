@@ -19,12 +19,13 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <!--    相机权限-->
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <!-- 这个权限用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问系统接口提供的卫星定位信息-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--    在Android 12当中增加了  BLUETOOTH_SCAN  BLUETOOTH_ADVERTISE   BLUETOOTH_CONNECT，这3个运行时权限。这样当开发者需要访问蓝牙相关的接口时，只需要请求这些蓝牙权限即可-->
     <!--    如果您的应用不使用蓝牙扫描结果来推导物理位置，您可以坚信您的应用绝不会使用蓝牙权限来推导物理位置，在BLUETOOTH_SCAN声明 android:usesPermissionFlags="neverForLocation"-->
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
@@ -45,7 +46,8 @@
     <uses-permission
         android:name="android.permission.BLUETOOTH_ADMIN"
         android:maxSdkVersion="30" />
-    <application>
+
+    <application android:usesCleartextTraffic="true">
         <activity
             android:name=".WebViewActivity"
             android:configChanges="orientation|screenSize"
