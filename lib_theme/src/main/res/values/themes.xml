@@ -1,0 +1,5 @@
+<resources>
+    <style name="Base.Theme.DivinePlatform" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/BaseThemeColor</item>
+    </style>
+</resources>

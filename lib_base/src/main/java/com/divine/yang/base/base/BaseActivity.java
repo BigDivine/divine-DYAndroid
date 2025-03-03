@@ -113,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         activitiesManager = ActivitiesManager.getInstance();
         activitiesManager.addActivity(this);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        // getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         // 手机root权限检查
         if (SecurityCheck.isRoot()) {

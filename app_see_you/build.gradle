@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation libs.material
 
+    implementation project(":lib_theme")
     implementation project(":lib_base")
     implementation project(":serv_webview")
 
