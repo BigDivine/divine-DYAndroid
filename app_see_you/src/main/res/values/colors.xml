@@ -2,4 +2,7 @@
 <resources>
     <color name="BaseThemeColor">#FFFFFF</color>
     <color name="GradientColor">#3cEF424C</color>
+
+    <color name="SystemBackgroundColor">#F9F9F9</color>
+    <color name="SystemTextColor">#737373</color>
 </resources>
