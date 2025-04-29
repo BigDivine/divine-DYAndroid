@@ -1,5 +1,7 @@
 <resources>
+
     <style name="Base.Theme.DivinePlatform" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/BaseThemeColor</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

@@ -1,11 +1,15 @@
 package com.divine.see_you;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.webkit.WebView;
+
+import androidx.annotation.Nullable;
 
 import com.divine.serv_webview.WebViewActivity;
 
 public class MainActivity extends WebViewActivity {
+
     @Override
     public String getImgName() {
         return null;

@@ -37,6 +37,7 @@ import com.divine.yang.base.base.BaseActivity;
 import com.divine.yang.base.utils.ActivityUtils;
 import com.divine.yang.theme.ThemeSource;
 import com.divine.yang.util.network.NetworkUtil;
+import com.divine.yang.util.old.sys.StatusBarUtils;
 import com.divine.yang.util.sys.FileUtils;
 
 import java.io.File;
@@ -83,7 +84,10 @@ public abstract class WebViewActivity extends BaseActivity implements WebViewInt
     public boolean showToolbar() {
         return false;
     }
+public void refresh(View v){
+        webView.reload();
 
+}
     @Override
     public void initView() {
         imgPath = AppBase.appDir + "/camera/";
