@@ -26,7 +26,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "DivinePlatform"
+rootProject.name = "divine-DYAndroid"
 //include ':app_githubdemo'
 //include ':app_hotfixed'
 //include ':app_netencrypt'
