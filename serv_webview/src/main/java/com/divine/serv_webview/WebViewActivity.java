@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ValueCallback;
@@ -19,6 +20,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -35,6 +37,7 @@ import com.divine.yang.base.AppBase;
 import com.divine.yang.base.AppConstants;
 import com.divine.yang.base.base.BaseActivity;
 import com.divine.yang.base.utils.ActivityUtils;
+import com.divine.yang.base.utils.DialogUtils;
 import com.divine.yang.theme.ThemeSource;
 import com.divine.yang.util.network.NetworkUtil;
 import com.divine.yang.util.old.sys.StatusBarUtils;
@@ -84,10 +87,7 @@ public abstract class WebViewActivity extends BaseActivity implements WebViewInt
     public boolean showToolbar() {
         return false;
     }
-public void refresh(View v){
-        webView.reload();
 
-}
     @Override
     public void initView() {
         imgPath = AppBase.appDir + "/camera/";
@@ -104,6 +104,8 @@ public void refresh(View v){
         btnToSetting = netErrorLayout.findViewById(R.id.to_setting_btn);
         btnBack.setOnClickListener(this);
         btnToSetting.setOnClickListener(this);
+        netErrorLayout.setOnLongClickListener(this);
+        netLoadingLayout.setOnLongClickListener(this);
         webView.setOnLongClickListener(this);
         // 初始化webview
         WebViewUtils.initWebView(this, this, webView);
@@ -127,6 +129,8 @@ public void refresh(View v){
     public void loadUrl(String url) {
         new NetworkUtil.UrlJudgeTask(url, success -> {
             if (success) {
+                netLoadingLayout.setVisibility(View.VISIBLE);
+                netErrorLayout.setVisibility(View.GONE);
                 webView.loadUrl(url);
             } else {
                 netLoadingLayout.setVisibility(View.GONE);
@@ -295,7 +299,34 @@ public void refresh(View v){
             // 解决点击选择图片按钮无法重复回调的问题。
             setInputValueNull(filePathCallback, uploadMsg);
             ActivityUtils.setBackgroundAlpha(WebViewActivity.this, 1f);
+        } else if (viewId == R.id.change_to_c) {
+            loadUrl("http://10.97.10.76:9999");
+            // webView.loadUrl("http://10.97.10.76:9999");
+            // webView.reload();
+            DialogUtils.dismissDialog();
+        } else if (viewId == R.id.change_to_p) {
+            loadUrl("http://192.168.1.32:9999");
+            // webView.loadUrl("http://192.168.1.32:9999");
+            // webView.reload();
+            DialogUtils.dismissDialog();
         }
+    }
+
+    /**
+     * webview长按监听
+     *
+     * @param view
+     * @return true表示消费掉事件
+     */
+    @Override
+    public boolean onLongClick(View view) {
+        LinearLayout changeServerView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.dialog_change_server, null, false);
+        TextView changeServerC = changeServerView.findViewById(R.id.change_to_c);
+        TextView changeServerP = changeServerView.findViewById(R.id.change_to_p);
+        changeServerC.setOnClickListener(this);
+        changeServerP.setOnClickListener(this);
+        DialogUtils.showCustomDialog(this, changeServerView, "bottom");
+        return true;
     }
 
     /**
@@ -435,27 +466,16 @@ public void refresh(View v){
         }
     }
 
-    private void ocrCallback(Intent data) {
-        String res = data.getStringExtra("res");
-        //        webView.loadUrl("javascript:OCcallJSClick(" + res + ")");
-        webView.loadUrl("javascript:OCcallJSClick('" + res + "')");
-    }
+    // private void ocrCallback(Intent data) {
+    //     String res = data.getStringExtra("res");
+    //     //        webView.loadUrl("javascript:OCcallJSClick(" + res + ")");
+    //     webView.loadUrl("javascript:OCcallJSClick('" + res + "')");
+    // }
 
     // protected void toLogin() {
     //     navigationTo(RouterManager.router_login);
     //     this.finish();
     // }
-
-    /**
-     * webview长按监听
-     *
-     * @param view
-     * @return true表示消费掉事件
-     */
-    @Override
-    public boolean onLongClick(View view) {
-        return true;
-    }
 
     public WebView getWebView() {
         return webView;

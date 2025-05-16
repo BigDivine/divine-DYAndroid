@@ -33,6 +33,7 @@ public class NetworkUtil {
                 URL httpUrl = new URL(protocol + "://" + host + ":" + port);
                 HttpURLConnection connection = (HttpURLConnection) httpUrl.openConnection();
                 connection.setRequestMethod("GET");
+                connection.setConnectTimeout(10000);
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     connection.disconnect();

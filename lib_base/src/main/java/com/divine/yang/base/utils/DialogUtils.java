@@ -30,6 +30,35 @@ import com.divine.yang.base.R;
 public class DialogUtils {
     private static Dialog dialog;
 
+    public static void showCustomDialog(Context mContext, View view, String position) {
+        dialog = new Dialog(mContext, R.style.ActionSheetDialogStyle);
+
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        if (dialog != null && window != null) {
+            WindowManager.LayoutParams attr = window.getAttributes();
+            if (attr != null) {
+                attr.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                attr.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                // 设置dialog 在布局中的位置
+                if (TextUtils.equals("top", position)) {
+                    attr.gravity = Gravity.TOP;
+                } else if (TextUtils.equals("right", position)) {
+                    attr.gravity = Gravity.END;
+                } else if (TextUtils.equals("bottom", position)) {
+                    attr.gravity = Gravity.BOTTOM;
+                } else if (TextUtils.equals("left", position)) {
+                    attr.gravity = Gravity.START;
+                } else {
+                    attr.gravity = Gravity.CENTER;
+                }
+                window.setAttributes(attr);
+            }
+        }
+
+        dialog.show();
+    }
+
     /**
      * 日期选择dialog
      *
@@ -80,6 +109,7 @@ public class DialogUtils {
 
     /**
      * 确定提示框
+     *
      * @param context
      * @param title
      * @param message
@@ -91,6 +121,7 @@ public class DialogUtils {
 
     /**
      * 确定提示框-带取消按钮
+     *
      * @param context
      * @param title
      * @param message
